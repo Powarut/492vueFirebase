@@ -7,13 +7,13 @@ import HelloWorld from './components/HelloWorld.vue'
   <div class="div1">
     <div class="div2">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/register">register</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/home">หน้าแรก</RouterLink>
+        <RouterLink to="/register">ลงทะเบียน</RouterLink>
+        <RouterLink to="/login">เข้าสู่ระบบ</RouterLink>
       </nav>
     </div>
     <div class="div3">
-      <RouterView/>
+      <RouterView />
     </div>
   </div>
 </template>
@@ -40,6 +40,7 @@ import HelloWorld from './components/HelloWorld.vue'
     font-size: 12px;
     text-align: center;
     margin-top: 10px;
+    color: #000;
   }
 
   nav a.router-link-exact-active {
@@ -103,13 +104,12 @@ import HelloWorld from './components/HelloWorld.vue'
   nav a:first-of-type {
     border: 0;
   }
+
   .div3 {
     width: 100%;
     height: 100%;
     padding: 0px;
     border: 1px solid yellow;
   }
-
-
 }
 </style>
