@@ -1,62 +1,51 @@
 <template>
-  REGISTER
       <div class="dev1">
-        <div class="row">
+        <h1>ลงทะเบียน</h1>
+        <!-- <div class="row">
           <div class="col">
             <label for="username">Username:</label>
           </div>
           <div class="col">
           <input type="text" id="username" v-model="username" />
           </div>
-        </div>
-        <div class="row">
+        </div> -->
+        <!-- <div class="row">
           <div class="col">
             <label for="username">Username:</label>
           </div>
           <div class="col">
           <input type="text" id="username" v-model="username" />
           </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            1 of 3
-          </div>
-          <div class="col">
-            2 of 3
-          </div>
-          <div class="col">
-            3 of 3
-          </div>
-        </div>
+        </div> -->
       </div>
-  <div class="about">
+  <div class="register">
     <div>
       <form>
         <div>
-          <label for="username">Username:</label>
+          <label for="username">อีเมล์:</label>
           <input type="text" id="username" v-model="username" />
         </div>
         <div>
-          <label for="password">Password:</label>
+          <label for="password">รหัสผ่าน:</label>
           <input type="password" id="password" v-model="password" />
         </div>
         <div>
-          <label for="password">Password:</label>
-          <input type="password" id="password" v-model="password" />
+          <label for="password">ชื่อ:</label>
+          <input type="text" id="name" v-model="name" />
         </div>
         <div>
-          <label for="password">Password:</label>
-          <input type="password" id="password" v-model="password" />
+          <label for="password">นามสกุล:</label>
+          <input type="text" id="surname" v-model="surname" />
         </div>
         <div>
-          <label for="password">Password:</label>
-          <input type="password" id="password" v-model="password" />
+          <label for="password">เบอร์โทร:</label>
+          <input type="text" id="phone" v-model="phone" />
         </div>
         <div>
-          <label for="password">Password:</label>
-          <input type="password" id="password" v-model="password" />
+          <label for="password">ที่อยู่:</label>
+          <input type="text" id="address" v-model="address" />
         </div>
-        <button type="submit" @click.prevent="login">Login</button>
+        <button type="submit" @click.prevent="login">ยืนยัน</button>
       </form>
     </div>
   </div>

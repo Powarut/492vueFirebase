@@ -1,115 +1,45 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <div class="div1">
-    <div class="div2">
-      <nav>
-        <RouterLink to="/home">หน้าแรก</RouterLink>
-        <RouterLink to="/register">ลงทะเบียน</RouterLink>
-        <RouterLink to="/login">เข้าสู่ระบบ</RouterLink>
-      </nav>
-    </div>
+  <div class="div2">
     <div class="div3">
-      <RouterView />
+      <ul>
+        <li>
+          <RouterLink to="/home">หน้าแรก</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/menu">เมนู</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/register">ลงทะเบียน</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/login">เข้าสู่ระบบ</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/test">หน้าแรกเจ้าของร้าน</RouterLink>
+        </li>
+      </ul>
     </div>
+    <router-view>
+    </router-view>
   </div>
 </template>
 
 <style scoped>
-@media (max-width: 720px) {
-  .div1 {
-    width: 100%;
-    height: 900px;
-    padding: 0px;
-    margin-top: 30px;
-    border: 1px solid red;
-  }
-
-  .div2 {
-    width: 100%;
-    height: 40px;
-    padding: 0px;
-    border: 1px solid blue;
-  }
-
-  nav {
-    width: 100%;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 10px;
-    color: #000;
-  }
-
-  nav a.router-link-exact-active {
-    color: var(--color-text);
-  }
-
-  nav a.router-link-exact-active:hover {
-    background-color: transparent;
-  }
-
-  nav a {
-    display: inline-block;
-    padding: 0 1rem;
-    border-left: 1px solid var(--color-border);
-  }
-
-  nav a:first-of-type {
-    border: 0;
-  }
-
-
+#div2{
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
 }
 
-@media (min-width: 721px) {
-  .div1 {
-    width: 1205px;
-    height: 900px;
-    padding: 0px;
-    border: 1px solid red;
-    text-align: center;
-  }
-
-  .div2 {
-    width: 100%;
-    height: 40px;
-    padding: 0px;
-    border: 1px solid blue;
-  }
-
-  nav {
-    width: 100%;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 10px;
-  }
-
-  nav a.router-link-exact-active {
-    color: var(--color-text);
-  }
-
-  nav a.router-link-exact-active:hover {
-    background-color: transparent;
-  }
-
-  nav a {
-    display: inline-block;
-    padding: 0 1rem;
-    border-left: 1px solid var(--color-border);
-  }
-
-  nav a:first-of-type {
-    border: 0;
-  }
-
-  .div3 {
-    width: 100%;
-    height: 100%;
-    padding: 0px;
-    border: 1px solid yellow;
-  }
+#div3 {
+  padding: 30px;
+  font-weight: bold;
+    color: #2c3e50;
 }
 </style>
