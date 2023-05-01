@@ -29,7 +29,17 @@ export default {
   methods: {
     login() {
       console.log(`Email: ${this.email} Password: ${this.password}`);
-      if(this.email === 'admin'&&this.password === '1234')this.$router.push("/");
+      let uri = "http://localhost:3000/login";
+      this.axios.post(uri,{
+        mem_email : this.email,
+        mem_password : this.password
+      })
+      .then((response) => {
+        console.log(response.data)
+        if(response.data.status == 'success')
+        this.$router.push("/all_rider");
+      })
+      // if(this.email === 'admin'&&this.password === '1234')this.$router.push("/");
     },
   },
 };

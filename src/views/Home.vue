@@ -1,66 +1,75 @@
-<script setup>
-
-</script>
-
 <template>
-  <!-- start Grid -->
-  <div class="grid">
-    <header class="page-header content">
-      <h3 style="color: red;">Header</h3>
-    </header>
-    <footer class="page-footer content">
-      <h3>Footer</h3>
-    </footer>
-    <div class="page-lestbar content">
-      <h3>leftbar</h3>
+  <header>
+    <div class="container">
+      <div class="header-info">
+        <h3>
+          ยินดีต้อนรับ<br>
+          ร้านอาหารตามสั้งป้าจอย
+        </h3>
+        <p>
+          คุณต้องการสั่งอาหารในเว็บนี้โปรดเข้าสู่ระบบเพื่อทำการสั่ง
+        </p>
+        <div class="header-btn">
+          <input type="text" placeholder="Enter you email address">
+          <button type="submit">สมัครสมาชิก</button>
+        </div>
+      </div>
     </div>
-    <div class="page-main content">
-      <h3>Main</h3>
-    </div>
-  </div>
-  <!-- End Grid -->
+  </header>
 </template>
 
+<script>
+export default {
+
+}
+</script>
+
 <style>
-  .grid{
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: 100px auto 200px;
-    grid-template-areas: 
-        'header header';
-  }
-
- .content{
-  background-color: gold;
-  border: 2px solid black;
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  padding: 10px;
- }
- ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-  }
+}
 
-  li {
-    float: left;
-  }
+.container {
+  max-width: 1140;
+  margin: 0 auto;
+}
 
-  li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
+header {
+  background: url(https://img.wongnai.com/p/1920x0/2021/01/16/9724d1b578fe4eea9753a44ca9757e65.jpg);
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
 
-  li a:hover:not(.active) {
-    background-color: #111;
-  }
+.header-info {
+  margin-top: 1rem;
+  width: 500px;
+}
 
-  .active {
-    background-color: #04AA6D;
-  }
-</style>
+.header-info h3 {
+  font-size: 3rem;
+  font-weight: lighter;
+}
+
+.header-btn input {
+  padding: 0.5rem;
+  width: 230px;
+  border: none;
+  border-radius: 5px;
+}
+
+.header-btn {
+  margin-top: 1rem;
+}
+
+.header-btn button {
+  padding: 0.5rem;
+  width: 150px;
+  background-color: #00b7ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}</style>

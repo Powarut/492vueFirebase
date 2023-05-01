@@ -1,13 +1,13 @@
-
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Menu from '../views/Menu.vue'
 import Test from '../views/Test.vue'
+import testall_rider from '../views/testall_rider.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/home',
@@ -33,6 +33,11 @@ const router = createRouter({
       path: '/test',
       name: 'test',
       component: Test
+    },
+    {
+      path: '/',
+      name: 'all_rider',
+      component: testall_rider
     }
   ]
 })
