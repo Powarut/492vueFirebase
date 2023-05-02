@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
+import add_rider from '../views/add_rider.vue'
 import Menu from '../views/Menu.vue'
 import Test from '../views/Test.vue'
 import testall_rider from '../views/testall_rider.vue'
@@ -15,27 +15,12 @@ const router = createRouter({
       component: Home
     },
     {
-      path: '/register',
-      name: 'register',
-      component: Register
+      path: '/add',
+      name: 'add',
+      component: add_rider
     },
     {
-      path: '/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/menu',
-      name: 'menu',
-      component: Menu
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component: Test
-    },
-    {
-      path: '/',
+      path: '/all',
       name: 'all_rider',
       component: testall_rider
     }

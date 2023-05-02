@@ -8,14 +8,16 @@
       </label>
       <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-green-500 rounded-box w-52 ">
         <li><a>เมนู</a></li>
-        <li><a>พนักงานส่ง</a></li>
+        <router-link to="/all"><li><a>พนักงานส่ง</a></li></router-link>
         <li><a>ออเดอร์</a></li>
         <li><a>ยอดขาย</a></li>
       </ul>
     </div>
   </div>
   <div class="navbar-center">
-    <a class="btn btn-ghost normal-case text-xl text-base-100">ร้านอาหารตามสั่งป้าจอย</a>
+    <router-link to="/home">
+      <a class="btn btn-ghost normal-case text-xl text-base-100">ร้านอาหารตามสั่งป้าจอย</a>
+    </router-link>
   </div>
   <div class="navbar-end">
     <button class="btn btn-ghost btn-circle text-base-100">

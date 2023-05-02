@@ -4,7 +4,7 @@
 
 <template>
     <!--start grid -->
-    <div class="grid">
+    <!-- <div class="grid">
         <header class="page-header content">
             <h3>Header</h3>
         </header>
@@ -35,12 +35,12 @@
             <h3>Main</h3>
             <h3>Main</h3>
         </div>
-    </div>
+    </div> -->
     <!-- end grid -->
 </template>
 
 <style>
-.grid {
+/* .grid {
     display: grid;
     grid-template-columns: minmax(150px, 250px) auto;
     grid-template-rows: 100px minmax(250px, auto) 200px;
@@ -70,5 +70,5 @@
     background-color: white;
     box-sizing: border-box;
     padding: 10px;
-}
+} */
 </style>
