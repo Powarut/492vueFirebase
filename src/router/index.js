@@ -1,26 +1,48 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import add_rider from '../views/owner/add_rider.vue'
+import all_rider from '../views/owner/all_rider.vue'
 import Login from '../views/Login.vue'
-import add_rider from '../views/add_rider.vue'
-import Menu from '../views/Menu.vue'
-import Test from '../views/Test.vue'
-import testall_rider from '../views/testall_rider.vue'
-
+import dashbord from '../views/owner/dashbord.vue'
+import all_menu from '../views/owner/all_menu.vue'
+import add_menu from '../views/owner/add_menu.vue'
+import Register from '../views/Register.vue'
+import all_order from '../views/owner/all_order.vue'
+import detail_order from '../views/owner/detail_order.vue'
+import order_update from '../views/owner/order_update.vue'
+import total_sales from '../views/owner/total_sales.vue'
+import menu from '../views/menu.vue'
+import home_mem from '../views/member/home_mem.vue'
+import pin_address from '../views/member/pin_address.vue'
+import check_out from '../views/member/check_out.vue'
+import your_order from '../views/member/your_order.vue'
+import detail_order_mem from '../views/member/detail_order_mem.vue'
+import order_delivery from '../views/rider/order_delivery.vue'
+import index from '../views/rider/index.vue'
+import gps from '../views/rider/gps.vue'
+import delivery from '../views/rider/delivery.vue'
+import camera from '../views/rider/camera.vue'
+import app from '../App.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    {
+      path: '/app',
+      redirect:'/login',
+      // component: app
+    },
     {
       path: '/home',
       name: 'home',
       component: Home
     },
     {
-      path: '/add',
-      name: 'add',
+      path: '/add_rider',
+      name: 'add_rider',
       component: add_rider
     },
     {
-      path: '/all',
+      path: '/all_rider',
       name: 'all_rider',
       component: all_rider
     },

@@ -1,25 +1,39 @@
 <template>
-  <div>
-    <h1 class="">
-      เข้าสู่ระบบส่วนเจ้าของร้าน
-    </h1>
-    <div>
-      <label for="email">อีเมล์</label>
-    <input type="text" id="email" v-model="email" />
-    </div>
-    <div class="pwd">
-      <label for="password">รหัสผ่าน</label>
-      <input type="password" id="password" v-model="password">
-    </div>
-    <div>
-      <button type="login" @click.prevent ="login" class="bg-success mb-2">เข้าสู่ระบบ</button>
+  <div class="hero min-h-screen bg-base-200">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+      <div class="text-center lg:text-left">
+        <h1 class="text-5xl font-bold">ยินดีต้อนรับ!</h1>
+        <p class="py-6">โปรดป้อนอีเมล์และรหัสผ่าน เพื่อเข้าสู่ระบบ</p>
+      </div>
+      <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div class="card-body">
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">อีเมล์</span>
+            </label>
+            <input type="email" placeholder="โปรดใส่อีเมล์" class="input input-bordered" v-model="email" />
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">รหัสผ่าน</span>
+            </label>
+            <input type="password" placeholder="โปรดใส่รหัสผ่าน" class="input input-bordered" v-model="password"/>
+            <label class="label">
+              <a href="/add_rider" class="label-text-alt link link-hover">ยังไม่ได้ลงทะเบียน?</a>
+            </label>
+          </div>
+          <div class="form-control mt-6">
+            <button class="btn btn-success" @click="login()">เข้าสู่ระบบ</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  
 </template>
 
 <script>
 export default {
+  name: 'Login',
   data(){
     return{
       email:"",
@@ -29,7 +43,7 @@ export default {
   methods: {
     login() {
       console.log(`Email: ${this.email} Password: ${this.password}`);
-      let uri = "http://localhost:3000/login";
+      let uri = `${import.meta.env.VITE_API}/login`;
       this.axios.post(uri,{
         mem_email : this.email,
         mem_password : this.password
@@ -37,16 +51,12 @@ export default {
       .then((response) => {
         console.log(response.data)
         if(response.data.status == 'success')
-        this.$router.push("/all_rider");
+        this.$router.push("/home_mem");
       })
-      // if(this.email === 'admin'&&this.password === '1234')this.$router.push("/");
+      if(this.email === 'admin'&&this.password === '1234')this.$router.push("/dashbord");
     },
   },
 };
 </script>
 
-<style>
-h1 {
-  text-align: center;
-}
-</style>
+<style></style>

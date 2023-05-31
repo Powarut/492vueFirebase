@@ -1,89 +1,114 @@
 <template>
-      <div class="dev1">
-        <h1>ลงทะเบียน</h1>
-        <!-- <div class="row">
-          <div class="col">
-            <label for="username">Username:</label>
-          </div>
-          <div class="col">
-          <input type="text" id="username" v-model="username" />
-          </div>
-        </div> -->
-        <!-- <div class="row">
-          <div class="col">
-            <label for="username">Username:</label>
-          </div>
-          <div class="col">
-          <input type="text" id="username" v-model="username" />
-          </div>
-        </div> -->
+  <div class="hero min-h-screen bg-base-200">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+      <div class="text-center lg:text-left">
+        <h1 class="text-5xl font-bold">ลงทะเบียนสำหรับลูกค้า</h1>
       </div>
-  <div class="register">
-    <div>
-      <form>
-        <div>
-          <label for="username">อีเมล์:</label>
-          <input type="text" id="username" v-model="username" />
+      <div class="card flex-shrink-0 w-full max-w-m shadow-2xl bg-base-100">
+        <div class="card-body">
+          <div class="form-control m-2">
+            <label class="input-group">
+              <span>อีเมล์</span>
+              <input type="email" placeholder="abc@gmail.com" class="input input-bordered" v-model="email" />
+            </label>
+          </div>
+          <div class="form-control m-2">
+            <label class="input-group">
+              <span>รหัสผ่าน</span>
+              <input type="password" placeholder="ตั้งรหัสผ่านอย่างน้อย 6ตัว" class="input input-bordered"
+                v-model="password" />
+            </label>
+          </div>
+          <div class="form-control m-2">
+            <label class="input-group">
+              <span>ยืนยันรหัสผ่าน</span>
+              <input type="password" class="input input-bordered" placeholder="ใส่รหัสผ่านให้ตรงกัน"
+                v-model="confirm_password" />
+            </label>
+          </div>
+          <div class="form-control m-2">
+            <label class="input-group">
+              <span>ชื่อ</span>
+              <input type="text" class="input input-bordered" placeholder="สมชาย" v-model="name" />
+            </label>
+          </div>
+          <div class="form-control m-2">
+            <label class="input-group">
+              <span>นามสกุล</span>
+              <input type="text" class="input input-bordered" placeholder="ทรงพล" v-model="surname" />
+            </label>
+          </div>
+          <div class="form-control m-2">
+            <label class="input-group">
+              <span>เบอร์โทร</span>
+              <input type="text" class="input input-bordered" placeholder="ใส่ตัวเลข10 ตัว" v-model="phone" />
+            </label>
+          </div>
+          <router-link to="/login">
+            <button class="bg-green-500 text-base-100 font-bold w-24 h-10 rounded-md hover:bg-sky-700"
+              @click="check()">ลงทะเบียน</button>
+          </router-link>
         </div>
-        <div>
-          <label for="password">รหัสผ่าน:</label>
-          <input type="password" id="password" v-model="password" />
-        </div>
-        <div>
-          <label for="password">ชื่อ:</label>
-          <input type="text" id="name" v-model="name" />
-        </div>
-        <div>
-          <label for="password">นามสกุล:</label>
-          <input type="text" id="surname" v-model="surname" />
-        </div>
-        <div>
-          <label for="password">เบอร์โทร:</label>
-          <input type="text" id="phone" v-model="phone" />
-        </div>
-        <div>
-          <label for="password">ที่อยู่:</label>
-          <input type="text" id="address" v-model="address" />
-        </div>
-        <button type="submit" @click.prevent="login">ยืนยัน</button>
-      </form>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import router from '../router'
 export default {
   data() {
     return {
-      username: "",
+      email: "",
       password: "",
+      confirm_password: "",
+      name: "",
+      surname: "",
+      phone: "",
     };
   },
   methods: {
-    login() {
-      // perform login logic here
-      console.log(`Username: ${this.username} Password: ${this.password}`);
-      if (this.username === '1') this.$router.push("/");
-      // ไป หา ยูสว่าตรงมั๊ยในถังถ้าไม่ตรงให้ save
+    async insert_member() {
+      let uri = `${import.meta.env.VITE_API}/members`
+      await axios.post(uri, {
+        mem_email: this.email,
+        mem_password: this.confirm_password,
+        mem_name: this.name,
+        mem_surname: this.surname,
+        mem_phone: this.phone
+      })
+        .then(async (response) => {
+          console.log(90, response.data)
+          if (response.data.statusCode == 200) {
+            await alert("ลงทะเบียนเรียบร้อยครับ")
+          } else {
+            alert("มีบางอย่างผิดพลาด")
+            throw response.data
+          }
+        }).catch((err) => {
+          console.log(83, err)
+        })
     },
-  },
-};
-</script>
-<style>
-  @media (max-width: 720px) {
-  .div1 {
-    width: 100%;
-    height: 900px;
-    padding: 0px;
-    margin: auto;
-    border: 1px solid yellow;
-  }
-  .div1 .row {
-    border: 1px solid yellow;
-  }
 
-  .div1 .row .col {
-    border: 1px solid orange;
-  }
+    async check() {
+      console.log(87)
+      if (this.password == this.confirm_password) {
+        await this.insert_member()
+        await router.push('/login')
+      } else {
+        console.log(93)
+        alert("อีเมล์หรือรหัสผ่านไม่ถูกต้องครับ")
+        this.email = ""
+        this.password = ""
+        this.confirm_password = ""
+        this.name = ""
+        this.surname = ""
+        this.phone = ""
+      }
+    }
+  },
 }
-</style>
+</script>
+
+<style lang="scss" scoped></style>
