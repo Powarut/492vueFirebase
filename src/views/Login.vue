@@ -19,7 +19,7 @@
             </label>
             <input type="password" placeholder="โปรดใส่รหัสผ่าน" class="input input-bordered" v-model="password"/>
             <label class="label">
-              <a href="/add_rider" class="label-text-alt link link-hover">ยังไม่ได้ลงทะเบียน?</a>
+              <a href="/register" class="label-text-alt link link-hover">ยังไม่ได้ลงทะเบียน?</a>
             </label>
           </div>
           <div class="form-control mt-6">
