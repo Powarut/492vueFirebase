@@ -6,9 +6,6 @@ import "./assets/style.css"
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap"
-
 const app = createApp(App)
 app.use(VueAxios, axios)
 app.use(router)

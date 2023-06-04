@@ -49,7 +49,7 @@ const update_status = async (food_id, food_status) => {
                     <th>ชื่อ</th>
                     <th>ราคา</th>
                     <th>สถานะ</th>
-                    <th></th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -84,7 +84,7 @@ const update_status = async (food_id, food_status) => {
                         <!-- The button to open modal -->
                         <label for="my-modal" class="btn btn-sucess bg-green-400 text-base-100">เปลี่ยนสถานะ{{ food.food_id }}</label>
                         <!-- Put this part before </body> tag -->
-                        <input type="checkbox" id="my-modal" class="modal-toggle" />
+                        <input type="checkbox" id="my-modal" class="modal-toggle"/>
                         <div class="modal">
                             <div class="modal-box">
                                 <div class="form-control">
@@ -106,6 +106,7 @@ const update_status = async (food_id, food_status) => {
                                 </div>
                             </div>
                         </div>
+                        <button class="btn btn-error m-2">ลบ</button>
                     </td>
                 </tr>
             </tbody>
@@ -116,7 +117,6 @@ const update_status = async (food_id, food_status) => {
                     <th>ชื่อ</th>
                     <th>ราคา</th>
                     <th>สถานะ</th>
-                    <th></th>
                 </tr>
             </tfoot>
         </table>

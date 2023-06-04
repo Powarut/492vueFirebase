@@ -79,7 +79,6 @@ export default {
         mem_phone: this.phone
       })
         .then(async (response) => {
-          console.log(90, response.data)
           if (response.data.statusCode == 200) {
             await alert("ลงทะเบียนเรียบร้อยครับ")
           } else {
@@ -87,7 +86,7 @@ export default {
             throw response.data
           }
         }).catch((err) => {
-          console.log(83, err)
+          console.log(err)
         })
     },
 
