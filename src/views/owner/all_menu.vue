@@ -3,8 +3,9 @@ import navbar_owner from '../../components/navbar_owner.vue';
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 const menu = ref({})
-
 const status_value = ref('')
+const status_boolean = ref(false)
+console.log(status_boolean)
 
 const fetch_menu = async () => {
     await axios.get(`${import.meta.env.VITE_API}/food`)
@@ -29,6 +30,7 @@ const update_status = async (food_id, food_status) => {
         }).catch((err) => {
             console.log(err)
         })
+        status_boolean.value = false
 }
 </script>
 
@@ -38,7 +40,7 @@ const update_status = async (food_id, food_status) => {
         <h1 class="grid flex-grow card m-1 rounded-box place-items-center">รายชื่อเมนูอาหารทั้งหมด</h1>
     </div>
     <router-link to="/add_menu">
-        <button class="bg-blue-600 text-base-100 font-bold w-24 h-10 mb-2 rounded-box hover:bg-blue-700">เพิ่ม</button>
+        <button class="bg-blue-600 text-base-100 font-bold w-24 h-10 mb-2 rounded-box hover:bg-blue-700">เพิ่มเมนู</button>
     </router-link>
     <div class="overflow-x-auto w-full">
         <table class="table w-full">
@@ -49,7 +51,7 @@ const update_status = async (food_id, food_status) => {
                     <th>ชื่อ</th>
                     <th>ราคา</th>
                     <th>สถานะ</th>
-                    
+
                 </tr>
             </thead>
             <tbody>
@@ -81,31 +83,27 @@ const update_status = async (food_id, food_status) => {
                         </div>
                     </td>
                     <td>
-                        <!-- The button to open modal -->
-                        <label for="my-modal" class="btn btn-sucess bg-green-400 text-base-100">เปลี่ยนสถานะ{{ food.food_id }}</label>
-                        <!-- Put this part before </body> tag -->
-                        <input type="checkbox" id="my-modal" class="modal-toggle"/>
-                        <div class="modal">
-                            <div class="modal-box">
-                                <div class="form-control">
-                                    <label class="label cursor-pointer">
-                                        <span class="label-text">หมด</span>
-                                        <input type="radio" name="radio-10" class="radio checked:bg-red-500" checked
-                                            v-model="status_value" value="0" />
-                                    </label>
-                                </div>
-                                <div class="form-control">
-                                    <label class="label cursor-pointer">
-                                        <span class="label-text">มี</span>
-                                        <input type="radio" name="radio-10" class="radio checked:bg-blue-500" checked
-                                            v-model="status_value" value="1" />
-                                    </label>
-                                </div>
-                                <div class="modal-action" v-on:click="update_status(food.food_id, status_value)">
-                                    <label for="my-modal" class="btn">ยืนยัน{{ food.food_id }}</label>
-                                </div>
+                        <!-- ปัญหา:กดปุ่มเปลี่ยนเฉพาะอัน -->
+                        <button class="btn btn-success m-2" v-on:click="status_boolean = true"
+                            v-if="status_boolean === false">change status</button>
+                        <div v-if="status_boolean === true">
+                            <div class="form-control">
+                                <label class="label cursor-pointer">
+                                    <span class="label-text">มี</span>
+                                    <input type="radio" name="radio-10" class="radio checked:bg-red-500" checked
+                                        v-model="status_value" value="1" />
+                                </label>
+                            </div>
+                            <div class="form-control">
+                                <label class="label cursor-pointer">
+                                    <span class="label-text">หมด</span>
+                                    <input type="radio" name="radio-10" class="radio checked:bg-red-500" checked
+                                        v-model="status_value" value="0" />
+                                </label>
                             </div>
                         </div>
+                        <button class="btn btn-base500 m-2" 
+                            v-if="status_boolean === true" v-on:click="update_status(food.food_id, status_value)">บันทึก</button>
                         <button class="btn btn-error m-2">ลบ</button>
                     </td>
                 </tr>

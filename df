@@ -1,0 +1,129 @@
+[33mcommit 2e7271e11525d14358c559a9a824ccbe2289402d[m[33m ([m[1;36mHEAD -> [m[1;32mdev/mark[m[33m)[m
+Author: Powarut <jesnosmark@hotmail.com>
+Date:   Sun Jun 4 22:29:37 2023 +0700
+
+    Co-authored-by: praditcry@hotmail.com <praditcry@hotmail.com>
+
+[33mcommit eb75536679fe8d9a99ef7522ff188947a6b373b4[m
+Merge: 424d8e3 9297174
+Author: Powarut <jesnosmark@hotmail.com>
+Date:   Sat Jun 3 22:18:49 2023 +0700
+
+    Merge remote-tracking branch 'origin/dev-commark' into dev/mark
+    
+    # Conflicts:
+    #       package-lock.json
+    #       package.json
+    #       src/App.vue
+    #       src/router/index.js
+    #       src/views/HomeView.vue
+    #       src/views/RegisterView.vue
+
+[33mcommit 424d8e359cc0f67d472af93a8df76dc02a60177d[m
+Author: Powarut <jesnosmark@hotmail.com>
+Date:   Sat Jun 3 22:05:14 2023 +0700
+
+    edit button status
+
+[33mcommit 9e55805eb85b23f5c44e1ffa36879c672a3666d4[m
+Author: Powarut <jesnosmark@hotmail.com>
+Date:   Sat Jun 3 22:04:47 2023 +0700
+
+    edit status
+
+[33mcommit 4e1c9fd42adacc2f7c92f648b94be5aff072310a[m
+Author: Powarut <jesnosmark@hotmail.com>
+Date:   Wed May 31 23:36:20 2023 +0700
+
+    set api
+
+[33mcommit 848efec83bbc211c41a864e94edb4acf49baa317[m
+Author: Powarut <jesnosmark@hotmail.com>
+Date:   Sun May 7 14:40:43 2023 +0700
+
+    creat Home page
+
+[33mcommit b618716622bc6386da9041ecd4f81fe488ff5ec3[m[33m ([m[1;31morigin/dev/mark[m[33m)[m
+Author: Powarut <jesnosmark@hotmail.com>
+Date:   Tue May 2 16:02:42 2023 +0700
+
+    all+add rider
+
+[33mcommit 707d3247265bb9971a97f85ceee7aec78b3efc67[m
+Author: Powarut <jesnosmark@hotmail.com>
+Date:   Tue May 2 02:17:02 2023 +0700
+
+    instal tailwindCSS
+
+[33mcommit 1a56b6c02df05e2efdfe0d39c7735faacb061c05[m
+Author: Powarut <jesnosmark@hotmail.com>
+Date:   Fri Apr 28 01:09:19 2023 +0700
+
+    test grid
+
+[33mcommit 929717470cce8cbc8d3366546111be8b186a7286[m[33m ([m[1;31morigin/dev-commark[m[33m)[m
+Author: Powarut <jesnosmark@hotmail.com>
+Date:   Tue Mar 21 01:48:11 2023 +0700
+
+    add
+
+[33mcommit fc2b1c8e8228f0ea90171835add3cb123af50173[m
+Author: Powarut <jesnosmark@hotmail.com>
+Date:   Wed Mar 22 22:36:47 2023 +0700
+
+    edit
+
+[33mcommit 6f96849d64d58635715e86157eaee54c07464847[m
+Author: Powarut <jesnosmark@hotmail.com>
+Date:   Wed Mar 22 00:31:06 2023 +0700
+
+    [add] style css file
+
+[33mcommit 4ecb6767be1fe35d3fb3e27e89594c6538b0816f[m[33m ([m[1;32msit/core[m[33m)[m
+Merge: 5352e2b c701d31
+Author: LioLa <88139758+Powarut@users.noreply.github.com>
+Date:   Wed Mar 22 00:18:38 2023 +0700
+
+    Merge pull request #2 from Powarut/dev/Benz
+    
+    Dev/benz
+
+[33mcommit c701d31633216b84c06e9464d645132def9f1776[m[33m ([m[1;31morigin/dev/Benz[m[33m)[m
+Author: lauchach <tarnapot.b38@gmail.com>
+Date:   Wed Mar 22 00:15:48 2023 +0700
+
+    [edit] css app page and css register page
+
+[33mcommit c4f8cd1e94cb3b04ea0adba3aa8990b9d6abfe25[m
+Merge: 85e17be 5352e2b
+Author: lauchach <tarnapot.b38@gmail.com>
+Date:   Tue Mar 21 22:18:21 2023 +0700
+
+    Merge branch 'sit/core' into dev-commark
+
+[33mcommit 85e17be3c448eed5e3fea89fc3e0c192c2e6b35d[m
+Author: Powarut <jesnosmark@hotmail.com>
+Date:   Tue Mar 21 01:48:11 2023 +0700
+
+    add
+
+[33mcommit 5352e2b97ef7ca3d5735a37d805e13c986aa5b9c[m
+Merge: 13bd1f5 1f140be
+Author: LioLa <88139758+Powarut@users.noreply.github.com>
+Date:   Fri Mar 17 00:00:41 2023 +0700
+
+    Merge pull request #1 from Powarut/dev/mark
+    
+    [edit] page register
+
+[33mcommit 1f140bed1bd3de30ee5d1d1cb1516a2539ee3034[m[33m ([m[1;32mdev/Benz[m[33m)[m
+Author: Powarut <jesnosmark@hotmail.com>
+Date:   Thu Mar 16 23:57:24 2023 +0700
+
+    [edit] page register
+
+[33mcommit 13bd1f5daf84179fd931db799d76aed543d9b5ce[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: MOM-ARK\jesno <jesnosmark@hotmail.com>
+Date:   Thu Mar 2 01:18:27 2023 +0700
+
+    [edit] frist commit
