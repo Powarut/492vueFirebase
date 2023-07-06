@@ -5,7 +5,6 @@ import axios from 'axios'
 const menu = ref({})
 const status_value = ref('')
 const status_boolean = ref(false)
-console.log(status_boolean)
 
 const fetch_menu = async () => {
     await axios.get(`${import.meta.env.VITE_API}/food`)
@@ -19,7 +18,6 @@ const fetch_menu = async () => {
 onMounted(() => fetch_menu())
 
 const update_status = async (food_id, food_status) => {
-    console.log(food_id)
     await axios.put(`${import.meta.env.VITE_API}/food/food_name/`, {
         "food_id": food_id,
         "status": food_status
@@ -31,6 +29,17 @@ const update_status = async (food_id, food_status) => {
             console.log(err)
         })
         status_boolean.value = false
+}
+
+const delete_menu = async (food_id) =>{
+    await axios.delete(`${import.meta.env.VITE_API}/food/${food_id}`,)
+    .then((response) => {
+            fetch_menu()
+            console.log(response)
+            alert("ลบเมนูสำเร็จ")
+        }).catch((err) => {
+            console.log(err)
+        })
 }
 </script>
 
@@ -83,9 +92,8 @@ const update_status = async (food_id, food_status) => {
                         </div>
                     </td>
                     <td>
-                        <!-- ปัญหา:กดปุ่มเปลี่ยนเฉพาะอัน -->
                         <button class="btn btn-success m-2" v-on:click="status_boolean = true"
-                            v-if="status_boolean === false">change status</button>
+                            v-if="status_boolean === false">เปลี่ยนสถานะ</button>
                         <div v-if="status_boolean === true">
                             <div class="form-control">
                                 <label class="label cursor-pointer">
@@ -104,7 +112,7 @@ const update_status = async (food_id, food_status) => {
                         </div>
                         <button class="btn btn-base500 m-2" 
                             v-if="status_boolean === true" v-on:click="update_status(food.food_id, status_value)">บันทึก</button>
-                        <button class="btn btn-error m-2">ลบ</button>
+                        <button class="btn btn-error m-2" @click="delete_menu(food.food_id)">ลบ</button>
                     </td>
                 </tr>
             </tbody>
