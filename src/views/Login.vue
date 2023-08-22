@@ -21,6 +21,9 @@
             <label class="label">
               <a href="/register" class="label-text-alt link link-hover">ยังไม่ได้ลงทะเบียน?</a>
             </label>
+            <label class="label">
+              <span class="label-text">email: test77@gmail.com  Pas: 1234</span>
+            </label>
           </div>
           <div class="form-control mt-6">
             <button class="btn btn-success" @click="login()">เข้าสู่ระบบ</button>

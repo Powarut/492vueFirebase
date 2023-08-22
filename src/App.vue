@@ -1,5 +1,8 @@
+<script>
+
+</script>
+
 <template>
-  
   <div class="m-15">
     <router-view />
     <div class="hero min-h-screen bg-base-200">
@@ -16,15 +19,6 @@
   </div>
 </template>
 
-<script>
-// import LoginVue from "./views/Login.vue"
-// export default {
-//   methods: {
-//   login() {
-//     <LoginVue/>
-//   }
-// }
-// }
-</script>
+
 
 <style lang="scss" scoped></style>

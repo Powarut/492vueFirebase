@@ -1,3 +1,59 @@
+<script>
+import axios from 'axios'
+import router from '../router'
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+      confirm_password: "",
+      name: "",
+      surname: "",
+      phone: "",
+    };
+  },
+  methods: {
+    async insert_member() {
+      let uri = `${import.meta.env.VITE_API}/members`
+      await axios.post(uri, {
+        mem_email: this.email,
+        mem_password: this.confirm_password,
+        mem_name: this.name,
+        mem_surname: this.surname,
+        mem_phone: this.phone
+      })
+        .then(async (response) => {
+          if (response.data.statusCode == 200) {
+            await alert("ลงทะเบียนเรียบร้อยครับ")
+          } else {
+            alert("มีบางอย่างผิดพลาด")
+            throw response.data
+          }
+        }).catch((err) => {
+          console.log(err)
+        })
+    },
+
+    async check() {
+      console.log(87)
+      if (this.password == this.confirm_password) {
+        await this.insert_member()
+        await router.push('/login')
+      } else {
+        console.log(93)
+        alert("อีเมล์หรือรหัสผ่านไม่ถูกต้องครับ")
+        this.email = ""
+        this.password = ""
+        this.confirm_password = ""
+        this.name = ""
+        this.surname = ""
+        this.phone = ""
+      }
+    }
+  },
+}
+</script>
+
 <template>
   <div class="hero min-h-screen bg-base-200">
     <div class="hero-content flex-col lg:flex-row-reverse">
@@ -54,60 +110,6 @@
   </div>
 </template>
 
-<script>
-import axios from 'axios'
-import router from '../router'
-export default {
-  data() {
-    return {
-      email: "",
-      password: "",
-      confirm_password: "",
-      name: "",
-      surname: "",
-      phone: "",
-    };
-  },
-  methods: {
-    async insert_member() {
-      let uri = `${import.meta.env.VITE_API}/members`
-      await axios.post(uri, {
-        mem_email: this.email,
-        mem_password: this.confirm_password,
-        mem_name: this.name,
-        mem_surname: this.surname,
-        mem_phone: this.phone
-      })
-        .then(async (response) => {
-          if (response.data.statusCode == 200) {
-            await alert("ลงทะเบียนเรียบร้อยครับ")
-          } else {
-            alert("มีบางอย่างผิดพลาด")
-            throw response.data
-          }
-        }).catch((err) => {
-          console.log(err)
-        })
-    },
 
-    async check() {
-      console.log(87)
-      if (this.password == this.confirm_password) {
-        await this.insert_member()
-        await router.push('/login')
-      } else {
-        console.log(93)
-        alert("อีเมล์หรือรหัสผ่านไม่ถูกต้องครับ")
-        this.email = ""
-        this.password = ""
-        this.confirm_password = ""
-        this.name = ""
-        this.surname = ""
-        this.phone = ""
-      }
-    }
-  },
-}
-</script>
 
 <style lang="scss" scoped></style>

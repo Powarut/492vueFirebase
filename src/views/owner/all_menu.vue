@@ -28,12 +28,12 @@ const update_status = async (food_id, food_status) => {
         }).catch((err) => {
             console.log(err)
         })
-        status_boolean.value = false
+    status_boolean.value = false
 }
 
-const delete_menu = async (food_id) =>{
+const delete_menu = async (food_id) => {
     await axios.delete(`${import.meta.env.VITE_API}/food/${food_id}`,)
-    .then((response) => {
+        .then((response) => {
             fetch_menu()
             console.log(response)
             alert("ลบเมนูสำเร็จ")
@@ -60,7 +60,7 @@ const delete_menu = async (food_id) =>{
                     <th>ชื่อ</th>
                     <th>ราคา</th>
                     <th>สถานะ</th>
-
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -110,8 +110,8 @@ const delete_menu = async (food_id) =>{
                                 </label>
                             </div>
                         </div>
-                        <button class="btn btn-base500 m-2" 
-                            v-if="status_boolean === true" v-on:click="update_status(food.food_id, status_value)">บันทึก</button>
+                        <button class="btn btn-base500 m-2" v-if="status_boolean === true"
+                            v-on:click="update_status(food.food_id, status_value)">บันทึก</button>
                         <button class="btn btn-error m-2" @click="delete_menu(food.food_id)">ลบ</button>
                     </td>
                 </tr>
@@ -123,6 +123,7 @@ const delete_menu = async (food_id) =>{
                     <th>ชื่อ</th>
                     <th>ราคา</th>
                     <th>สถานะ</th>
+                    <th></th>
                 </tr>
             </tfoot>
         </table>
