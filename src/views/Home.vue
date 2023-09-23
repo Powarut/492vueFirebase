@@ -13,7 +13,7 @@
 <script setup>
 import nav_user from "../components/nav_user.vue";
 </script>
-<!-- test commit and push to gihub -->
+
 <style lang="scss" scoped>
 
 </style>

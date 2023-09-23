@@ -25,7 +25,6 @@ const fetch_menu = async () => {
 }
 onMounted(() => fetch_menu())
 
-// const select_menu = async (food_id) = >{}
 
 </script>
 
@@ -75,4 +74,5 @@ onMounted(() => fetch_menu())
 </template>
 
 
-<style lang="scss" scoped></style>
+<style scoped>
+</style>
