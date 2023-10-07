@@ -1,8 +1,4 @@
-import { ref }  from 'vue'
-
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-
-import 'sweetalert2/src/sweetalert2.scss'
+import { ref, computed } from 'vue'
 
 export const useCartstorage = ('useCartstorage',() => {
     const cart = ref([])
@@ -16,24 +12,14 @@ export const useCartstorage = ('useCartstorage',() => {
         cart.value.push(data)
         console.log(cart.value)
     }
-    const alert_addcart = () =>{
-        Swal.fire({
-            position: 'top-center',
-            icon: 'success',
-            title: 'เพิ่มเมนูลงในตะกร้าเรียบร้อยแล้ว',
-            showConfirmButton: false,
-            timer: 1500
-          })
+    const alert_add_cart = () =>{
+        console.log(alert_add_cart())
+        alert("เพิ่มเมนูสำเร็จ")
     }
 
-    const alert_addcart_failed = () =>{
-        Swal.fire({
-            position: 'top-center',
-            icon: 'error',
-            title: 'เพิ่มเมนูลงในตะกร้าไม่สำเร็จ',
-            showConfirmButton: false,
-            timer: 1500
-          })
+    const alert_add_cart_failed = () =>{
+        console.log(alert_add_cart_failed())
+        alert("เมนูนี้คุณได้เพิ่มลงในตะกร้าแล้ว")
     }
     return { add_cart }
 })

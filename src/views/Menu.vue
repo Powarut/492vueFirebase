@@ -7,11 +7,10 @@ const menu = ref({})
 const list_menu = computed(() => menu.value)
 
 const load_menu = computed(() => menu.value.length > 0)
-// usercartstrong
-// import { useCartstorage } from '../storage/cart';
-// const cartstore = useCartstorage
-// const status_value = ref('')
-// const status_boolean = ref(false)
+// user_cartstroage
+import { useCartstorage } from '../storage/cart';
+const cart_store = useCartstorage()
+
 
 const fetch_menu = async () => {
     await axios.get(`${import.meta.env.VITE_API}/food`)
@@ -30,8 +29,8 @@ onMounted(() => fetch_menu())
 
 <template>
     <navbar_memberVue />
-    <div class="carousel rounded-box flex-col">
-        <div class="hero-content flex-col lg:flex-row-reverse">
+    <div class="carousel rounded-box">
+        <div class="hero-content lg:row-reverse">
             <div class="card w-80 h-100 bg-base-100 shadow-xl m-1" v-for="(food, index) in menu" v-bind:key="index"><img
                     :src="'http://localhost:3000/food_images/' + food.food_image">
                 <figure class="m-2"></figure>
@@ -39,7 +38,7 @@ onMounted(() => fetch_menu())
                     <h2 class="card-title">{{ food.food_name }}</h2>
                     <p>ราคา {{ food.food_price }} บาท</p>
                     <div class="card-actions justify-end">
-                        <button class="btn btn-primary">สั่ง</button>
+                        <button class="btn btn-primary" @click="cart_store.add_cart(food.food_id,food.food_price)">สั่ง</button>
                     </div>
                 </div>
             </div>
@@ -58,7 +57,6 @@ onMounted(() => fetch_menu())
                 </tr>
             </thead>
             <tbody>
-                <!-- row 1 -->
                 <tr>
                     <td>กะเพราหมูกรอบ</td>
                     <td>1</td>
@@ -75,4 +73,9 @@ onMounted(() => fetch_menu())
 
 
 <style scoped>
+img{
+    width: 250px;
+    height: 200px;
+    margin: 0 2.5rem;
+}
 </style>
