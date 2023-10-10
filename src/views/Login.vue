@@ -41,6 +41,7 @@ export default {
     return{
       email:"",
     password: "",
+    mem_id: null
     };
   },
   methods: {
@@ -53,11 +54,19 @@ export default {
       })
       .then((response) => {
         console.log(response.data)
-        if(response.data.status == 'success')
+        if(response.data.status == 'success') {
+          this.mem_id = response.data.data[0].mem_id
+          sessionStorage.setItem("mem_id", response.data.data[0].mem_id) 
+        }
         this.$router.push("/home_mem");
       })
       if(this.email === 'admin'&&this.password === '1234')this.$router.push("/dashbord");
     },
+  },
+  mounted() {
+    if (sessionStorage.getItem("mem_id")) {
+      this.mem_id = JSON.parse(sessionStorage.getItem("mem_id"));
+    }
   },
 };
 </script>

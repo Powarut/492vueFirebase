@@ -14,13 +14,21 @@
       </router-link>
     </ul>
       <router-link to="/login">
-        <button class="btn btn-outline">ลงชื่อออก</button>
+        <button class="btn btn-outline" @click="logOut()">ลงชื่อออก</button>
       </router-link>
     </div>
   </div>
 </template>
   
-<script setup>
+<script >
+export default {
+  name: 'Logout',
+  methods: {
+    logOut() {
+      sessionStorage.setItem("mem_id", null);
+    }
+  },
+};
 
 </script>
   

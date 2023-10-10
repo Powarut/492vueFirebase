@@ -3,14 +3,27 @@ import navbar_memberVue from "../components/navbar_member.vue";
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 const menu = ref({})
-
+const menuInCart = ref({})
 const list_menu = computed(() => menu.value)
-
 const load_menu = computed(() => menu.value.length > 0)
+const list_menu_in_cart = computed(() => menuInCart.value)
+const load_menu_in_cart = computed(() => menuInCart.value.length > 0)
+const sessMem = sessionStorage.getItem("meme_id")
 // user_cartstroage
-import { useCartstorage } from '../storage/cart';
-const cart_store = useCartstorage()
+// import { useCartstorage } from '../s("torage/cart';
+// const cart_store = useCartstorage()
 
+
+const addCart = async (menuData) =>{
+    await axios.post(`${import.meta.env.VITE_API}/addMenutoCart`)
+    let getData = {}
+    .then((response) =>{
+        getData = response.data.data
+    }).catch((err) => {
+            console.log(err)
+    })
+    await fetchMenuFromCart(getData.mem_id, 0)
+}
 
 const fetch_menu = async () => {
     await axios.get(`${import.meta.env.VITE_API}/food`)
@@ -22,8 +35,19 @@ const fetch_menu = async () => {
         })
     return { list_menu, load_menu }
 }
-onMounted(() => fetch_menu())
 
+const fetchMenuFromCart = async (mem_id, status) => {
+    await axios.get(`${import.meta.env.VITE_API}/menuInCart`, {mem_id, status})
+    .then((response) => {
+        menuInCart.value = response.data.data
+    }).catch((error) => {
+        console.error(error)
+    })
+
+    return { list_menu_in_cart, load_menu_in_cart }
+}
+
+onMounted(() => fetch_menu())
 
 </script>
 
@@ -38,7 +62,12 @@ onMounted(() => fetch_menu())
                     <h2 class="card-title">{{ food.food_name }}</h2>
                     <p>ราคา {{ food.food_price }} บาท</p>
                     <div class="card-actions justify-end">
-                        <button class="btn btn-primary" @click="cart_store.add_cart(food.food_id,food.food_price)">สั่ง</button>
+                        <button class="btn btn-primary"
+                            @click="cart_store.add_cart({
+                                mem_id: sessMem,
+                                food_id: food.food_id,
+                                quantity: 1
+                            })">สั่ง</button>
                     </div>
                 </div>
             </div>
@@ -49,19 +78,31 @@ onMounted(() => fetch_menu())
             <!-- head -->
             <thead>
                 <h2>ตะกร้าสินค้าของคุณ</h2>
-                <tr>
-                    <th>ชื่อ</th>
-                    <th>จำนวน</th>
-                    <th>ราคา</th>
+                <tr v-for="cart in carts" :key="cart.id"> 
+                    <th>
+                        {{cart.food_name}}
+                    </th>
+                    <th>
+                        <div class="join">
+                            <button class="join-item btn" >-</button>
+                            <button class="join-item btn btn-ghost">1</button>
+                            <button class="join-item btn" >+</button>
+                        </div>
+                    </th>
+                    <th>
+                        {{cart.food_price}}
+                    </th>
+                    <th>
+                        <button class="btn btn-error btn-sm">ลบ</button>
+                    </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>กะเพราหมูกรอบ</td>
-                    <td>1</td>
-                    <td>50</td>
-                    <td><button class="btn btn-error btn-sm">ลบ</button></td>
+                    <th>
+                        <h1>ราคาทั้งหมด 50 บาท</h1>
+                    </th>
                 </tr>
             </tbody>
         </table>
@@ -73,9 +114,12 @@ onMounted(() => fetch_menu())
 
 
 <style scoped>
-img{
+img {
     width: 250px;
     height: 200px;
     margin: 0 2.5rem;
+}
+th{
+   text-align: center;
 }
 </style>
