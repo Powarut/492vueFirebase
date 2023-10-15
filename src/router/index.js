@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '@/views/Home.vue'
 import add_rider from '../views/owner/add_rider.vue'
 import all_rider from '../views/owner/all_rider.vue'
 import Login from '/src/views/Login.vue'
@@ -28,7 +28,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/home',
+      path: '/',
       name: 'home',
       component: Home
     },

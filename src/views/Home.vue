@@ -1,19 +1,20 @@
-<template>
-  <nav_user />
-  <div>
-    <img src="https://img.wongnai.com/p/1920x0/2021/01/16/9724d1b578fe4eea9753a44ca9757e65.jpg" alt="wall_paper">
-  </div>
-  <footer class="footer footer-center p-10 bg-base-200 text-base-content rounded">
-  <div>
-    <p>ร้านอาหารตามสั่งป้าจอย รับทำกล่องข้าว-จัดบุฟเฟ่ เบอร์โทรศัพท์ 087-1254125 หรือ @LINE : paa_joy</p>
-  </div>
-</footer>
-</template>
-
 <script setup>
-import nav_user from "../components/nav_user.vue";
+import { RouterLink } from 'vue-router';
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<template>
+    <div class="m-15">
+    <router-view />
+    <div class="hero min-h-screen bg-base-200">
+      <div class="hero-content flex-col lg:flex-row-reverse">
+        <div class="text-center lg:text-left">
+          <h1 class="text-5xl font-bold">ยินดีต้อนรับ!</h1>
+          <p class="py-6">เข้าสู่โปรมแกรมช่วยบริหารการจัดส่งอาหารสำหรับร้านอาหาร</p>
+        </div>
+        <div class="form-control mt-1">
+         <RouterLink :to="{path:'/login'}"><button class="btn btn-info" >เข้าสู่ระบบ</button></RouterLink>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
