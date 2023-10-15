@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import add_rider from '../views/owner/add_rider.vue'
 import all_rider from '../views/owner/all_rider.vue'
-import Login from '../views/Login.vue'
+import Login from '/src/views/Login.vue'
 import dashbord from '../views/owner/dashbord.vue'
 import all_menu from '../views/owner/all_menu.vue'
 import add_menu from '../views/owner/add_menu.vue'
@@ -22,16 +22,11 @@ import index from '../views/rider/index.vue'
 import gps from '../views/rider/gps.vue'
 import delivery from '../views/rider/delivery.vue'
 import camera from '../views/rider/camera.vue'
-import app from '../App.vue'
+
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    {
-      path: '/app',
-      name: 'app',
-      component: app
-    },
     {
       path: '/home',
       name: 'home',
