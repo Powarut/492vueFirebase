@@ -1,27 +1,31 @@
 <script setup>
-import navbar_memberVue from "../components/navbar_member.vue";
+import navbar_member from "../components/navbar_member.vue";
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
+import Close from '../components/icons/close.vue'
+import { useCartStore } from '../storage/cart'
+
 const menu = ref({})
+const cartStore = useCartStore()
+const ChangeQuantity = (event, index) =>{
+    const newQuantity = parseInt(event.target.value)
+    cartStore.updateQuantity(index, newQuantity)
+}
 const menuInCart = ref({})
 const list_menu = computed(() => menu.value)
 const load_menu = computed(() => menu.value.length > 0)
 const list_menu_in_cart = computed(() => menuInCart.value)
 const load_menu_in_cart = computed(() => menuInCart.value.length > 0)
 const sessMem = sessionStorage.getItem("meme_id")
-// user_cartstroage
-// import { useCartstorage } from '../s("torage/cart';
-// const cart_store = useCartstorage()
 
-
-const addCart = async (menuData) =>{
+const addCart = async (menuData) => {
     await axios.post(`${import.meta.env.VITE_API}/addMenutoCart`)
     let getData = {}
-    .then((response) =>{
-        getData = response.data.data
-    }).catch((err) => {
+        .then((response) => {
+            getData = response.data.data
+        }).catch((err) => {
             console.log(err)
-    })
+        })
     await fetchMenuFromCart(getData.mem_id, 0)
 }
 
@@ -37,12 +41,12 @@ const fetch_menu = async () => {
 }
 
 const fetchMenuFromCart = async (mem_id, status) => {
-    await axios.get(`${import.meta.env.VITE_API}/menuInCart`, {mem_id, status})
-    .then((response) => {
-        menuInCart.value = response.data.data
-    }).catch((error) => {
-        console.error(error)
-    })
+    await axios.get(`${import.meta.env.VITE_API}/menuInCart`, { mem_id, status })
+        .then((response) => {
+            menuInCart.value = response.data.data
+        }).catch((error) => {
+            console.error(error)
+        })
 
     return { list_menu_in_cart, load_menu_in_cart }
 }
@@ -52,64 +56,112 @@ onMounted(() => fetch_menu())
 </script>
 
 <template>
-    <navbar_memberVue />
-    <div class="carousel rounded-box">
-        <div class="hero-content lg:row-reverse">
-            <div class="card w-80 h-100 bg-base-100 shadow-xl m-1" v-for="(food, index) in menu" v-bind:key="index"><img
-                    :src="'http://localhost:3000/food_images/' + food.food_image">
-                <figure class="m-2"></figure>
-                <div class="card-body">
-                    <h2 class="card-title">{{ food.food_name }}</h2>
-                    <p>ราคา {{ food.food_price }} บาท</p>
-                    <div class="card-actions justify-end">
-                        <button class="btn btn-primary"
-                            @click="cart_store.add_cart({
-                                mem_id: sessMem,
-                                food_id: food.food_id,
-                                quantity: 1
-                            })">สั่ง</button>
+    <navbar_member>
+        <h1 class="text-3xl font-bold m-4">ตะกร้าสินค้า</h1>
+        <div class="flex">
+            <div class="flex-auto w-64 bg-base-200 p-4">
+                <div v-if="cartStore.items.length === 0">ยังไม่มีสินค้าในตะกร้า</div>
+                <div v-else v-for="(item, index) in cartStore.items" class="flex" >
+                    <div class="flex-1">
+                        <img class="w-full p-10" src="/src/assets/food2.jpg">
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex flex-col justify-between h-full">
+                            <div class="relative grid grid-cols-2">
+                                <div>
+                                    <div><b>{{ item.food_name }}</b></div>
+                                    <div>{{ item.food_price }} Bath</div>
+                                </div>
+                                <div>
+                                    <select v-model="item.quantity" class="select w-1/2 p-4" @change="ChangeQuantity($event, index)">
+                                        <option v-for="quantity in [1, 2, 3, 4, 5]">
+                                            {{ quantity }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div @click="cartStore.removeItemInCart(index)" class="absolute top-0 right-0">
+                                    <Close></Close>
+                                </div>
+                            </div>
+                            <div><b>IN Stock</b></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-auto w-32 bg-slate-200 p-4">
+                <div class="text-xl font-bold">สรุปออเดอร์</div>
+                <div class="my-4 divide-y divide-black">
+                    <div class="flex justify-between py-2">
+                        <div>ราคาสินค้าทั้งหมด</div>
+                        <div>{{ cartStore.summaryPrice }}</div>
+                    </div>
+                    <div class="flex justify-between py-2">
+                        <div>ค่าส่ง</div>
+                        <div>0</div>
+                    </div>
+                    <div class="flex justify-between py-2">
+                        <div>รวมทั้งหมด</div>
+                        <div>{{ cartStore.summaryPrice }} บาท</div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="overflow-x-auto">
-        <table class="table w-full">
-            <!-- head -->
-            <thead>
-                <h2>ตะกร้าสินค้าของคุณ</h2>
-                <tr v-for="cart in carts" :key="cart.id"> 
-                    <th>
-                        {{cart.food_name}}
-                    </th>
-                    <th>
-                        <div class="join">
-                            <button class="join-item btn" >-</button>
-                            <button class="join-item btn btn-ghost">1</button>
-                            <button class="join-item btn" >+</button>
+        <!-- <div class="carousel rounded-box">
+            <div class="hero-content lg:row-reverse">
+                <div class="card w-80 h-100 bg-base-100 shadow-xl m-1" v-for="(food, index) in menu" v-bind:key="index"><img
+                        :src="'http://localhost:3000/food_images/' + food.food_image">
+                    <figure class="m-2"></figure>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ food.food_name }}</h2>
+                        <p>ราคา {{ food.food_price }} บาท</p>
+                        <div class="card-actions justify-end">
+                            <button class="btn btn-primary" @click="cart_store.add_cart({
+                                mem_id: sessMem,
+                                food_id: food.food_id,
+                                quantity: 1
+                            })">สั่ง</button>
                         </div>
-                    </th>
-                    <th>
-                        {{cart.food_price}}
-                    </th>
-                    <th>
-                        <button class="btn btn-error btn-sm">ลบ</button>
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>
-                        <h1>ราคาทั้งหมด 50 บาท</h1>
-                    </th>
-                </tr>
-            </tbody>
-        </table>
-        <div class="card-actions justify-center">
-            <button class="btn btn-success">สั่งซื้อ</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+        <div class="overflow-x-auto">
+            <table class="table w-full">
+                <thead>
+                    <h2>ตะกร้าสินค้าของคุณ</h2>
+                    <tr v-for="cart in carts" :key="cart.id">
+                        <th>
+                            {{ cart.food_name }}
+                        </th>
+                        <th>
+                            <div class="join">
+                                <button class="join-item btn">-</button>
+                                <button class="join-item btn btn-ghost">1</button>
+                                <button class="join-item btn">+</button>
+                            </div>
+                        </th>
+                        <th>
+                            {{ cart.food_price }}
+                        </th>
+                        <th>
+                            <button class="btn btn-error btn-sm">ลบ</button>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>
+                            <h1>ราคาทั้งหมด 50 บาท</h1>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="card-actions justify-center">
+                <button class="btn btn-success">สั่งซื้อ</button>
+            </div>
+        </div> -->
+    </navbar_member>
 </template>
 
 
@@ -119,7 +171,8 @@ img {
     height: 200px;
     margin: 0 2.5rem;
 }
-th{
-   text-align: center;
+
+th {
+    text-align: center;
 }
 </style>
