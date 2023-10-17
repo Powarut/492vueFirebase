@@ -4,9 +4,16 @@ import router from './router'
 import "./assets/style.css"
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import { createPinia } from 'pinia';
+import { createPinia } from 'pinia'
+import Vue3Geolocation from 'vue3-geolocation'
 
 
+
+
+const app = createApp(App)
 const pinia = createPinia()
-
-const app = createApp(App).use(VueAxios, axios).use(router).use(pinia).mount('#app')
+app.use(VueAxios, axios)
+app.use(router)
+app.use(pinia)
+app.use(Vue3Geolocation)
+app.mount('#app')

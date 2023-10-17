@@ -1,7 +1,15 @@
 <script>
 import axios from 'axios'
 import router from '../router'
+import { GoogleMap, Marker } from "vue3-google-map"
+
 export default {
+  components: { GoogleMap, Marker },
+  setup() {
+    const center = { lat: 13.736717, lng: 100.523186 };
+    // const key = process.env.GOOGLE_MAP_API_KEY
+    return { center };
+  },
   data() {
     return {
       email: "",
@@ -10,8 +18,41 @@ export default {
       name: "",
       surname: "",
       phone: "",
+      lat: null,
+      lng: null,
+      apiKey: import.meta.env.GOOGLE_MAP_API_KEY,
+      address: "",
+      inputMap: "",
     };
   },
+
+  created() {
+    this.$getLocation()
+      .then((coordinates) => {
+        console.log(coordinates);
+        this.lat = coordinates.lat
+        this.lng = coordinates.lng
+      }).catch((error) => {
+        console.log(error)
+      })
+  },
+
+  mounted() {
+    const inputMap = new google.maps.places.Autocomplete(
+      this.$refs["autocomplete"]
+      );
+  
+      // autocomplete.addListener("place_changed", () => {
+      //   const place = inputMap.getPlace();
+  
+      //   // this.showLocationOnTheMap(
+      //   //   place.geometry.location.lat(),
+      //   //   place.geometry.location.lng()
+      //   // );
+      // });
+    
+  },
+
   methods: {
     async insert_member() {
       let uri = `${import.meta.env.VITE_API}/members`
@@ -49,8 +90,22 @@ export default {
         this.surname = ""
         this.phone = ""
       }
-    }
-  },
+    },
+
+    showLocationOnTheMap(latitude, longitude) {
+        // Show & center the Map based oon
+        var map = new google.maps.Map(this.$refs["map"], {
+          zoom: 15,
+          center: new google.maps.LatLng(latitude, longitude),
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+        });
+  
+        new google.maps.Marker({
+          position: new google.maps.LatLng(latitude, longitude),
+          map: map,
+        });
+      },
+  }
 }
 </script>
 
@@ -100,6 +155,20 @@ export default {
               <input type="text" class="input input-bordered" placeholder="ใส่ตัวเลข10 ตัว" v-model="phone" />
             </label>
           </div>
+          <div class="form-control m-2">
+            
+              <span>ค้นหาที่อยู่</span>
+              <input ref="autocomplete" type="text" class="input input-bordered" placeholder="สยามพารากอน กรุงเทพมหานคร" v-model="address" />
+          </div>
+          <GoogleMap 
+            api-key="AIzaSyBduTIBOwosF6Z6WPSHwmlJrLzIU4RlCBg" 
+            style="width: 100%; 
+            height: 300px" 
+            :center="{ lat: lat, lng: lng }" 
+            :zoom="15"
+            :libraries=[] >
+            <Marker :options="{ position: { lat: lat, lng: lng } }" />
+          </GoogleMap>
           <router-link to="/login">
             <button class="bg-green-500 text-base-100 font-bold w-24 h-10 rounded-md hover:bg-sky-700"
               @click="check()">ลงทะเบียน</button>
@@ -108,8 +177,9 @@ export default {
       </div>
     </div>
   </div>
+  
 </template>
 
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped></style>  

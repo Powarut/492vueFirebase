@@ -22,6 +22,8 @@
     "vue": "^3.2.47",
     "vue-axios": "^3.5.2",
     "vue-router": "^4.1.6",
+    "vue3-geolocation": "^1.0.0",
+    "vue3-google-map": "^0.18.0",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
