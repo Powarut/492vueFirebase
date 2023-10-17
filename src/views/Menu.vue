@@ -11,23 +11,22 @@ const ChangeQuantity = (event, index) =>{
     const newQuantity = parseInt(event.target.value)
     cartStore.updateQuantity(index, newQuantity)
 }
-const menuInCart = ref({})
+
 const list_menu = computed(() => menu.value)
 const load_menu = computed(() => menu.value.length > 0)
-const list_menu_in_cart = computed(() => menuInCart.value)
-const load_menu_in_cart = computed(() => menuInCart.value.length > 0)
+
 const sessMem = sessionStorage.getItem("meme_id")
 
-const addCart = async (menuData) => {
-    await axios.post(`${import.meta.env.VITE_API}/addMenutoCart`)
-    let getData = {}
-        .then((response) => {
-            getData = response.data.data
-        }).catch((err) => {
-            console.log(err)
-        })
-    await fetchMenuFromCart(getData.mem_id, 0)
-}
+// const addCart = async (menuData) => {
+//     await axios.post(`${import.meta.env.VITE_API}/addMenutoCart`)
+//     let getData = {}
+//         .then((response) => {
+//             getData = response.data.data
+//         }).catch((err) => {
+//             console.log(err)
+//         })
+//     await fetchMenuFromCart(getData.mem_id, 0)
+// }
 
 const fetch_menu = async () => {
     await axios.get(`${import.meta.env.VITE_API}/food`)
@@ -40,16 +39,16 @@ const fetch_menu = async () => {
     return { list_menu, load_menu }
 }
 
-const fetchMenuFromCart = async (mem_id, status) => {
-    await axios.get(`${import.meta.env.VITE_API}/menuInCart`, { mem_id, status })
-        .then((response) => {
-            menuInCart.value = response.data.data
-        }).catch((error) => {
-            console.error(error)
-        })
+// const fetchMenuFromCart = async (mem_id, status) => {
+//     await axios.get(`${import.meta.env.VITE_API}/menuInCart`, { mem_id, status })
+//         .then((response) => {
+//             menuInCart.value = response.data.data
+//         }).catch((error) => {
+//             console.error(error)
+//         })
 
-    return { list_menu_in_cart, load_menu_in_cart }
-}
+//     return { list_menu_in_cart, load_menu_in_cart }
+// }
 
 onMounted(() => fetch_menu())
 
@@ -63,7 +62,7 @@ onMounted(() => fetch_menu())
                 <div v-if="cartStore.items.length === 0">ยังไม่มีสินค้าในตะกร้า</div>
                 <div v-else v-for="(item, index) in cartStore.items" class="flex" >
                     <div class="flex-1">
-                        <img class="w-full p-10" src="/src/assets/food2.jpg">
+                        <img class="w-full p-10" :src="item.food_image">
                     </div>
                     <div class="flex-1">
                         <div class="flex flex-col justify-between h-full">
@@ -73,8 +72,8 @@ onMounted(() => fetch_menu())
                                     <div>{{ item.food_price }} Bath</div>
                                 </div>
                                 <div>
-                                    <select v-model="item.quantity" class="select w-1/2 p-4" @change="ChangeQuantity($event, index)">
-                                        <option v-for="quantity in [1, 2, 3, 4, 5]">
+                                    <select v-model="item.quantity" class="w-1/2 p-2" @change="ChangeQuantity($event, index)">
+                                        <option v-for="quantity in [1,2,3,4,5]">
                                             {{ quantity }}
                                         </option>
                                     </select>

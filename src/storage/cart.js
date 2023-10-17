@@ -5,7 +5,7 @@ export const useCartStore = defineStore('cart',{
         items : [{
             food_name: 'ราดหน้า',
             food_image: 'https://i.ytimg.com/vi/LGXXLOVx0vc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCYgQgS4QSdCrSNryX97ZBi0HkTGQ',
-            quantity: '1',
+            quantity: 1,
             food_status: 'มี',
             food_price: '50'
         }]
@@ -22,6 +22,7 @@ export const useCartStore = defineStore('cart',{
     },
     actions: {
         addtoCart (productData) {
+            productData.quantity = 1
             this.items.push(productData)
         },
         updateQuantity (index,quantity) {
