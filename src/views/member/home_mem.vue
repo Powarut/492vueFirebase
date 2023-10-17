@@ -15,18 +15,20 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+
 import NavbarMember from "../../components/navbar_member.vue";
 import Product from "/src/components/Product.vue"
 import { useProductStore } from "../../storage/member/product";
 import { useCartStore } from "../../storage/cart";
 
+const router = useRouter()
 const productStore = useProductStore()
 const cartStore = useCartStore()
 
 const addToCart = (product) => {
-  console.log("Add to cart")
-  console.log(product)
   cartStore.addtoCart(product)
+  router.push({ name: 'menu' })
 }
 </script>
 
