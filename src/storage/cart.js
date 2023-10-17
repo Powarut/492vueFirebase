@@ -2,13 +2,7 @@ import { defineStore } from "pinia";
 
 export const useCartStore = defineStore('cart',{
     state: () => ({
-        items : [{
-            food_name: 'ราดหน้า',
-            food_image: 'https://i.ytimg.com/vi/LGXXLOVx0vc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCYgQgS4QSdCrSNryX97ZBi0HkTGQ',
-            quantity: '1',
-            food_status: 'มี',
-            food_price: '50'
-        }]
+        items : []
     }),
     getters: {
         summaryQuantity (state) {
@@ -21,14 +15,32 @@ export const useCartStore = defineStore('cart',{
         }
     },
     actions: {
+        loadCart () {
+            const proviousCart = localStorage.getItem('cart-data')
+            if (proviousCart){
+                this.items = JSON.parse(proviousCart)
+            }
+        },
         addtoCart (productData) {
-            this.items.push(productData)
+            const findProductIndex = this.items.findIndex(item => {
+                return item.food_name === productData.food_name
+            })
+            if (findProductIndex < 0) {
+                productData.quantity = 1
+                this.items.push(productData)
+            } else {
+                const currentItem = this.items[findProductIndex]
+                this.updateQuantity(findProductIndex, currentItem.quantity + 1)
+            }
+            localStorage.setItem('cart-data', JSON.stringify(this.items))
         },
         updateQuantity (index,quantity) {
             this.items[index].quantity = quantity
+            localStorage.setItem('cart-data', JSON.stringify(this.items))
         },
         removeItemInCart(index) {
             this.items.splice(index,1)
+            localStorage.setItem('cart-data', JSON.stringify(this.items))
         }
     }
 })
