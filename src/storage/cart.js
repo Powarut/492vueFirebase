@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 
 export const useCartStore = defineStore('cart',{
     state: () => ({
-        items : []
+        items : [],
+        checkout: {}
     }),
     getters: {
         summaryQuantity (state) {
@@ -41,6 +42,24 @@ export const useCartStore = defineStore('cart',{
         removeItemInCart(index) {
             this.items.splice(index,1)
             localStorage.setItem('cart-data', JSON.stringify(this.items))
+        },
+        placeOrder (userData){
+            const orderData = {
+                ...userData,
+                totalPrice: this.summaryPrice,
+                paymentMethod: 'เก็บเงินปลายทาง',
+                creatrdDate: (new Date()).toLocaleString(),
+                orderNumber: `MM${Math.floor((Math.random() *9000)+10000)}`,
+                products: this.items
+            }
+            localStorage.setItem('order-data',JSON.stringify(orderData))
+        },
+        loadCheckout () {
+            const orderData = localStorage.getItem('order-data')
+            if (orderData) {
+                this.checkout = JSON.parse(orderData)
+            }
+
         }
     }
 })

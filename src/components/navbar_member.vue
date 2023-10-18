@@ -41,11 +41,14 @@
           <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
             <li>
               <a class="justify-between">
-                Profile
+                ข้อมูลผู้ใช้
               </a>
             </li>
             <li>
-              <RouterLink @click="logout" :to="{ name: '' }">Logout</RouterLink>
+              <RouterLink :to="{ name: 'your_order' }">ออเดอร์ที่สั่ง</RouterLink>
+            </li>
+            <li>
+              <RouterLink @click="logout" :to="{ name: '' }">ลงชื่อออก</RouterLink>
             </li>
           </ul>
         </div>
@@ -91,7 +94,7 @@
 </template>
   
 <script setup>
-import { ref } from 'vue';
+import { ref,onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
 import { useCartStore } from '../storage/cart'
 
@@ -99,12 +102,20 @@ const cartStore = useCartStore()
 
 const isLoggedIn = ref(false)
 
+onMounted(() => {
+  if (localStorage.getItem('isLoggedIn')) {
+    isLoggedIn.value = true
+  }
+})
 const login = () =>{
   isLoggedIn.value = true
+  localStorage.setItem('isLoggedIn', true)
 }
 const logout = () =>{
   isLoggedIn.value = false
+  localStorage.removeItem('isLoggedIn')
+  localStorage.removeItem('cart-data')
+  localStorage.removeItem('order-data')
+  window.location.reload()
 }
 </script>
-  
-<style lang="scss" scoped></style>

@@ -4,10 +4,11 @@ import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 import Close from '../components/icons/close.vue'
 import { useCartStore } from '../storage/cart'
+import {RouterLink} from 'vue-router'
 
 const menu = ref({})
 const cartStore = useCartStore()
-const ChangeQuantity = (event, index) =>{
+const ChangeQuantity = (event, index) => {
     const newQuantity = parseInt(event.target.value)
     cartStore.updateQuantity(index, newQuantity)
 }
@@ -60,7 +61,7 @@ onMounted(() => fetch_menu())
         <div class="flex">
             <div class="flex-auto w-64 bg-base-200 p-4">
                 <div v-if="cartStore.items.length === 0">ยังไม่มีสินค้าในตะกร้า</div>
-                <div v-else v-for="(item, index) in cartStore.items" class="flex" >
+                <div v-else v-for="(item, index) in cartStore.items" class="flex">
                     <div class="flex-1">
                         <img class="w-full p-10" :src="item.food_image">
                     </div>
@@ -72,8 +73,9 @@ onMounted(() => fetch_menu())
                                     <div>{{ item.food_price }} Bath</div>
                                 </div>
                                 <div>
-                                    <select v-model="item.quantity" class="w-1/2 p-2" @change="ChangeQuantity($event, index)">
-                                        <option v-for="quantity in [1,2,3,4,5]">
+                                    <select v-model="item.quantity" class="w-1/2 p-2"
+                                        @change="ChangeQuantity($event, index)">
+                                        <option v-for="quantity in [1, 2, 3, 4, 5]">
                                             {{ quantity }}
                                         </option>
                                     </select>
@@ -102,6 +104,7 @@ onMounted(() => fetch_menu())
                         <div>รวมทั้งหมด</div>
                         <div>{{ cartStore.summaryPrice }} บาท</div>
                     </div>
+                    <RouterLink :to="{ name: 'pin_address'}" class="btn btn-neutral w-full  mt-4">ชำระเงิน</RouterLink>
                 </div>
             </div>
         </div>

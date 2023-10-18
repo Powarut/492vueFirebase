@@ -1,84 +1,77 @@
 <template>
-    <navbar_memberVue />
-    <div class="hero min-h-screen bg-base-200">
-        <div class="hero-content flex-col lg:flex-row-reverse">
-            <div class="text-center lg:text-left">
-                <h1 class="text-5xl font-bold">ยืนยันการสั่งอาหาร</h1>
+    <navbarmember>
+        <div class="max-w-2xl mx-auto border border-base-200 shadow-xl p-8">
+            <div>
+                <div class="test-2xl font-bold">คุณสั่งออเดอร์อาหาร สำเร็จแล้ว!</div>
+                <div>สวัสดี {{ orderData.name }}</div>
+                <div>เตรียมรอรับสินค้าได้เลย</div>
             </div>
-            <div class="card flex-shrink-0 w-full shadow-2xl bg-base-100">
-                <div class="card-body">
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">ข้อมูลลูกค้า</span>
-                        </label>
-                        <div class="flex items-center space-x-3">
-                            <div>
-                                <div class="font-bold">ชื่อ: ปรเมษฐ์</div>
-                            </div>
-                            <div>
-                                <div class="font-bold">นามสกุล: พฤกษชาติ</div>
-                            </div>
-                            <div>
-                                <div class="font-bold">เบอร์โทรศัพท์: 0821231235</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">รายการอาหาร</span>
-                        </label>
-                        <div class="flex items-center space-x-3">
-                            <div class="avatar">
-                                <div class="mask mask-squircle w-12 h-12">
-                                    <img src="/src/assets/food1.jpg" alt="Avatar Tailwind CSS Component" />
-                                </div>
-                            </div>
-                            <div>
-                                <div class="font-bold">กะเพราหมูกรอบ</div>
-                            </div>
-                            <div>
-                                <div class="font-bold">*1</div>
-                            </div>
-                            <div>
-                                <div class="font-bold">50 บาท</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">รวมค่าอาหารทั้งหมด</span>
-                        </label>
-                        <div class="flex items-center space-x-3">
-                            <div>
-                                <div class="font-bold">50 บาท</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-control">
-                        <div tabindex="0" class="collapse border border-base-300 bg-base-100 rounded-box">
-                            <div class="collapse-title text-xl font-medium">
-                                สถานที่จัดส่ง
-                            </div>
-                            <div class="collapse-content">
-                                <p>ตะวันนาอพาร์ทเม้น ต.หลักหก เมืองเอก จ.ปทุมธานี 11201</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center lg:text-leftx">
-                        <router-link to="/home_mem">
-                            <button class="btn btn-success btn-sm mx-2">ยืนยัน</button>
-                        </router-link>
-                    </div>
+            <div class="divider"></div>
+            <div class="grid grid-cols-4 gap-2">
+                <div>
+                    <div class="font-bold">วันเวลา ณ ที่สั่ง</div>
+                    <div>{{ orderData.creatrdDate }}</div>
+                </div>
+                <div>
+                    <div class="font-bold">หมายเลขออเดอร์</div>
+                    <div>{{ orderData.orderNumber }}</div>
+                </div>
+                <div>
+                    <div class="font-bold">ประเภทการชำระเงิน</div>
+                    <div>{{ orderData.paymentMethod }}</div>
+                </div>
+                <div>
+                    <div class="font-bold">ที่อยู่</div>
+                    <div>{{ orderData.address }}</div>
                 </div>
             </div>
+            <div class="divider"></div>
+                <div v-for="product in orderData.products" class="grid grid-cols-4 gap-2 mb-4 items-center">
+                    <div>
+                        <img class="w-full" :src="product.food_image">
+                    </div>
+                    <div>
+                        <b>{{ product.food_name }}</b>
+                    </div>
+                    <div>
+                        {{ product.quantity }}
+                    </div>
+                    <div>
+                        {{ product.food_price * product.quantity }}
+                    </div>
+                </div>
+            <div class="divider"></div>
+                <div class="flex justify-between">
+                    <div class="font-bold">ราคาอาหารทั้งหมด</div>
+                    <div>{{ cartStore.summaryPrice }}</div>
+                </div>
+                 <div class="flex justify-between mt-4">
+                    <div class="font-bold">ค่าส่ง</div>
+                    <div>0</div>
+                </div>
+            <div class="divider"></div>
+                <div class="flex justify-between p-2 mb-4">
+                    <div class="font-bold">ราคาทั้งหมด</div>
+                    <div>{{ cartStore.summaryPrice }}</div>
+                </div>
+            <div class="divider"></div>
+            <div class="font-bold text-center">ขอบคุณที่สั่งอาหารจากร้านเรา</div>
         </div>
-    </div>
+    </navbarmember>
 </template>
 
 <script setup>
-import navbar_memberVue from "../../components/navbar_member.vue";
+import { ref, onMounted } from 'vue'
+import navbarmember from "../../components/navbar_member.vue";
+
+import { useCartStore } from "../../storage/cart";
+const cartStore = useCartStore()
+const orderData = ref({})
+
+onMounted(() => {
+    cartStore.loadCheckout()
+    if (cartStore.checkout.orderNumber) {
+        orderData.value = cartStore.checkout
+    }
+})
 </script>
-
-<style lang="scss" scoped>
-
-</style>
