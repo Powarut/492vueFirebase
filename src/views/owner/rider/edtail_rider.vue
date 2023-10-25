@@ -1,5 +1,5 @@
 <script setup>
-    import navbar_owner from '../../components/navbar_owner.vue'
+    import navbar_owner from '../../../components/navbar_owner.vue'
 </script>
 
 <template>

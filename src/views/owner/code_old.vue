@@ -1,50 +1,4 @@
-<script setup>
-import navbar_owner from '../../components/navbar_owner.vue';
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
-const menu = ref({})
-const status_value = ref('')
-const status_boolean = ref(false)
-
-const fetch_menu = async () => {
-    await axios.get(`${import.meta.env.VITE_API}/food`)
-        .then((response) => {
-            console.log(menu)
-            menu.value = response.data.data
-        }).catch((err) => {
-            console.log(err)
-        })
-}
-onMounted(() => fetch_menu())
-
-const update_status = async (food_id, food_status) => {
-    await axios.put(`${import.meta.env.VITE_API}/food/food_name/`, {
-        "food_id": food_id,
-        "status": food_status
-    })
-        .then((response) => {
-            fetch_menu()
-            console.log(response)
-        }).catch((err) => {
-            console.log(err)
-        })
-    status_boolean.value = false
-}
-
-const delete_menu = async (food_id) => {
-    await axios.delete(`${import.meta.env.VITE_API}/food/${food_id}`,)
-        .then((response) => {
-            fetch_menu()
-            console.log(response)
-            alert("ลบเมนูสำเร็จ")
-        }).catch((err) => {
-            console.log(err)
-        })
-}
-</script>
-
 <template>
-    <navbar_owner />
     <div class="flex w-full m-2">
         <h1 class="grid flex-grow card m-1 rounded-box place-items-center">รายชื่อเมนูอาหารทั้งหมด</h1>
     </div>
@@ -53,7 +7,6 @@ const delete_menu = async (food_id) => {
     </router-link>
     <div class="overflow-x-auto w-full">
         <table class="table w-full">
-            <!-- head -->
             <thead>
                 <tr>
                     <th>รหัส</th>
@@ -64,7 +17,6 @@ const delete_menu = async (food_id) => {
                 </tr>
             </thead>
             <tbody>
-                <!-- row 1 -->
                 <tr v-for="(food, index) in menu" v-bind:key="index">
                     <th>{{ food.food_id }}</th>
                     <td>
@@ -116,20 +68,47 @@ const delete_menu = async (food_id) => {
                     </td>
                 </tr>
             </tbody>
-            <!-- foot -->
-            <tfoot>
-                <tr>
-                    <th>รหัส</th>
-                    <th>ชื่อ</th>
-                    <th>ราคา</th>
-                    <th>สถานะ</th>
-                    <th></th>
-                </tr>
-            </tfoot>
         </table>
     </div>
 </template>
 
+<script setup>
+const status_value = ref('')
+const status_boolean = ref(false)
 
+const fetch_menu = async () => {
+    await axios.get(`${import.meta.env.VITE_API}/food`)
+        .then((response) => {
+            console.log(menu)
+            menu.value = response.data.data
+        }).catch((err) => {
+            console.log(err)
+        })
+}
+onMounted(() => fetch_menu())
 
-<style lang="scss" scoped></style>
+const update_status = async (food_id, food_status) => {
+    await axios.put(`${import.meta.env.VITE_API}/food/food_name/`, {
+        "food_id": food_id,
+        "status": food_status
+    })
+        .then((response) => {
+            fetch_menu()
+            console.log(response)
+        }).catch((err) => {
+            console.log(err)
+        })
+    status_boolean.value = false
+}
+
+const delete_menu = async (food_id) => {
+    await axios.delete(`${import.meta.env.VITE_API}/food/${food_id}`,)
+        .then((response) => {
+            fetch_menu()
+            console.log(response)
+            alert("ลบเมนูสำเร็จ")
+        }).catch((err) => {
+            console.log(err)
+        })
+}
+</script>

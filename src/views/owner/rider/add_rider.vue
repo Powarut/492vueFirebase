@@ -1,8 +1,8 @@
 <script setup>
-import navbar_owner from '../../components/navbar_owner.vue'
+import navbar_owner from '../../../components/navbar_owner.vue'
 import { ref } from 'vue'
 import axios from 'axios'
-import router from '../../router'
+import router from '../../../router'
 
 const add = ref({
     rider_email: '',

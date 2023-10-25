@@ -1,23 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
-import add_rider from '../views/owner/add_rider.vue'
-import all_rider from '../views/owner/all_rider.vue'
-import Login from '/src/views/Login.vue'
-import dashbord from '../views/owner/dashbord.vue'
-import all_menu from '../views/owner/all_menu.vue'
-import add_menu from '../views/owner/add_menu.vue'
 import Register from '../views/Register.vue'
-import all_order from '../views/owner/all_order.vue'
-import detail_order from '../views/owner/detail_order.vue'
-import order_update from '../views/owner/order_update.vue'
-import total_sales from '../views/owner/total_sales.vue'
 import menu from '../views/Menu.vue'
+import Login from '/src/views/Login.vue'
+/*  เจ้าของร้าน   */
+import ownerLogin from '../views/owner/owner_login.vue'
+import dashbord from '../views/owner/dashbord.vue'
+import add_rider from '../views/owner/rider/add_rider.vue'
+import all_rider from '../views/owner/rider/all_rider.vue'
+import all_menu from '../views/owner/menu/all_menu.vue'
+import add_menu from '../views/owner/menu/add_menu.vue'
+import edit_menu from '../views/owner/menu/edit_menu.vue'
+import all_order from '../views/owner/order/all_order.vue'
+import detail_order from '../views/owner/order/detail_order.vue'
+import order_update from '../views/owner/order/order_update.vue'
+import total_sales from '../views/owner/total_sales.vue'
+/*  ลูกค้า  */
 import home_mem from '../views/member/home_mem.vue'
 import pin_address from '../views/member/pin_address.vue'
 import check_out from '../views/member/check_out.vue'
 import your_order from '../views/member/your_order.vue'
 import detail_order_mem from '../views/member/detail_order_mem.vue'
 import order_delivery from '../views/rider/order_delivery.vue'
+/*  พนักงานส่ง  */
 import index from '../views/rider/index.vue'
 import gps from '../views/rider/gps.vue'
 import delivery from '../views/rider/delivery.vue'
@@ -33,19 +38,25 @@ const router = createRouter({
       component: Home
     },
     {
-      path: '/add_rider',
-      name: 'add_rider',
-      component: add_rider
-    },
-    {
-      path: '/all_rider',
-      name: 'all_rider',
-      component: all_rider
-    },
-    {
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
+    },
+    {
+      path: '/menu',
+      name: 'menu',
+      component: menu
+    },
+    /* เจ้าของร้าน */
+    {
+      path: '/owner/login',
+      name: 'owner-Login',
+      component: ownerLogin
     },
     {
       path: '/dashbord',
@@ -63,9 +74,19 @@ const router = createRouter({
       component: add_menu
     },
     {
-      path: '/register',
-      name: 'register',
-      component: Register
+      path: '/eidt_menu',
+      name: 'edit_menu',
+      component: edit_menu
+    },
+    {
+      path: '/add_rider',
+      name: 'add_rider',
+      component: add_rider
+    },
+    {
+      path: '/all_rider',
+      name: 'all_rider',
+      component: all_rider
     },
     {
       path: '/all_order',
@@ -87,11 +108,7 @@ const router = createRouter({
       name: 'total_sales',
       component: total_sales
     },
-    {
-      path: '/menu',
-      name: 'menu',
-      component: menu
-    },
+    /* ส่วนของลูกค้า  */
     {
       path: '/home_mem',
       name: 'home_mem',
@@ -117,6 +134,7 @@ const router = createRouter({
       name: 'detail_order_mem',
       component: detail_order_mem
     },
+    /* ส่วนของพนักงานส่ง */
     {
       path: '/camera',
       name: 'camera',
