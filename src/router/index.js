@@ -8,6 +8,7 @@ import ownerLogin from '../views/owner/owner_login.vue'
 import dashbord from '../views/owner/dashbord.vue'
 import add_rider from '../views/owner/rider/add_rider.vue'
 import all_rider from '../views/owner/rider/all_rider.vue'
+import detail_rider from '../views/owner/rider/detail_rider.vue'
 import all_menu from '../views/owner/menu/all_menu.vue'
 import add_menu from '../views/owner/menu/add_menu.vue'
 import edit_menu from '../views/owner/menu/edit_menu.vue'
@@ -74,7 +75,7 @@ const router = createRouter({
       component: add_menu
     },
     {
-      path: '/eidt_menu',
+      path: '/eidt_menu/:id',
       name: 'edit_menu',
       component: edit_menu
     },
@@ -89,12 +90,17 @@ const router = createRouter({
       component: all_rider
     },
     {
+      path: '/detail_rider/:id',
+      name: 'detail_rider',
+      component: detail_rider
+    },
+    {
       path: '/all_order',
       name: 'all_order',
       component: all_order
     },
     {
-      path: '/detail_order',
+      path: '/detail_order/:id',
       name: 'detail_order',
       component: detail_order
     },

@@ -1,84 +1,75 @@
-<template>
-    <navbar_owner />
-    <div class="hero min-h-screen bg-base-200">
-        <div class="hero-content flex-col lg:flex-row-reverse">
-            <div class="text-center lg:text-left">
-                <h1 class="text-5xl font-bold">รายละเอียดออเดอร์ ที่ 5</h1>
-            </div>
-            <div class="card flex-shrink-0 w-full shadow-2xl bg-base-100">
-                <div class="card-body">
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">ข้อมูลลูกค้า</span>
-                        </label>
-                        <div class="flex items-center space-x-3">
-                            <div>
-                                <div class="font-bold">ชื่อ: ปรเมษฐ์</div>
-                            </div>
-                            <div>
-                                <div class="font-bold">นามสกุล: พฤกษชาติ</div>
-                            </div>
-                            <div>
-                                <div class="font-bold">เบอร์โทรศัพท์: 0821231235</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">รายการอาหาร</span>
-                        </label>
-                        <div class="flex items-center space-x-3">
-                            <div class="avatar">
-                                <div class="mask mask-squircle w-12 h-12">
-                                    <img src="/src/assets/food1.jpg" alt="Avatar Tailwind CSS Component" />
-                                </div>
-                            </div>
-                            <div>
-                                <div class="font-bold">กะเพราหมูกรอบ</div>
-                            </div>
-                            <div>
-                                <div class="font-bold">*1</div>
-                            </div>
-                            <div>
-                                <div class="font-bold">50 บาท</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-control">
-                        <div tabindex="0" class="collapse border border-base-300 bg-base-100 rounded-box">
-                            <div class="collapse-title text-xl font-medium">
-                                สถานที่จัดส่ง
-                            </div>
-                            <div class="collapse-content">
-                                <p>ตะวันนาอพาร์ทเม้น ต.หลักหก เมืองเอก จ.ปทุมธานี 11201</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-control">
-                        <div class="flex items-center space-x-3">
-                            <div>
-                                <div class="font-bold">สถานะ</div>
-                            </div>
-                            <div>
-                                <div class="badge badge-success gap-2">
-                                    รอรับ
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center lg:text-leftx">
-                        <router-link to="/order_update">
-                            <button class="btn btn-success btn-sm mx-2">เปลี่ยนสถานะ</button>
-                        </router-link>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
-
 <script setup>
-import navbar_owner from '../../../components/navbar_owner.vue';
+import { ref, onMounted } from 'vue'
+import { useRoute, RouterLink } from 'vue-router'
+
+import { useOwnerOrderStore } from '@/storage/owner/order'
+import navbar_owner from '@/components/navbar_owner.vue'
+
+const route = useRoute()
+const ownerOrderStore = useOwnerOrderStore()
+
+const orderIndex = ref(-1)
+const orderData = ref({
+    products: []
+})
+
+onMounted(() => {
+    if (route.params.id) {
+        orderIndex.value = parseInt(route.params.id)
+        const selectedOrder = ownerOrderStore.getOrder(orderIndex.value)
+        orderData.value = selectedOrder
+    }
+})
 </script>
 
-<style lang="scss" scoped></style>
+<template>
+    <navbar_owner>
+        <div class="shadow-xl p-10 mt-4">
+            <div class="text-3xl font-bold">รายละเอียดออเดอร์ที่: {{ orderIndex }}</div>
+            <div class="divider"></div>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <div class="font-bold">Order date</div>
+                    <div>{{ orderData.updatedAt }}</div>
+                </div>
+                <div>
+                    <div class="font-bold">Order number</div>
+                    <div>{{ orderData.no }}</div>
+                </div>
+                <div>
+                    <div class="font-bold">Payment method</div>
+                    <div>{{ orderData.paymentMethod }}</div>
+                </div>
+                <div>
+                    <div class="font-bold">Address</div>
+                    <div>{{ orderData.address }}</div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div v-for="food in orderData.products" class="grid grid-cols-4">
+                <div class="mx-auto">
+                    <img class="p-2 w-40" :src="food.imageUrl">
+                </div>
+                <div>
+                    <div class="font-bold">{{ food.name }}</div>
+                    <div>{{ food.description }}</div>
+                </div>
+                <div>
+                    จำนวน {{ food.quantity }} ชิ้น
+                </div>
+                <div>{{ food.price }} บาท</div>
+            </div>
+            <div class="divider"></div>
+            <div class="flex justify-between">
+                <div class="font-bold">ราคาสินค้าทั้งหมด</div>
+                <div>{{ orderData.totalPrice }}</div>
+            </div>
+            <div class="flex justify-end mt-4">
+                <RouterLink :to="{name :'all_order'}" class="btn btn-ghost">Back</RouterLink>
+            </div>
+        </div>
+    </navbar_owner>
+</template>
+
+
+

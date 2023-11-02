@@ -1,69 +1,100 @@
 <script setup>
 import navbar_owner from '@/components/navbar_owner.vue'
-import { ref } from 'vue'
-import axios from 'axios'
-import router from '../../../router'
+import {  useMenuStore  } from '@/storage/owner/menu'
+import { ref,reactive ,onMounted } from 'vue'
+import { useRouter,useRoute } from 'vue-router'
 
-const add = ref({
-    food_name: '',
-    food_price: '',
-    food_image: null,
-    food_status: '1'
+
+const formData = [
+    {
+        name: "Name",
+        field: 'name'
+    },
+    {
+        name: "Price",
+        field: 'price'
+    },
+    {
+        name: "Image",
+        field: 'image'
+    },
+    {
+        name: "About",
+        field: 'about'
+    }
+]
+
+const ownerMenu = useMenuStore()
+const router = useRouter()
+const route = useRoute()
+
+const menuIndex = ref(-1)
+const mode = ref('เพิ่ม')
+
+const menuData = reactive ({
+    name: '',
+    price: 0,
+    image: '',
+    about: '',
+    status:''
 })
 
-const insert_food = async () => {
-    let form_data = new FormData()
-    form_data.append('food_image', add.value.food_image)
-    form_data.append('food_name', add.value.food_name)
-    form_data.append('food_price', add.value.food_price)
-    form_data.append('food_status', add.value.food_status)
-    console.log(add.value)
-    await axios.post(`${import.meta.env.VITE_API}/food`, form_data, { headers: { "Content-Type": "multipart/form-data" } },)
-        .then((response) => {
-            alert("เพิ่มเมนูอาหารเรียบร้อย")
-            router.push('/all_menu')
-        }).catch((err) => {
-            alert("ใส่ข้อมูลไม่ครบ กรุณาป้อนข้อมูลให้ครบ")
-            add.value = ''
-        })
+const updateMenu = () =>{
+    if (mode.value === 'แก้ไข'){
+        ownerMenu.updateMenu(menuIndex.value, menuData)
+    }else {
+        ownerMenu.addMenu(menuData)
+    }
+    router.push({ name: 'all_menu'})
+}
 
-}
-const choose_image = async (event) => {
-    console.log(event.target.files[0])
-    add.value.food_image = event.target.files[0];
-}
+onMounted(() => {
+    if (route.params.id){
+        menuIndex.value = parseInt(route.params.id)
+        mode.value = 'แก้ไข'
+
+        const selectedMenus = ownerMenu.getMenu(menuIndex.value)
+
+        menuData.name = selectedMenus.name
+        menuData.image = selectedMenus.image
+        menuData.price = selectedMenus.price
+        menuData.about = selectedMenus.about
+        menuData.status = selectedMenus.status
+    }
+})
 </script>
 
 <template>
     <navbar_owner>
-        <div class="shadow-xl p-8">
-            <div class="text-1xl font-bold">เพิ่มเมนูอาหาร</div>
+        <div class="shadow-xl p-8 mt-4">
+            <div class="text-1xl font-bold">{{ mode }}</div>
             <div class="divider"></div>
-            <div class="form-control w-full">
+            <div v-for="form in formData" class="form-control w-full">
                 <label class="label">
-                    <span class="label-text">ชื่อ</span>
+                    <span class="label-text">{{ form.name }}</span>
                 </label>
-                <input type="text" placeholder="ป้อนชื่อเมนู" class="input input-bordered" v-model="add.food_name" />
-            </div>
-            <div class="form-control w-full ">
-                <label class="label">
-                    <span class="label-text">ราคา</span>
-                </label>
-                <input type="text" placeholder="ตั้งราคา" class="input input-bordered" v-model="add.food_price" />
-            </div>
-            <div class="form-control w-full mt-4">
-                <span class="label-text">โปรดใส่รูปภาพอาหาร</span>
-                <div class="input-group">
-                    <input type="file" class="file-input w-full max-w-xs" @change="choose_image" accept="image/*" id="file"
-                        ref="file" />
-                </div>
+                <input 
+                type="text"  
+                class="input input-bordered"
+                v-model="menuData[form.field]"
+                />
             </div>
             <div class="divider"></div>
             <div class="grid grid-cols-2 gap-2">
-                <div class="form-control w-full"></div>
-                <div class="form-control w-full">
-                    <button class="btn btn-sucess" @click="insert_food()">บันทึก</button>
+                <div class="from-control">
+                    <label class="label">
+                        <span class="label-text-1xl">สถานะ</span>
+                    </label>
+                    <select v-model="menuData.status" class="select select-bordered">
+                        <option disabled selected>เลือกสถานะ</option>
+                        <option value="มี">มี</option>
+                        <option value="หมด">หมด</option>
+                    </select>
                 </div>
+            </div>
+            <div class="flex mt-4 justify-end">
+                <RouterLink :to="{ name: 'all_menu'}" class="btn btn-error ">ย้อนกลับ</RouterLink>
+                <button class="btn btn-success ml-4" @click="updateMenu()">{{ mode }}</button>
             </div>
         </div>
     </navbar_owner>

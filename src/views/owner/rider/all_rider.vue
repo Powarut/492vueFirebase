@@ -1,100 +1,90 @@
 <script setup>
-import navbar_owner from '../../../components/navbar_owner.vue';
 import { ref, onMounted } from 'vue'
+import { useOwnerRiderStore } from '@/storage/owner/rider.js'
 import axios from 'axios'
+
+import navbar_owner from '@/components/navbar_owner.vue'
+import Table from '@/components/Table.vue'
+import { RouterLink } from 'vue-router'
+import Trash from '@/components/icons/trash.vue'
+import Edit from '@/components/icons/edit.vue'
+
 const rider = ref({})
+const OwnerRiderStore = useOwnerRiderStore()
 
-const fetch_rider = async () => {
-    await axios.get(`${import.meta.env.VITE_API}/riders`)
-        .then((response) => {
-            console.log(rider)
-            rider.value = response.data.data
-        }).catch((err) => {
-            console.log(err)
-        })
-}
-onMounted(() => fetch_rider())
-// รอทำหน้าข้อมูลรายละเอียดพนักงานส่ง
-const detail_rider = async (rider_id) => {
-    await axios.get(`${import.meta.env.VITE_API}/riders/`, {
-        "rider_id": rider_id
-    })
-        .then((response) => {
-            fetch_rider()
-            console.log(response)
-        }).catch((err) => {
-            console.log(err)
-        })
+const changeStatus = (index) =>{
+    let selectedRider = OwnerRiderStore.list[index]
+    selectedRider.status = selectedRider.status === 'active' ? 'inactive': 'active'
+    OwnerRiderStore.updateRider(selectedRider)
 }
 
-const delete_rider = async (rider_id) => {
-    await axios.delete(`${import.meta.env.VITE_API}/riders/${rider_id}`,)
-        .then((response) => {
-            fetch_rider()
-            console.log(response)
-            alert("ลบเมนูสำเร็จ")
-        }).catch((err) => {
-            console.log(err)
-        })
-}
+
+// const fetch_rider = async () => {
+//     await axios.get(`${import.meta.env.VITE_API}/riders`)
+//         .then((response) => {
+//             console.log(rider)
+//             rider.value = response.data.data
+//         }).catch((err) => {
+//             console.log(err)
+//         })
+// }
+// onMounted(() => fetch_rider())
+// // รอทำหน้าข้อมูลรายละเอียดพนักงานส่ง
+// const detail_rider = async (rider_id) => {
+//     await axios.get(`${import.meta.env.VITE_API}/riders/`, {
+//         "rider_id": rider_id
+//     })
+//         .then((response) => {
+//             fetch_rider()
+//             console.log(response)
+//         }).catch((err) => {
+//             console.log(err)
+//         })
+// }
+
+// const delete_rider = async (rider_id) => {
+//     await axios.delete(`${import.meta.env.VITE_API}/riders/${rider_id}`,)
+//         .then((response) => {
+//             fetch_rider()
+//             console.log(response)
+//             alert("ลบเมนูสำเร็จ")
+//         }).catch((err) => {
+//             console.log(err)
+//         })
+// }
 </script>
 
 <template>
-    <navbar_owner />
-    <div class="flex w-full m-2">
-        <h1 class="grid flex-grow card m-1 rounded-box place-items-center">รายชื่อพนักงานส่งในระบบ</h1>
-    </div>
-    <router-link to="/add_rider">
-        <button class="bg-blue-600 text-base-100 font-bold w-24 h-10 mb-2 rounded-box hover:bg-blue-700">เพิ่ม</button>
-    </router-link>
-    <div class="overflow-x-auto">
-        <table class="table w-full">
-            <!-- head -->
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>ชื่อ</th>
-                    <th>นามสกุล</th>
-                    <th>อีเมล์</th>
-                    <th>เบอร์โทรศัพท์</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- row 1 -->
-                <tr v-for="(rider, index) in rider" v-bind:key="index">
-                    <td>
-                        <div class="flex items-center space-x-3">
-                            <div class="avatar">
-                                <div class="mask mask-squircle w-12 h-12">
-                                    <img :src="'http://localhost:3000/rider_images/' + rider.rider_image"
-                                        alt="Avatar Tailwind CSS Component" />
-                                </div>
-                            </div>
+    <navbar_owner>
+        <div class="flex-1  pt-8 px-6 bg-base-100">
+            <div class="card w-full p-6 mt-2">
+                <div class="text-xl font-semibold inline-block">
+                    รายชื่อพนักงาน
+                    <div class="inline-block float-right">
+                        <div class="inline-block float-right">
+                            <RouterLink :to="{ name: 'add_menu' }" class="btn px-6 btn-sm normal-case btn-primary">
+                                เพิ่ม
+                            </RouterLink>
                         </div>
-                    </td>
-                    <td>{{ rider.rider_name }}</td>
-                    <td>{{ rider.rider_surname }}</td>
-                    <td>{{ rider.rider_email }}</td>
-                    <td>{{ rider.rider_phone }}</td>
-                    <td><button class="btn btn-success btn-sm mx-2" @click="detail_rider">ดูรายละเอียด</button>
-                        <button class="btn btn-error btn-sm" @click="delete_rider(rider.rider_id)">ลบ</button>
-                    </td>
-                </tr>
-            </tbody>
-            <!-- foot -->
-            <tfoot>
-                <tr>
-                    <th></th>
-                    <th>ชื่อ</th>
-                    <th>นามสกุล</th>
-                    <th>อีเมล์</th>
-                    <th>เบอร์โทรศัพท์</th>
-                    <th></th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
+                    </div>
+                </div>
+                <div class="divider mt-2"></div>
+                <Table :headers="['ชื่อ', 'Role', 'status', 'Updated At']">
+                    <tr v-for="(rider, index) in OwnerRiderStore.list">
+                        <td>{{ rider.fullname }}</td>
+                        <td>{{ rider.role }}</td>
+                        <td>{{ rider.status }}</td>
+                        <td>{{ rider.updatedAt }}</td>
+                        <td>
+                            <div class="flex-1 gap-2">
+                                <RouterLink :to="{ name: 'detail_rider', params: { id: index}}" class="btn ">Edit</RouterLink>
+                                <button class="btn btn-ghost" @click="changeStatus(index)">{{ rider.status === 'active' ? 'Disable' : 'Enable' }} </button>
+                            </div>
+                        </td>
+                    </tr>
+                </Table>
+            </div>
+        </div>
+    </navbar_owner>
 </template>
 
-<style lang="scss" scoped></style>

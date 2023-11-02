@@ -12,7 +12,7 @@ import navbar_owner from '@/components/navbar_owner.vue'
                 <label class="label">
                     <span class="label-text-1xl">ชื่อ</span>
                 </label>
-                <input type="text" placeholder="ป้อนชื่อเมนู" class="input input-bordered"  />
+                <input type="text" placeholder="ป้อนชื่อเมนู" class="input input-bordered"/>
             </div>
             <div class="form-control w-full ">
                 <label class="label">
@@ -38,7 +38,7 @@ import navbar_owner from '@/components/navbar_owner.vue'
                     </select>
                 </div>
                 <div class="form-control w-full">
-                    <button class="btn btn-success" @click="insert_food()">บันทึก</button>
+                    <button class="btn btn-success" >บันทึก</button>
                 </div>
             </div>
         </div>
