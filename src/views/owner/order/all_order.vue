@@ -3,7 +3,7 @@ import { useOwnerOrderStore } from '@/storage/owner/order'
 import { RouterLink } from 'vue-router'
 import navbar_owner from '@/components/navbar_owner.vue'
 
-import Table from '@/components/table.vue'
+import Table from '../../../components/Table'
 
 const ownerOrderStore  = useOwnerOrderStore()
 </script>
