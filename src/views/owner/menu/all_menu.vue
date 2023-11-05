@@ -5,19 +5,19 @@ import Edit from '@/components/icons/edit.vue'
 import Table from '@/components/Table.vue'
 
 import { RouterLink } from 'vue-router'
-import { useMenuStore } from '@/storage/owner/menu'
+import { useFoodStore } from '@/storage/owner/menu'
 import { onMounted } from 'vue'
 
-const ownerMenu = useMenuStore()
+const foodStore = useFoodStore()
 onMounted(() => {
-    ownerMenu.loadMenu()
+    foodStore.loadMenu()
 })
 
 const removeMenu = (index) => {
-    ownerMenu.removeMenu(index)
+    foodStore.removeMenu(index)
     eventStore.popupMessage('success', 'ลบเมนูออกเรียบร้อยแล้ว!')
 }
-/* ถึงส่วน UserList */
+
 </script>
 
 <template>
@@ -36,7 +36,7 @@ const removeMenu = (index) => {
                 </div>
                 <div class="divider mt-2"></div>
                 <Table :headers="['name', 'image', 'price', 'status', 'updatedAt', '']">
-                    <tr v-for="(food, index) in ownerMenu.list">
+                    <tr v-for="(food, index) in foodStore.list">
                         <td>
                             <div class="font-bold">{{ food.name }}</div>
                         </td>
@@ -52,7 +52,7 @@ const removeMenu = (index) => {
                         </td>
                         <td>{{ food.updatedAt }}</td>
                         <td>
-                            <RouterLink :to="{ name: 'edit_menu', params: { id: index } }" class="btn btn-ghost">
+                            <RouterLink :to="{ name: 'add_menu', params: { id: index } }" class="btn btn-ghost">
                                 <Edit></Edit>
                             </RouterLink>
                             <button @click="removeMenu(index)" class="btn btn-ghost">

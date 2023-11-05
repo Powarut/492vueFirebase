@@ -1,15 +1,23 @@
 import { defineStore } from 'pinia'
 
-export const useMenuStore = defineStore('owner-menus',{
+export const useFoodStore = defineStore('menu',{
     state: () =>({
-        list: [],
+        list: [
+            {
+                name: 'test',
+                image: 'https://fastly.picsum.photos/id/976/200/200.jpg?hmac=xz9CTpScnLHQm_wNTcJmz8bQM6-ApTQnof5-4LGtu-s',
+                price: 55,
+                about: 'new Menu',
+                updatedAt: (new Date).toISOString()
+            }
+        ],
         loaded: false
     }),
     actions:{
         loadMenu () {
-            const menu = localStorage.getItem('owner-menus')
-            if (menu) {
-                this.list = JSON.parse(menu)
+            const menuList = localStorage.getItem('food-data')
+            if (menuList) {
+                this.list = JSON.parse(menuList)
                 this.loaded = true
             }
         },
@@ -20,21 +28,21 @@ export const useMenuStore = defineStore('owner-menus',{
             return this.list[index]
         },
         addMenu (menuData){
-            menuData.updatedAt = (newDate()).toISOString()
+            menuData.updatedAt = (new Date()).toISOString()
             this.list.push(menuData)
-            localStorage.setItem('owner-menus', JSON.stringify(this.list))
+            localStorage.setItem('food-data', JSON.stringify(this.list))
         },
         updateMenu (index, menuData){
             this.list[index].name = menuData.name
             this.list[index].image = menuData.image
             this.list[index].price = menuData.price
             this.list[index].status = menuData.status
-            this.list[index].updatedAt = (newDate()).toISOString()
-            localStorage.setItem('owner-menus', JSON.stringify(this.list))
+            this.list[index].updatedAt = (new Date()).toISOString()
+            localStorage.setItem('food-data', JSON.stringify(this.list))
         },
         removeMenu (index){
             this.list.splice(index, 1)
-            localStorage.setItem('owner-menus', JSON.stringify(this.list))
+            localStorage.setItem('food-data', JSON.stringify(this.list))
         } 
     }         
 })

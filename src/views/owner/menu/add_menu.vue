@@ -1,6 +1,6 @@
 <script setup>
 import navbar_owner from '@/components/navbar_owner.vue'
-import {  useMenuStore  } from '@/storage/owner/menu'
+import {  useFoodStore  } from '@/storage/owner/menu'
 import { ref,reactive ,onMounted } from 'vue'
 import { useRouter,useRoute } from 'vue-router'
 
@@ -18,13 +18,9 @@ const formData = [
         name: "Image",
         field: 'image'
     },
-    {
-        name: "About",
-        field: 'about'
-    }
 ]
 
-const ownerMenu = useMenuStore()
+const foodStore = useFoodStore()
 const router = useRouter()
 const route = useRoute()
 
@@ -35,15 +31,14 @@ const menuData = reactive ({
     name: '',
     price: 0,
     image: '',
-    about: '',
     status:''
 })
 
 const updateMenu = () =>{
     if (mode.value === 'แก้ไข'){
-        ownerMenu.updateMenu(menuIndex.value, menuData)
+        foodStore.updateMenu(menuIndex.value, menuData)
     }else {
-        ownerMenu.addMenu(menuData)
+        foodStore.addMenu(menuData)
     }
     router.push({ name: 'all_menu'})
 }
@@ -53,12 +48,11 @@ onMounted(() => {
         menuIndex.value = parseInt(route.params.id)
         mode.value = 'แก้ไข'
 
-        const selectedMenus = ownerMenu.getMenu(menuIndex.value)
+        const selectedMenus = foodStore.getMenu(menuIndex.value)
 
         menuData.name = selectedMenus.name
         menuData.image = selectedMenus.image
         menuData.price = selectedMenus.price
-        menuData.about = selectedMenus.about
         menuData.status = selectedMenus.status
     }
 })
