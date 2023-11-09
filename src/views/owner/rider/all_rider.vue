@@ -6,8 +6,7 @@ import axios from 'axios'
 import navbar_owner from '@/components/navbar_owner.vue'
 import Table from '@/components/Table.vue'
 import { RouterLink } from 'vue-router'
-import Trash from '@/components/icons/trash.vue'
-import Edit from '@/components/icons/edit.vue'
+
 
 const rider = ref({})
 const OwnerRiderStore = useOwnerRiderStore()
@@ -69,7 +68,7 @@ const changeStatus = (index) =>{
                     </div>
                 </div>
                 <div class="divider mt-2"></div>
-                <Table :headers="['ชื่อ', 'Role', 'status', 'Updated At']">
+                <Table :headers="['ชื่อ', 'ตำแหน่ง', 'สถานะ', 'ปรับปรุงล่าสุด']">
                     <tr v-for="(rider, index) in OwnerRiderStore.list">
                         <td>{{ rider.fullname }}</td>
                         <td>{{ rider.role }}</td>
@@ -77,8 +76,7 @@ const changeStatus = (index) =>{
                         <td>{{ rider.updatedAt }}</td>
                         <td>
                             <div class="flex-1 gap-2">
-                                <RouterLink :to="{ name: 'detail_rider', params: { id: index}}" class="btn ">Edit</RouterLink>
-                                <button class="btn btn-ghost" @click="changeStatus(index)">{{ rider.status === 'active' ? 'Disable' : 'Enable' }} </button>
+                                <RouterLink :to="{ name: 'detail_rider', params: { id: index}}" class="btn btn-primary ">รายละเอียด</RouterLink>
                             </div>
                         </td>
                     </tr>

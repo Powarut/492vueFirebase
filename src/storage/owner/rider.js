@@ -4,9 +4,9 @@ export const useOwnerRiderStore = defineStore('owner-rider',{
     state: () => ({
         list: [
             {
-                fullname: 'Mr.test',
-                role: 'rider',
-                status: 'active',
+                fullname: 'นาย สมชาติ คำลือ',
+                role: 'พนักงานส่ง',
+                status: 'ออนไลน์',
                 updatedAt:(new Date).toISOString()
             }
         ]

@@ -13,6 +13,13 @@ onMounted(() => {
     foodStore.loadMenu()
 })
 
+const changeStatus = (index) =>{
+    let selectedMenu = foodStore.list[index]
+    selectedMenu.status = selectedMenu.status === 'มี'? 'หมด' : 'มี'
+    foodStore.updatedMenu(selectedMenu) 
+}
+
+
 const removeMenu = (index) => {
     foodStore.removeMenu(index)
     eventStore.popupMessage('success', 'ลบเมนูออกเรียบร้อยแล้ว!')
@@ -35,7 +42,7 @@ const removeMenu = (index) => {
                     </div>
                 </div>
                 <div class="divider mt-2"></div>
-                <Table :headers="['name', 'image', 'price', 'status', 'updatedAt', '']">
+                <Table :headers="['ชื่อ', 'รูปภ่าพ', 'ราคา', 'สถานะ', 'ปรับปรุงล่าสุด', '']">
                     <tr v-for="(food, index) in foodStore.list">
                         <td>
                             <div class="font-bold">{{ food.name }}</div>
@@ -47,14 +54,14 @@ const removeMenu = (index) => {
                         </td>
                         <td>{{ food.price }}</td>
                         <td>
-                            <div class="badge" :class="food.status === 'มี' ? 'badge-success' : 'badge-error'">
+                            <div class="badge" :class="food.status === 'มี' ? 'หมด' : 'badge-error'">
                                 {{ food.status }}</div>
                         </td>
                         <td>{{ food.updatedAt }}</td>
                         <td>
-                            <RouterLink :to="{ name: 'add_menu', params: { id: index } }" class="btn btn-ghost">
-                                <Edit></Edit>
-                            </RouterLink>
+                            <button @click="changeStatus(index)" class="btn btn-ghost">
+                            {{ food.status === 'มี' ? 'เปลี่ยน' : 'ยกเลิก'  }}
+                            </button>
                             <button @click="removeMenu(index)" class="btn btn-ghost">
                                 <Trash></Trash>
                             </button>

@@ -1,7 +1,6 @@
 <script setup>
 import navbar_member from "../components/navbar_member.vue";
 import { ref, onMounted, computed } from 'vue'
-import axios from 'axios'
 import Close from '../components/icons/close.vue'
 import { useCartStore } from '../storage/cart'
 import {RouterLink} from 'vue-router'
@@ -29,16 +28,16 @@ const sessMem = sessionStorage.getItem("meme_id")
 //     await fetchMenuFromCart(getData.mem_id, 0)
 // }
 
-const fetch_menu = async () => {
-    await axios.get(`${import.meta.env.VITE_API}/food`)
-        .then((response) => {
-            console.log(menu)
-            menu.value = response.data.data
-        }).catch((err) => {
-            console.log(err)
-        })
-    return { list_menu, load_menu }
-}
+// const fetch_menu = async () => {
+//     await axios.get(`${import.meta.env.VITE_API}/food`)
+//         .then((response) => {
+//             console.log(menu)
+//             menu.value = response.data.data
+//         }).catch((err) => {
+//             console.log(err)
+//         })
+//     return { list_menu, load_menu }
+// }
 
 // const fetchMenuFromCart = async (mem_id, status) => {
 //     await axios.get(`${import.meta.env.VITE_API}/menuInCart`, { mem_id, status })
@@ -51,7 +50,7 @@ const fetch_menu = async () => {
 //     return { list_menu_in_cart, load_menu_in_cart }
 // }
 
-onMounted(() => fetch_menu())
+// onMounted(() => fetch_menu())
 
 </script>
 

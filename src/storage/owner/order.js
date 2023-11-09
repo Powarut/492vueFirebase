@@ -4,29 +4,20 @@ export const useOwnerOrderStore = defineStore('owner-order', {
   state: () => ({
     list: [
       {
-        no: 'A112234',
-        customerName: 'นายทดสอบ นะ',
-        totalPrice: '25,000',
-        status: 'Payment Completed',
-        address: '111/892 Nonthaburi Thailand 99999',
-        paymentMethod: 'Credit card',
-        updatedAt: '9/15/2023, 11:50:24 PM',
+        no: '01',
+        customerName: 'mark',
+        totalPrice: '55',
+        status: 'รอรับ',
+        address: '39/3 เขตบางกะปิ แขวงหัวหมาก ซ.รามคำแหง30',
+        paymentMethod: 'เก็บเงินปลายทาง',
+        updatedAt: '11/7/2023, 4:30:37 PM',
         products: [
           {
-            name: 'ทดสอบ',
-            description: 'รายละเอียดสินค้า 1',
-            imageUrl:
-              'https://fastly.picsum.photos/id/928/200/200.jpg?hmac=5MQxbf-ANcu87ZaOn5sOEObpZ9PpJfrOImdC7yOkBlg',
+            name: 'กระเพราะหมูกรอบ',
+            description: 'ไม่ใส่พริก',
+            imageUrl:'../../assets/food2.jpg',
             quantity: 1,
-            price: '13,000'
-          },
-          {
-            name: 'ทดสอบ 2',
-            description: 'รายละเอียดสินค้า 2',
-            imageUrl:
-              'https://fastly.picsum.photos/id/59/200/200.jpg?hmac=q9DbuoFh1L_NWnGk3AGdzuEOlg5bBW4JmBSgWmQdT74',
-            quantity: 1,
-            price: '12,000'
+            price: '55'
           }]
       }]
   }),

@@ -1,10 +1,6 @@
-<script setup>
-import navbar_memberVue from "@/components/navbar_member.vue";
-</script>
-
 <template>
-    <navbar_memberVue>
-        <div class="flex w-full m-2">
+    <navbar_memberVue />
+    <div class="flex w-full m-2">
         <h1 class="grid flex-grow card m-1 rounded-box place-items-center">ออเดอร์ของคุณทั้งหมด</h1>
     </div>
     <div class="overflow-x-auto">
@@ -79,10 +75,16 @@ import navbar_memberVue from "@/components/navbar_member.vue";
                         </router-link>
                     </td>
                 </tr>
+                
             </tbody>
         </table>
     </div>
-    </navbar_memberVue>
 </template>
 
+<script setup>
+import navbar_memberVue from "../components/navbar_member.vue";
+</script>
 
+<style lang="scss" scoped>
+
+</style>

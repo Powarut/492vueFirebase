@@ -49,7 +49,6 @@ export const useCartStore = defineStore('cart',{
                 totalPrice: this.summaryPrice,
                 paymentMethod: 'เก็บเงินปลายทาง',
                 creatrdDate: (new Date()).toLocaleString(),
-                orderNumber: `MM${Math.floor((Math.random() *9000)+10000)}`,
                 products: this.items
             }
             localStorage.setItem('order-data',JSON.stringify(orderData))

@@ -6,21 +6,21 @@ import { useOwnerRiderStore } from '@/storage/owner/rider.js'
 
 const formData = [
     {
-        name: 'Name',
+        name: 'ชื่อ',
         field: 'fullname',
         type: 'text'
     },
     {
-        name: 'Role',
+        name: 'ตำแหน่ง',
         field: 'role',
         type: 'select',
-        dropdownList: ['rider', 'chef','cashchers']
+        dropdownList: ['พนักงานส่ง', 'พ่อครัว','เคาเตอร์']
     },
     {
-        name: 'Status',
+        name: 'สถานะ',
         field: 'status',
         type: 'select',
-        dropdownList: ['active', 'inactive']
+        dropdownList: ['เข้างาน', 'เลิกงาน']
     },
 ]
 

@@ -46,7 +46,7 @@
         </button>
       </div>
       <router-link to="/login">
-        <button class="btn btn-outline btn-error">ลงชื่อออก</button>
+        <button class="btn btn-error">ลงชื่อออก</button>
       </router-link>
     </div>
     <slot></slot>

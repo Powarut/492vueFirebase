@@ -5,9 +5,9 @@
         <RouterLink :to="{name:'home_mem'}" class="btn btn-ghost normal-case text-xl">ร้านป้าจอย</RouterLink>
       </div>
       <div class="flex-none gap-2">
-        <div class="form-control">
+        <!-- <div class="form-control">
           <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
-        </div>
+        </div> -->
         <div class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost btn-circle">
             <div class="indicator">
@@ -48,7 +48,7 @@
               <RouterLink :to="{ name: 'your_order' }">ออเดอร์ที่สั่ง</RouterLink>
             </li>
             <li>
-              <RouterLink @click="logout" :to="{ name: '' }">ลงชื่อออก</RouterLink>
+              <RouterLink :to="{ name: 'login' }">ลงชื่อออก</RouterLink>
             </li>
           </ul>
         </div>

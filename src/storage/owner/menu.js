@@ -2,15 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useFoodStore = defineStore('menu',{
     state: () =>({
-        list: [
-            {
-                name: 'test',
-                image: 'https://fastly.picsum.photos/id/976/200/200.jpg?hmac=xz9CTpScnLHQm_wNTcJmz8bQM6-ApTQnof5-4LGtu-s',
-                price: 55,
-                about: 'new Menu',
-                updatedAt: (new Date).toISOString()
-            }
-        ],
+        list: [],
         loaded: false
     }),
     actions:{

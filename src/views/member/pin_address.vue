@@ -7,7 +7,7 @@
                     <label class="label">
                         <span class="labeal-text">{{ form.name }}</span>
                     </label>
-                    <input v-model="userFormData[form.field]" type="text" placeholder="    กรอกข้อมูลในนี้">
+                    <input v-model="userFormData[form.field]" type="text" placeholder="กรอกข้อมูลในนี้">
                 </div>
                 <button @click="payment()" class="btn btn-neutral w-full mt-4">ยืนยัน</button>
             </section>
@@ -22,7 +22,7 @@
                                 <div>{{ item.food_name }}</div>
                                 <div>จำนวน: {{ item.quantity }}</div>
                             </div>
-                            <RouterLink :to="{ name: 'menu' }">แก้ไข</RouterLink>
+                            <RouterLink :to="{ name: 'menu' }" class="btn btn-active btn-link">แก้ไข</RouterLink>
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@ const FormData = [
         field: 'address'
     },
     {
-        name: 'ระบุ',
+        name: 'ระบุเพิ่มเติม',
         field: 'note'
     },
 ]

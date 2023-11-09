@@ -1,4 +1,22 @@
-6<template>
+<script setup>
+import { useRouter } from 'vue-router'
+
+import NavbarMember from "@/components/navbar_member.vue";
+import Product from "/src/components/Product.vue"
+import { useProductStore } from "@/storage/member/product";
+import { useCartStore } from "@/storage/cart";
+
+const router = useRouter()
+const productStore = useProductStore()
+const cartStore = useCartStore()
+
+const addToCart = (product) => {
+  cartStore.addtoCart(product)
+  router.push({ name: 'menu' })
+}
+</script>
+
+<template>
   <NavbarMember>
     <div class="hero min-h-screen bg-base-200">
       <div class="hero-content text-center">
@@ -14,22 +32,4 @@
   </NavbarMember>
 </template>
 
-<script setup>
-import { useRouter } from 'vue-router'
 
-import NavbarMember from "../../components/navbar_member.vue";
-import Product from "/src/components/Product.vue"
-import { useProductStore } from "../../storage/member/product";
-import { useCartStore } from "../../storage/cart";
-
-const router = useRouter()
-const productStore = useProductStore()
-const cartStore = useCartStore()
-
-const addToCart = (product) => {
-  cartStore.addtoCart(product)
-  router.push({ name: 'menu' })
-}
-</script>
-
-<style lang="scss" scoped></style>

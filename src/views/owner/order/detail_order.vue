@@ -29,19 +29,19 @@ onMounted(() => {
             <div class="divider"></div>
             <div class="grid grid-cols-2 gap-2">
                 <div>
-                    <div class="font-bold">Order date</div>
+                    <div class="font-bold">วันและเวลาที่สั่ง</div>
                     <div>{{ orderData.updatedAt }}</div>
                 </div>
                 <div>
-                    <div class="font-bold">Order number</div>
+                    <div class="font-bold">หมายเลขออเดอร์</div>
                     <div>{{ orderData.no }}</div>
                 </div>
                 <div>
-                    <div class="font-bold">Payment method</div>
+                    <div class="font-bold">ประเภทการชำระเงิน</div>
                     <div>{{ orderData.paymentMethod }}</div>
                 </div>
                 <div>
-                    <div class="font-bold">Address</div>
+                    <div class="font-bold">ที่อยู่</div>
                     <div>{{ orderData.address }}</div>
                 </div>
             </div>
@@ -64,8 +64,24 @@ onMounted(() => {
                 <div class="font-bold">ราคาสินค้าทั้งหมด</div>
                 <div>{{ orderData.totalPrice }}</div>
             </div>
+            <div class="divider"></div>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <div class="font-bold">สถานะ</div>
+                    <div>{{ orderData.status }}</div>
+                </div>
+                <div class="form-control">
+                    <select class="select select-accent w-full justify-end">
+                        <option disabled selected>เลือกสถานะที่จะเปลี่ยน</option>
+                        <option class="text-base-700">ปรุงอาหาร</option>
+                        <option class="text-base-700">จัดส่ง</option>
+                        <option class="text-base-700">ยกเลิก</option>
+                    </select>
+                </div>
+            </div>
             <div class="flex justify-end mt-4">
-                <RouterLink :to="{name :'all_order'}" class="btn btn-ghost">Back</RouterLink>
+                <RouterLink :to="{ name: 'all_order' }" class="btn btn-ghost">Back</RouterLink>
+                <button class="btn btn-secondary" @click="updateOrder()">บันทึก</button>
             </div>
         </div>
     </navbar_owner>

@@ -35,7 +35,7 @@
                                 <router-link to="/all_order">
                                     <button class="bg-success text-base-100 btn m-1">ยืนยัน</button>
                                 </router-link>
-                                <router-link to="/detail_order">
+                                <router-link to="/order_update">
                                     <button class="bg-error text-base-100 btn m-1">ยกเลิก</button>
                                 </router-link>
                             </div>
@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import navbar_owner from '../../../components/navbar_owner.vue';
+import navbar_owner from '../components/navbar_owner.vue';
 </script>
 
 <style lang="scss" scoped></style>
