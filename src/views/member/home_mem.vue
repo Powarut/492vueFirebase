@@ -21,7 +21,7 @@ const addToCart = () => {
     <div class="hero min-h-screen bg-base-200">
       <div class="hero-content text-center">
         <div class="max-w-md">
-          <h1 class="text-5xl font-bold">ยินดีต้อนรับ!</h1>
+          <h1 class="text-5xl font-bold">ยินดีต้อนรับfsdfsdf</h1>
           <p class="py-6">เข้าสู่โปรมแกรมช่วยบริหารการจัดส่งอาหารสำหรับร้านอาหาร
           </p>
         </div>
