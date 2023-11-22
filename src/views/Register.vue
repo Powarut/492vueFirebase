@@ -76,12 +76,10 @@ export default {
     },
 
     async check() {
-      console.log(87)
       if (this.password == this.confirm_password) {
         await this.insert_member()
         await router.push('/login')
       } else {
-        console.log(93)
         alert("อีเมล์หรือรหัสผ่านไม่ถูกต้องครับ")
         this.email = ""
         this.password = ""

@@ -1,8 +1,8 @@
 <script setup>
-import navbar_member from "../components/navbar_member.vue";
+import navbar_member from "@/components/navbar_member.vue";
 import { ref, onMounted, computed } from 'vue'
-import Close from '../components/icons/close.vue'
-import { useCartStore } from '../storage/cart'
+import Close from '@/components/icons/close.vue'
+import { useCartStore } from '@/storage/cart'
 import {RouterLink} from 'vue-router'
 
 const menu = ref({})
@@ -17,40 +17,7 @@ const load_menu = computed(() => menu.value.length > 0)
 
 const sessMem = sessionStorage.getItem("meme_id")
 
-// const addCart = async (menuData) => {
-//     await axios.post(`${import.meta.env.VITE_API}/addMenutoCart`)
-//     let getData = {}
-//         .then((response) => {
-//             getData = response.data.data
-//         }).catch((err) => {
-//             console.log(err)
-//         })
-//     await fetchMenuFromCart(getData.mem_id, 0)
-// }
 
-// const fetch_menu = async () => {
-//     await axios.get(`${import.meta.env.VITE_API}/food`)
-//         .then((response) => {
-//             console.log(menu)
-//             menu.value = response.data.data
-//         }).catch((err) => {
-//             console.log(err)
-//         })
-//     return { list_menu, load_menu }
-// }
-
-// const fetchMenuFromCart = async (mem_id, status) => {
-//     await axios.get(`${import.meta.env.VITE_API}/menuInCart`, { mem_id, status })
-//         .then((response) => {
-//             menuInCart.value = response.data.data
-//         }).catch((error) => {
-//             console.error(error)
-//         })
-
-//     return { list_menu_in_cart, load_menu_in_cart }
-// }
-
-// onMounted(() => fetch_menu())
 
 </script>
 
@@ -60,7 +27,7 @@ const sessMem = sessionStorage.getItem("meme_id")
         <div class="flex">
             <div class="flex-auto w-64 bg-base-200 p-4">
                 <div v-if="cartStore.items.length === 0">ยังไม่มีสินค้าในตะกร้า</div>
-                <div v-else v-for="(item, index) in cartStore.items" class="flex">
+                <div v-else v-for="(item, index) in cartStore.items" v-bind:key="index" class="flex">
                     <div class="flex-1">
                         <img class="w-full p-10" :src="item.food_image">
                     </div>
@@ -74,7 +41,7 @@ const sessMem = sessionStorage.getItem("meme_id")
                                 <div>
                                     <select v-model="item.quantity" class="w-1/2 p-2"
                                         @change="ChangeQuantity($event, index)">
-                                        <option v-for="quantity in [1, 2, 3, 4, 5]">
+                                        <option v-for="quantity in [1, 2, 3, 4, 5]" v-bind:key="quantity">
                                             {{ quantity }}
                                         </option>
                                     </select>
@@ -164,16 +131,3 @@ const sessMem = sessionStorage.getItem("meme_id")
         </div> -->
     </navbar_member>
 </template>
-
-
-<style scoped>
-img {
-    width: 250px;
-    height: 200px;
-    margin: 0 2.5rem;
-}
-
-th {
-    text-align: center;
-}
-</style>

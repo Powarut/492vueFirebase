@@ -1,18 +1,18 @@
 <script setup>
 import { useRouter } from 'vue-router'
 
-import NavbarMember from "@/components/navbar_member.vue";
+import NavbarMember from "@/components/navbar_member.vue"
 import Product from "/src/components/Product.vue"
-import { useProductStore } from "@/storage/member/product";
-import { useCartStore } from "@/storage/cart";
+import { useProductStore } from '@/storage/member/product'
+import { useCartStore } from "@/storage/cart"
 
-const router = useRouter()
 const productStore = useProductStore()
+const router = useRouter()
 const cartStore = useCartStore()
 
-const addToCart = (product) => {
-  cartStore.addtoCart(product)
-  router.push({ name: 'menu' })
+const addToCart = () => {
+  cartStore.addCart()
+  router.push({ name: 'cart' })
 }
 </script>
 

@@ -6,18 +6,31 @@ import Table from '@/components/Table.vue'
 
 import { RouterLink } from 'vue-router'
 import { useFoodStore } from '@/storage/owner/menu'
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
 
 const foodStore = useFoodStore()
-onMounted(() => {
-    foodStore.loadMenu()
-})
+onMounted(() => foodStore.getMenu())
 
-const changeStatus = (index) =>{
-    let selectedMenu = foodStore.list[index]
-    selectedMenu.status = selectedMenu.status === 'มี'? 'หมด' : 'มี'
-    foodStore.updatedMenu(selectedMenu) 
-}
+const list = computed(() => foodStore.listMenu)
+
+// const changeStatus = (food_id) =>{
+//     let selectedMenu = foodStore.list[food_id]
+//     selectedMenu.status = selectedMenu.status === 'มี'? 'หมด' : 'มี'
+//     foodStore.updatedMenu(selectedMenu) 
+// }
+
+// const changeStatus = async (food_id, food_status) => {
+//     await axios.put(`${import.meta.env.VITE_API}/food/food_id/`, {
+//         "food_id": food_id,
+//         "status": food_status
+//     })
+//         .then((response) => {
+//             foodStore.list()
+//             console.log(response)
+//         }).catch((err) => {
+//             console.log(err)
+//         })
+// }
 
 
 const removeMenu = (index) => {
@@ -29,13 +42,16 @@ const removeMenu = (index) => {
 
 <template>
     <navbar_owner>
-        <div class="flex-1 pt-8 px-6 bg-base-100">
+        <div class="d-flex justify-center" v-if="!foodStore.loadMenu">
+            <h1>กำลังโหลดเมนูอาหาร...</h1>
+        </div>
+        <div class="flex-1 pt-8 px-6 bg-base-100" v-else>
             <div class="card w-full p-6 mt-2">
                 <div class="text-xl font-semibold inline-block">
                     เมนูอาหาร
                     <div class="inline-block float-right">
                         <div class="inline-block float-right">
-                            <RouterLink :to="{ name: 'add_menu'}" class="btn px-6 btn-sm normal-case btn-primary">
+                            <RouterLink :to="{ name: 'add_menu' }" class="btn px-6 btn-sm normal-case btn-primary">
                                 เพิ่ม
                             </RouterLink>
                         </div>
@@ -43,24 +59,27 @@ const removeMenu = (index) => {
                 </div>
                 <div class="divider mt-2"></div>
                 <Table :headers="['ชื่อ', 'รูปภ่าพ', 'ราคา', 'สถานะ', 'ปรับปรุงล่าสุด', '']">
-                    <tr v-for="(food, index) in foodStore.list">
+                    <tr v-for="food in list">
                         <td>
-                            <div class="font-bold">{{ food.name }}</div>
+                            <div class="font-bold">{{ food.food_name }}</div>
                         </td>
                         <td>
                             <div class="mask mask-squircle w-12 h-12">
-                                <img :src="food.image" />
+                                <img :src="'http://localhost:3000/food_images/' + food.food_image" />
                             </div>
                         </td>
-                        <td>{{ food.price }}</td>
+                        <td>{{ food.food_price }}</td>
                         <td>
-                            <div class="badge" :class="food.status === 'มี' ? 'หมด' : 'badge-error'">
-                                {{ food.status }}</div>
+                            <div class="badge badge-success" :class="food.food_status === 'มี' ? 'หมด' : 'badge-error'">
+                                {{ food.food_status }}</div>
                         </td>
-                        <td>{{ food.updatedAt }}</td>
+                        <td></td>
                         <td>
-                            <button @click="changeStatus(index)" class="btn btn-ghost">
-                            {{ food.status === 'มี' ? 'เปลี่ยน' : 'ยกเลิก'  }}
+                            <button @click="changeStatus()" class="btn btn-ghost m-1">
+                                {{ food.food_status === 'มี' ? 'เปลี่ยน' : 'ยกเลิก' }}
+                            </button>
+                            <button class="btn btn-ghost ">
+                                <Edit></Edit>
                             </button>
                             <button @click="removeMenu(index)" class="btn btn-ghost">
                                 <Trash></Trash>

@@ -1,14 +1,14 @@
 <script setup>
-import { onMounted } from 'vue';
 import { RouterView } from 'vue-router';
-import { useCartStore } from './storage/cart';
+// import { onMounted } from 'vue';
+// import { useCartStore } from './storage/cart';
 
 
-const cartStore = useCartStore()
+// const cartStore = useCartStore()
 
-onMounted(() =>{
-  cartStore.loadCart()
-})
+// onMounted(() =>{
+//   cartStore.loadCart()
+// })
 </script>t
 
 <template>

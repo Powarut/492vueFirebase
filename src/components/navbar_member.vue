@@ -24,7 +24,7 @@
               <span class="font-bold text-lg">{{ cartStore.summaryQuantity }} Items</span>
               <span class="text-info">Subtotal: {{ cartStore.summaryPrice }} บาท</span>
               <div class="card-actions">
-                <RouterLink :to="{ name: 'menu' }" class="btn btn-primary btn-block">ดูตะกร้า</RouterLink>
+                <RouterLink :to="{ name: 'cart' }" class="btn btn-primary btn-block">ดูตะกร้า</RouterLink>
               </div>
             </div>
           </div>

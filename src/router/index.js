@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import Register from '../views/Register.vue'
-import menu from '../views/Menu.vue'
 import Login from '/src/views/Login.vue'
 /*  เจ้าของร้าน   */
 import ownerLogin from '../views/owner/owner_login.vue'
@@ -17,6 +16,7 @@ import detail_order from '../views/owner/order/detail_order.vue'
 import order_update from '../views/owner/order/order_update.vue'
 import total_sales from '../views/owner/total_sales.vue'
 /*  ลูกค้า  */
+import cart from '../views/member/cart.vue'
 import home_mem from '../views/member/home_mem.vue'
 import pin_address from '../views/member/pin_address.vue'
 import check_out from '../views/member/check_out.vue'
@@ -48,11 +48,7 @@ const router = createRouter({
       name: 'register',
       component: Register
     },
-    {
-      path: '/menu',
-      name: 'menu',
-      component: menu
-    },
+    
     /* เจ้าของร้าน */
     {
       path: '/owner/login',
@@ -119,6 +115,11 @@ const router = createRouter({
       path: '/home_mem',
       name: 'home_mem',
       component: home_mem
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: cart
     },
     {
       path: '/pin_address',
