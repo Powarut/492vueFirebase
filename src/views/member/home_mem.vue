@@ -1,18 +1,16 @@
 <script setup>
-import { useRouter } from 'vue-router'
-
 import NavbarMember from "@/components/navbar_member.vue"
 import Product from "/src/components/Product.vue"
 import { useProductStore } from '@/storage/member/product'
-import { useCartStore } from "@/storage/cart"
 
 const productStore = useProductStore()
-const router = useRouter()
-const cartStore = useCartStore()
 
-const addToCart = () => {
-  cartStore.addCart()
-  router.push({ name: 'cart' })
+
+const addToCart = async (mem_id,food_id,food_price) => {
+  await axios.post(`${import.meta.env.VITE_API}/addMenutoCart`, {mem_id, food_id, quantity: 1})
+  .then((response) => {
+    console.log(response)
+  })
 }
 </script>
 
@@ -21,7 +19,7 @@ const addToCart = () => {
     <div class="hero min-h-screen bg-base-200">
       <div class="hero-content text-center">
         <div class="max-w-md">
-          <h1 class="text-5xl font-bold">ยินดีต้อนรับfsdfsdf</h1>
+          <h1 class="text-5xl font-bold">ยินดีต้อนรับ</h1>
           <p class="py-6">เข้าสู่โปรมแกรมช่วยบริหารการจัดส่งอาหารสำหรับร้านอาหาร
           </p>
         </div>

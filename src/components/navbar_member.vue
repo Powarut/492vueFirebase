@@ -1,3 +1,30 @@
+<script setup>
+import { ref,onMounted } from 'vue';
+import { RouterLink } from 'vue-router';
+import { useCartStore } from '@/storage/cart'
+
+const cartStore = useCartStore()
+
+const isLoggedIn = ref(false)
+
+onMounted(() => {
+  if (localStorage.getItem('isLoggedIn')) {
+    isLoggedIn.value = true
+  }
+})
+const login = () =>{
+  isLoggedIn.value = true
+  localStorage.setItem('isLoggedIn', true)
+}
+const logout = () =>{
+  isLoggedIn.value = false
+  localStorage.removeItem('isLoggedIn')
+  localStorage.removeItem('cart-data')
+  localStorage.removeItem('order-data')
+  window.location.reload()
+}
+</script>
+
 <template>
   <div class="container mx-auto">
     <div class="navbar bg-base-100">
@@ -93,29 +120,3 @@
   </div>
 </template>
   
-<script setup>
-import { ref,onMounted } from 'vue';
-import { RouterLink } from 'vue-router';
-import { useCartStore } from '../storage/cart'
-
-const cartStore = useCartStore()
-
-const isLoggedIn = ref(false)
-
-onMounted(() => {
-  if (localStorage.getItem('isLoggedIn')) {
-    isLoggedIn.value = true
-  }
-})
-const login = () =>{
-  isLoggedIn.value = true
-  localStorage.setItem('isLoggedIn', true)
-}
-const logout = () =>{
-  isLoggedIn.value = false
-  localStorage.removeItem('isLoggedIn')
-  localStorage.removeItem('cart-data')
-  localStorage.removeItem('order-data')
-  window.location.reload()
-}
-</script>

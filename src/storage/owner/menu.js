@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
+
 import { ref, computed } from 'vue'
 
 export const useFoodStore = defineStore('menu', () => {
@@ -16,12 +17,34 @@ export const useFoodStore = defineStore('menu', () => {
       .then((response) => {
         menu.value = response.data.data
       })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  const addMenu = async () => {
+    let form_data = new FormData()
+    form_data.append('food_image', menuData.value.image)
+    form_data.append('food_name', menuData.value.name)
+    form_data.append('food_price', menuData.value.price)
+    form_data.append('food_status', menuData.value.status)
+    console.log(menuData.value)
+    await axios
+      .post(`${import.meta.env.VITE_API}/food`, form_data, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+      .then((response) => {
+        alert('เพิ่มเมนูอาหารเรียบร้อย')
+      })
+      .catch((err) => {
+        alert('ใส่ข้อมูลไม่ครบ กรุณาป้อนข้อมูลให้ครบ')
+        menuData.value = ''
+      })
       
   }
-  return { getMenu, listMenu,loadMenu } 
+  return { getMenu, listMenu, loadMenu, addMenu }
 
-
-  //     
+  //
   //     async getMenu (index){
   //         if (!this.loaded){
   //             this.loadMenu()
@@ -45,5 +68,4 @@ export const useFoodStore = defineStore('menu', () => {
   //         this.list.splice(index, 1)
   //         localStorage.setItem('food-data', JSON.stringify(this.list))
   //     }
-
 })

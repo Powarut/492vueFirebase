@@ -13,9 +13,8 @@ export const useAccountStore = defineStore ('account',{
     }),
     actions: {
         async signInEmail (){
-            const url = await `${import.meta.env.VITE_API}/login`
-            try{           }
-        }
+            await axios.get(`${import.meta.env.VITE_API}/login`)
+            
     }
 })
     
