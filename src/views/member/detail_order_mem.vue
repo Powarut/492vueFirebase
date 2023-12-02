@@ -1,3 +1,8 @@
+<script setup>
+import navbar_memberVue from "@/components/navbar_member.vue";
+
+</script>
+
 <template>
     <navbar_memberVue>
         <div class="hero min-h-screen bg-base-200">
@@ -73,7 +78,5 @@
     </navbar_memberVue>
 </template>
 
-<script setup>
-import navbar_memberVue from "../../components/navbar_member.vue";
-</script>
+
 

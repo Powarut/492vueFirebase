@@ -1,5 +1,5 @@
 <script setup>
-import { ref,onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
 import { useCartStore } from '@/storage/cart'
 
@@ -12,11 +12,11 @@ onMounted(() => {
     isLoggedIn.value = true
   }
 })
-const login = () =>{
+const login = () => {
   isLoggedIn.value = true
   localStorage.setItem('isLoggedIn', true)
 }
-const logout = () =>{
+const logout = () => {
   isLoggedIn.value = false
   localStorage.removeItem('isLoggedIn')
   localStorage.removeItem('cart-data')
@@ -29,12 +29,9 @@ const logout = () =>{
   <div class="container mx-auto">
     <div class="navbar bg-base-100">
       <div class="flex-1">
-        <RouterLink :to="{name:'home_mem'}" class="btn btn-ghost normal-case text-xl">ร้านป้าจอย</RouterLink>
+        <RouterLink :to="{ name: 'home_mem' }" class="btn btn-ghost normal-case text-xl">ร้านป้าจอย</RouterLink>
       </div>
       <div class="flex-none gap-2">
-        <!-- <div class="form-control">
-          <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
-        </div> -->
         <div class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost btn-circle">
             <div class="indicator">

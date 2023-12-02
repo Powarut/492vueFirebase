@@ -1,87 +1,32 @@
 <script setup>
 import navbar_memberVue from "@/components/navbar_member.vue";
+import { RouterLink } from 'vue-router'
+import Table from '@/components/Table.vue'
+import { useOwnerOrderStore } from '@/storage/owner/order'
+const ownerOrderStore = useOwnerOrderStore()
+
 </script>
 
 <template>
     <navbar_memberVue>
-        <div class="flex w-full m-2">
-        <h1 class="grid flex-grow card m-1 rounded-box place-items-center">ออเดอร์ของคุณทั้งหมด</h1>
-    </div>
-    <div class="overflow-x-auto">
-        <table class="table table-compact w-full">
-            <thead>
-                <tr>
-                    <th>รหัสออเดอร์</th>
-                    <th>จำนวน</th>
-                    <th>สถานะ</th>
-                    <th>ยอดเงิน</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>1</th>
-                    <td>2</td>
+        <div class="flex-1  pt-8 px-6 bg-base-100">
+            <div class="flex items-center justify-between my-4">
+                <div class="text-3xl font-bold">ออเดอร์ของคุณ</div>
+            </div>
+            <div class="divider"></div>
+            <Table :headers="['เลขออเดอร์', 'ชื่อเมนู', 'สถานะ', 'เวลา ณ ที่สั่ง', '']">
+                <tr v-for="(order, index) in ownerOrderStore.list" :key="index">
+                    <td>{{ order.customerName }}</td>
+                    <td>{{ order.totalPrice }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>{{ order.updatedAt }}</td>
                     <td>
-                        <div class="badge badge-success gap-2">
-                            รอรับ
-                        </div>
-                    </td>
-                    <td>100</td>
-                    <td>
-                        <router-link to="/detail_order_mem">
-                            <button class="btn btn-success btn-sm mx-2">ดูรายละเอียด</button>
-                        </router-link>
+                        <RouterLink :to="{ name: 'detail_order_mem', params: { id: index } }" class="btn btn-primary">รายละเอียด
+                        </RouterLink>
                     </td>
                 </tr>
-                <tr>
-                    <th>3</th>
-                    <td>2</td>
-                    <td>
-                        <div class="badge badge-error gap-2">
-                            ยกเลิก
-                        </div>
-                    </td>
-                    <td>90</td>
-                    <td>
-                        <router-link to="/detail_order_mem">
-                            <button class="btn btn-success btn-sm mx-2">ดูรายละเอียด</button>
-                        </router-link>
-                    </td>
-                </tr>
-                <tr>
-                    <th>4</th>
-                    <td>2</td>
-                    <td>
-                        <div class="badge badge-warning gap-2">
-                            ปรุงอาหาร
-                        </div>
-                    </td>
-                    <td>95</td>
-                    <td>
-                        <router-link to="/detail_order_mem">
-                            <button class="btn btn-success btn-sm mx-2">ดูรายละเอียด</button>
-                        </router-link>
-                    </td>
-                </tr>
-                <tr>
-                    <th>5</th>
-                    <td>1</td>
-                    <td>
-                        <div class="badge badge-info gap-2">
-                            จัดส่ง
-                        </div>
-                    </td>
-                    <td>45</td>
-                    <td>
-                        <router-link to="/detail_order_mem">
-                            <button class="btn btn-success btn-sm mx-2">ดูรายละเอียด</button>
-                        </router-link>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+            </Table>
+        </div>
     </navbar_memberVue>
 </template>
 

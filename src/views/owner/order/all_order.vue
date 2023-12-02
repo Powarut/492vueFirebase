@@ -15,7 +15,7 @@ const ownerOrderStore = useOwnerOrderStore()
             </div>
             <div class="divider"></div>
             <Table :headers="['ชื่อลูกค้า', 'ราคา', 'สถานะ', 'เวลา ณ ที่สั่ง', '']">
-                <tr v-for="(order, index) in ownerOrderStore.list">
+                <tr v-for="(order, index) in ownerOrderStore.list" :key="index">
                     <td>{{ order.customerName }}</td>
                     <td>{{ order.totalPrice }}</td>
                     <td>{{ order.status }}</td>

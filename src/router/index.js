@@ -137,7 +137,7 @@ const router = createRouter({
       component: your_order
     },
     {
-      path: '/detail_order_mem',
+      path: '/detail_order_mem/:id',
       name: 'detail_order_mem',
       component: detail_order_mem
     },
