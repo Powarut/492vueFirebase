@@ -73,13 +73,13 @@ const updateRider = () => {
                     v-model="riderData[form.field]"
                     type="text" 
                     class="input input-bordered w-full">
-                        <option v-for="item in form.dropdownList">
+                        <option v-for="item in form.dropdownList" :key="item">
                         {{ item }}</option>
                     </select>
                 </div>
             </div>
             <div class="flex mt-4 justify-end">
-                <button class="btn btn-ghost">กลับ</button>
+                <RouterLink :to="{ name: 'all_rider' }" class="btn btn-error ">ย้อนกลับ</RouterLink>
                 <button class="btn btn-neutral" @click="updateRider()">แก้ไข</button>
             </div>
         </div>

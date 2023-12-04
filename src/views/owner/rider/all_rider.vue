@@ -68,7 +68,7 @@ const changeStatus = (index) =>{
                     </div>
                 </div>
                 <div class="divider mt-2"></div>
-                <Table :headers="['ชื่อ', 'ตำแหน่ง', 'สถานะ', 'ปรับปรุงล่าสุด']">
+                <Table :headers="['ชื่อ', 'ตำแหน่ง', 'สถานะ', 'ปรับปรุงล่าสุด','']">
                     <tr v-for="(rider, index) in OwnerRiderStore.list">
                         <td>{{ rider.fullname }}</td>
                         <td>{{ rider.role }}</td>

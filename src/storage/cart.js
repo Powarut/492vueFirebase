@@ -2,9 +2,6 @@ import { defineStore } from "pinia";
 import { ref } from 'vue'
 import axios from 'axios'
 
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
-
 export const useCartStore = defineStore('useCartStore',() =>{
     const cart =ref ([])
 
@@ -15,27 +12,6 @@ export const useCartStore = defineStore('useCartStore',() =>{
             quantity
         }    
     }
-    
-
-    const alert_addCart = () => {
-        Swal.fire({
-            position: "top-center",
-            icon: "success",
-            title: "เพิ่มเมนูลงในตะกร้าเรียบร้อย !",
-            showConfirmButton: false,
-            timer: 1500
-          });
-    }
-    const alert_addCart_failed = () => {
-        Swal.fire({
-            position: "top-center",
-            icon: "error",
-            title: "คุณเพิ่มเมนูนี้ ลงในตะกร้าไปแล้ว!",
-            showConfirmButton: false,
-            timer: 1500
-          });
-    }
-
     return {addCart}
 })
 

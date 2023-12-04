@@ -10,14 +10,14 @@ export default {
   },
   methods: {
     login() {
-      console.log(`Email: ${this.email} Password: ${this.password}`);
+      // console.log(`Email: ${this.email} Password: ${this.password}`);
       let uri = `${import.meta.env.VITE_API}/login`;
       this.axios.post(uri,{
         mem_email : this.email,
         mem_password : this.password
       })
       .then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
         if(response.data.status == 'success') {
           this.mem_id = response.data.data[0].mem_id
           sessionStorage.setItem("mem_id", response.data.data[0].mem_id) 

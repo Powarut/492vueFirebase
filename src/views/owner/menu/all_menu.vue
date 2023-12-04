@@ -19,18 +19,18 @@ const list = computed(() => foodStore.listMenu)
 //     foodStore.updatedMenu(selectedMenu) 
 // }
 
-// const changeStatus = async (food_id, food_status) => {
-//     await axios.put(`${import.meta.env.VITE_API}/food/food_id/`, {
-//         "food_id": food_id,
-//         "status": food_status
-//     })
-//         .then((response) => {
-//             foodStore.list()
-//             console.log(response)
-//         }).catch((err) => {
-//             console.log(err)
-//         })
-// }
+const changeStatus = async (food_id, food_status) => {
+    await axios.put(`${import.meta.env.VITE_API}/food/food_id/`, {
+        "food_id": food_id,
+        "status": food_status
+    })
+        .then((response) => {
+            foodStore.list()
+            console.log(response)
+        }).catch((err) => {
+            console.log(err)
+        })
+}
 
 
 const removeMenu = (index) => {
@@ -59,7 +59,7 @@ const removeMenu = (index) => {
                 </div>
                 <div class="divider mt-2"></div>
                 <Table :headers="['ชื่อ', 'รูปภ่าพ', 'ราคา', 'สถานะ', 'ปรับปรุงล่าสุด', '']">
-                    <tr v-for="food in list">
+                    <tr v-for="food in list" :key="food.food_id">
                         <td>
                             <div class="font-bold">{{ food.food_name }}</div>
                         </td>
