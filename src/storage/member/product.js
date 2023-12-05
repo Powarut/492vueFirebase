@@ -6,19 +6,35 @@ import { ref,computed } from 'vue'
  
 export const useProductStore = defineStore('product',() => {
     const product = ref ({})
-
     const listProduct = computed(() => product.value)
-
     const getProduct = async ()=> {
-        await axios .get(`${import.meta.env.VITE_API}/food`)
-        .then ((response) => {
-            product.value = response.data.data
-        })
+        try{
+          const response = await axios.get(`${import.meta.env.VITE_API}/food`)
+        product.value = response.data.data
+        }catch (error){
+          console.log('error',error)
+        }
     }
 
     return {getProduct,listProduct}
 })
 
+export const useMenuStore = defineStore('Menu',{
+  state: () => ({
+    list : []
+  }),
+  actions: {
+    async loadProduct() {
+      try{
+        const response = await axios.get(`${import.meta.env.VITE_API}/food`)
+        this.list = response.data.data
+      } catch (error) {
+        console.log('error',error)
+      }
+    },
+  }
+  
+})
 export const useMenu = defineStore('menu', {
     state: () => ({ // กำหนดข้อมูล state ที่จะเก็บใน store นี้
       list: [],
@@ -50,7 +66,7 @@ export const useMenu = defineStore('menu', {
         try {
           const response = await axios.post(`${BASE_URL}/todos`, bodyData)
           console.log(response.data)
-          // this.list = response.data
+          this.list = response.data
         } catch (error) {
           console.log('error', error)
         }

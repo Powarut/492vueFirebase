@@ -5,10 +5,10 @@ import axios from 'axios'
 export const useCartStore = defineStore('useCartStore',() =>{
     const cart =ref ([])
 
-    const addCart = (mem_id, food_id,price, quantity=1)=> {
+    const addCart = (mem_id,food_id, quantity=1)=> {
         const data = {
             mem_id,
-            price,
+            food_id,
             quantity
         }    
     }
