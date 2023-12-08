@@ -1,16 +1,27 @@
 <script setup>
 import { RouterView } from 'vue-router';
-// import { onMounted } from 'vue';
-// import { useCartStore } from './storage/cart';
+import { onMounted } from 'vue';
+import { useCartStore } from './storage/cart';
+import { useEventStore } from '@/storage/event'
+const eventStore = useEventStore()
 
 
-// const cartStore = useCartStore()
+const cartStore = useCartStore()
 
-// onMounted(() =>{
-//   cartStore.loadCart()
-// })
+onMounted(() =>{
+  cartStore.loadCart()
+})
 </script>t
 
 <template>
-  <RouterView />
+  <div>
+    <Toast
+      v-if="eventStore.alert"
+      :status="eventStore.data.status"
+      :message="eventStore.data.message"
+    >
+    </Toast>
+    <RouterView />
+  </div>
+  
 </template>

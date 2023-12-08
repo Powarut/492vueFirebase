@@ -29,7 +29,7 @@ const sessMem = sessionStorage.getItem("meme_id")
                 <div v-if="cartStore.items.length === 0">ยังไม่มีสินค้าในตะกร้า</div>
                 <div v-else v-for="(item, index) in cartStore.items" v-bind:key="index" class="flex">
                     <div class="flex-1">
-                        <img class="w-full p-10" :src="item.food_image">
+                        <img class="w-full p-10" :src="'http://localhost:3000/food_images/' + item.food_image">
                     </div>
                     <div class="flex-1">
                         <div class="flex flex-col justify-between h-full">
@@ -50,7 +50,7 @@ const sessMem = sessionStorage.getItem("meme_id")
                                     <Close></Close>
                                 </div>
                             </div>
-                            <div><b>IN Stock</b></div>
+                            <!-- <div><b>IN Stock</b></div> -->
                         </div>
                     </div>
                 </div>

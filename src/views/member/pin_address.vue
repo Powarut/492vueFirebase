@@ -9,14 +9,6 @@ const cartStore = useCartStore()
 
 const FormData = [
     {
-        name: 'ชื่อ',
-        field: 'name'
-    },
-    {
-        name: 'เบอร์โทร',
-        field: 'phone'
-    },
-    {
         name: 'ที่อยู่',
         field: 'address'
     },
@@ -27,8 +19,6 @@ const FormData = [
 ]
 
 const userFormData = reactive({
-    name: '',
-    phone: '',
     address: '',
     note: ''
 })
@@ -45,7 +35,7 @@ const payment = () => {
         <h1 class="text-3xl font-bold m-4">ชำระเงิน</h1>
         <div class="flex">
             <section class="flex-auto w-64 bg-base-200 p-8">
-                <div v-for="form in FormData" class="form-control w-full">
+                <div v-for="form in FormData" :key="form" class="form-control w-full">
                     <label class="label">
                         <span class="labeal-text">{{ form.name }}</span>
                     </label>
@@ -56,7 +46,7 @@ const payment = () => {
             <section class="flex-auto w-32 bg-slate-200 px-2">
                 <div v-for="item in cartStore.items" :key="item" class="flex bg-white m-2 py-4">
                     <div class="flex-1">
-                        <img class="w-full p-4" :src="item.food_image">
+                        <img class="w-full p-4" :src="'http://localhost:3000/food_images/'+ item.food_image">
                     </div>
                     <div class="flex-1">
                         <div class="flex flex-col justify-between h-full">

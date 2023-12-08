@@ -21,7 +21,8 @@ export const useProductStore = defineStore('product',() => {
 
 export const useMenuStore = defineStore('Menu',{
   state: () => ({
-    list : []
+    list : [],
+    checkout : {}
   }),
   actions: {
     async loadProduct() {

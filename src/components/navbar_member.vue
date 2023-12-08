@@ -69,7 +69,7 @@ const logout = () => {
               </a>
             </li>
             <li>
-              <RouterLink :to="{ name: 'your_order' }">ออเดอร์ที่สั่ง</RouterLink>
+              <RouterLink :to="{ name: 'your_order' }">ออเดอร์ของคุณ</RouterLink>
             </li>
             <li>
               <RouterLink :to="{ name: 'login' }">ลงชื่อออก</RouterLink>
