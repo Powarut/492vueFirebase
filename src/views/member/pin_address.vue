@@ -2,7 +2,7 @@
 import navbarmember from "@/components/navbar_member.vue";
 import { reactive } from 'vue'
 import { useCartStore } from '@/storage/cart'
-import { RouterLink,useRouter } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 
 const router = useRouter()
 const cartStore = useCartStore()
@@ -24,8 +24,8 @@ const userFormData = reactive({
 })
 
 const payment = () => {
-    cartStore. placeOrder(userFormData)
-    router.push({ name: 'check_out'})
+    cartStore.placeOrder(userFormData)
+    router.push({ name: 'check_out' })
 }
 </script>
 
@@ -46,7 +46,7 @@ const payment = () => {
             <section class="flex-auto w-32 bg-slate-200 px-2">
                 <div v-for="item in cartStore.items" :key="item" class="flex bg-white m-2 py-4">
                     <div class="flex-1">
-                        <img class="w-full p-4" :src="'http://localhost:3000/food_images/'+ item.food_image">
+                        <img class="w-full p-8" :src="'http://localhost:3000/food_images/' + item.food_image">
                     </div>
                     <div class="flex-1">
                         <div class="flex flex-col justify-between h-full">

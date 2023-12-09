@@ -3,7 +3,7 @@ import NavbarMember from "@/components/navbar_member.vue"
 
 import { onMounted, computed } from 'vue';
 import { useProductStore } from '@/storage/member/product'
-import { useCartStore } from '../../storage/cart'
+import { useCartStore } from '@/storage/cart'
 
 const productStore = useProductStore()
 const cartStore = useCartStore()

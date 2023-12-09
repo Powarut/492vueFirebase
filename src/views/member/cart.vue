@@ -1,6 +1,6 @@
 <script setup>
 import navbar_member from "@/components/navbar_member.vue";
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import Close from '@/components/icons/close.vue'
 import { useCartStore } from '@/storage/cart'
 import {RouterLink} from 'vue-router'
