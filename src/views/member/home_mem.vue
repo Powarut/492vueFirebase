@@ -1,13 +1,20 @@
 <script setup>
 import NavbarMember from "@/components/navbar_member.vue"
 
-import { onMounted, computed } from 'vue';
+import { onMounted, computed,ref } from 'vue';
 import { useProductStore } from '@/storage/member/product'
 import { useCartStore } from '@/storage/cart'
 
 const productStore = useProductStore()
 const cartStore = useCartStore()
-onMounted(() => productStore.getProduct())
+const isLoggedIn = ref(false)
+
+onMounted(() =>{
+  productStore.getProduct()
+  if (localStorage.getItem('isLoggedIn')) {
+    isLoggedIn.value = true
+  }
+})
 
 
 const mem_id = sessionStorage.getItem("mem_id")
@@ -30,14 +37,6 @@ const addCart = async (
     food_price: price
   }
   cartStore.addtoCart(productData)
-  // console.log({ mem_id, food_id, quantity: 1 })
-  // await axios.post(`${import.meta.env.VITE_API}/addMenutoCart`, { mem_id, food_id, quantity: 1 })
-  //     .then((response) => {
-  //         console.log(response)
-  //         alert("เพิ่มอาหารลงในตะกร้าเรียบร้อย")
-  //     }).catch((err) => {
-  //         alert("เกิดปัญหา กรุณากดสั่งใหม่อีกครั้ง")   
-  //     })
 }
 </script>
 
@@ -62,7 +61,7 @@ const addCart = async (
           <h2 class="card-title">{{ product.food_name }}</h2>
           <p>{{ product.food_price }} บาท</p>
           <div class="card-actions justify-end">
-            <button class="btn btn-primary"
+            <button v-show="isLoggedIn==true" class="btn btn-primary"
               @click="addCart(parseInt(mem_id), product.food_id, 1, product.food_name, product.food_image, product.food_price)">สั่ง</button>
           </div>
         </div>

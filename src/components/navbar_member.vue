@@ -1,10 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router'
 import { useCartStore } from '@/storage/cart'
 
 const cartStore = useCartStore()
-
+const router = useRouter()
 const isLoggedIn = ref(false)
 
 onMounted(() => {
@@ -15,9 +15,9 @@ onMounted(() => {
 const login = () => {
   isLoggedIn.value = true
   localStorage.setItem('isLoggedIn', true)
+  router.push({ name: 'login' })
 }
 const logout = () => {
-  isLoggedIn.value = false
   localStorage.removeItem('isLoggedIn')
   localStorage.removeItem('cart-data')
   localStorage.removeItem('order-data')
@@ -32,7 +32,7 @@ const logout = () => {
         <RouterLink :to="{ name: 'home_mem' }" class="btn btn-ghost normal-case text-xl">ร้านป้าจอย</RouterLink>
       </div>
       <div class="flex-none gap-2">
-        <div class="dropdown dropdown-end">
+        <div v-if="isLoggedIn==true" class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost btn-circle">
             <div class="indicator">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -53,7 +53,7 @@ const logout = () => {
             </div>
           </div>
         </div>
-        <button @click="login" v-if="!isLoggedIn" class="btn btn-ghost">
+        <button @click="login()" v-if="!isLoggedIn" class="btn btn-ghost">
           Login
         </button>
         <div v-else class="dropdown dropdown-end">
@@ -72,7 +72,7 @@ const logout = () => {
               <RouterLink :to="{ name: 'your_order' }">ออเดอร์ของคุณ</RouterLink>
             </li>
             <li>
-              <RouterLink :to="{ name: 'login' }">ลงชื่อออก</RouterLink>
+              <button @click="logout()">ลงชื่อออก</button>
             </li>
           </ul>
         </div>

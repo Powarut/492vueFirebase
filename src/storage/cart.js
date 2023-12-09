@@ -35,6 +35,7 @@ export const useCartStore = defineStore('cart', {
         this.updateQuantity(findProductIndex, currentItem.quantity + 1)
       }
       localStorage.setItem('cart-data', JSON.stringify(this.items))
+      alert("เพิ่มอาหารลงในตะกร้าเรียบร้อย")
     },
     async updateQuantity(index, quantity) {
       this.items[index].quantity = quantity

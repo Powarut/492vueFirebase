@@ -1,30 +1,30 @@
 <script>
 export default {
   name: 'Login',
-  data(){
-    return{
-      email:"",
-    password: "",
-    mem_id: null
+  data() {
+    return {
+      email: "",
+      password: "",
+      mem_id: null
     };
   },
   methods: {
     login() {
       // console.log(`Email: ${this.email} Password: ${this.password}`);
       let uri = `${import.meta.env.VITE_API}/login`;
-      this.axios.post(uri,{
-        mem_email : this.email,
-        mem_password : this.password
+      this.axios.post(uri, {
+        mem_email: this.email,
+        mem_password: this.password
       })
-      .then((response) => {
-        // console.log(response.data)
-        if(response.data.status == 'success') {
-          this.mem_id = response.data.data[0].mem_id
-          sessionStorage.setItem("mem_id", response.data.data[0].mem_id) 
-        }
-        this.$router.push("/home_mem");
-      })
-      if(this.email === 'admin'&&this.password === '1234')this.$router.push("/dashbord");
+        .then((response) => {
+          if (response.data.status == 'success') {
+            this.mem_id = response.data.data[0].mem_id
+            sessionStorage.setItem("mem_id", response.data.data[0].mem_id)
+          }
+          this.$router.push("/home_mem");
+          
+        })
+      if (this.email === 'admin' && this.password === '1234') this.$router.push("/dashbord");
     },
   },
   mounted() {
@@ -54,12 +54,12 @@ export default {
             <label class="label">
               <span class="label-text">รหัสผ่าน</span>
             </label>
-            <input type="password" placeholder="โปรดใส่รหัสผ่าน" class="input input-bordered" v-model="password"/>
+            <input type="password" placeholder="โปรดใส่รหัสผ่าน" class="input input-bordered" v-model="password" />
             <label class="label">
               <a href="/register" class="label-text-alt link link-hover">ยังไม่ได้ลงทะเบียน?</a>
             </label>
             <label class="label">
-              <span class="label-text">email: test77@gmail.com  Pas: 1234</span>
+              <span class="label-text">email: test77@gmail.com Pas: 1234</span>
             </label>
           </div>
           <div class="form-control mt-6">

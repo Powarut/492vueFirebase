@@ -12,12 +12,19 @@ const saveOrder = async (order) => {
     await axios.post(`${import.meta.env.VITE_API}/orderMember`, order)
          .then((response) => {
           console.log(response)
-          alert("เพิ่มอาหารลงในตะกร้าเรียบร้อย")
+          alert("เพิ่มออเดอร์เรียบร้อย")
+          cartStore.removeItemInCart()
       }).catch((err) => {
           alert("เกิดปัญหา กรุณากดสั่งใหม่อีกครั้ง")   
       })
 }
-
+const successOrder = () =>{
+    if (cartStore.items.length > 0) {
+        if (saveOrder(orderData.value)) {
+            cartStore.removeItemInCart()
+        }
+    }
+}
 onMounted(() => {
     cartStore.loadCheckout()
     cartStore.loadCart()
@@ -25,11 +32,11 @@ onMounted(() => {
         orderData.value = cartStore.checkout
     }
 
-    if (cartStore.items.length > 0) {
-        if (saveOrder(cartStore.items)) {
-            cartStore.removeItemInCart()
-        }
-    }
+    // if (cartStore.items.length > 0) {
+    //     if (saveOrder(cartStore.items)) {
+    //         cartStore.removeItemInCart()
+    //     }
+    // }
 })
 </script>
 
@@ -86,8 +93,7 @@ onMounted(() => {
                 <div>{{ cartStore.summaryPrice }}</div>
             </div>
             <div class="divider"></div>
-            <div class="font-bold text-center">ขอบคุณที่สั่งอาหารจากร้านเรา</div>
-            <RouterLink :to="{ name: 'your_order' }" class="btn btn-active btn-link">ไปหน้าออเดอร์ของคุณ</RouterLink>
+            <div class="font-bold text-center"><button @click="successOrder()" class="btn btn-success">ยืนยัน</button></div>
         </div>
     </navbarmember>
 </template>
