@@ -43,7 +43,7 @@ const addCart = async (
 
 <template>
   <NavbarMember>
-    <div class="hero min-h-screen bg-base-200">
+    <!-- <div class="hero min-h-screen bg-base-200">
       <div class="hero-content text-center">
         <div class="max-w-md">
           <h1 class="text-5xl font-bold">ยินดีต้อนรับ</h1>
@@ -51,7 +51,7 @@ const addCart = async (
           </p>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- ส่วนเมนูอาหาร-->
     <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 m-4">
       <div v-for="product in list" :key="product.food_id" class="card w-full bg-base-100 shadow-xl">

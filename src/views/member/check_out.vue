@@ -1,15 +1,34 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import axios from 'axios'
 import navbarmember from "@/components/navbar_member.vue";
 
 import { useCartStore } from "@/storage/cart";
 const cartStore = useCartStore()
 const orderData = ref({})
 
+
+const saveOrder = async (order) => {
+    await axios.post(`${import.meta.env.VITE_API}/orderMember`, order)
+         .then((response) => {
+          console.log(response)
+          alert("เพิ่มอาหารลงในตะกร้าเรียบร้อย")
+      }).catch((err) => {
+          alert("เกิดปัญหา กรุณากดสั่งใหม่อีกครั้ง")   
+      })
+}
+
 onMounted(() => {
     cartStore.loadCheckout()
+    cartStore.loadCart()
     if (cartStore.checkout.products.length > 0) {
         orderData.value = cartStore.checkout
+    }
+
+    if (cartStore.items.length > 0) {
+        if (saveOrder(cartStore.items)) {
+            cartStore.removeItemInCart()
+        }
     }
 })
 </script>
