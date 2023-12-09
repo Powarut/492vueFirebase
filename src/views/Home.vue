@@ -12,7 +12,7 @@ import { RouterLink } from 'vue-router';
           <p class="py-6">เข้าสู่โปรมแกรมช่วยบริหารการจัดส่งอาหารสำหรับร้านอาหาร</p>
         </div>
         <div class="form-control mt-1">
-         <RouterLink :to="{path:'/login'}"><button class="btn btn-info" >เข้าสู่ระบบ</button></RouterLink>
+         <RouterLink :to="{path:'/home_mem'}"><button class="btn btn-info" >เข้าสู่ระบบ</button></RouterLink>
         </div>
       </div>
     </div>
