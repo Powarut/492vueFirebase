@@ -39,7 +39,6 @@ onMounted(() => {
     if (route.params.id) {
         riderIndex.value = parseInt(route.params.id)
         const selectedRider = ownerRiderStore.getRider(riderIndex.value)
-
         riderData.fullname = selectedRider.fullname
         riderData.role = selectedRider.role
         riderData.status = selectedRider.status

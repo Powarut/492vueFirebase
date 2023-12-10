@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-
-
 import { ref, computed } from 'vue'
 
 export const useFoodStore = defineStore('menu', () => {
@@ -40,32 +38,7 @@ export const useFoodStore = defineStore('menu', () => {
         alert('ใส่ข้อมูลไม่ครบ กรุณาป้อนข้อมูลให้ครบ')
         menuData.value = ''
       })
-      
   }
-  return { getMenu, listMenu, loadMenu, addMenu }
 
-  //
-  //     async getMenu (index){
-  //         if (!this.loaded){
-  //             this.loadMenu()
-  //         }
-  //         return this.list[index]
-  //     },
-  //     async addMenu (menuData){
-  //         menuData.updatedAt = (new Date()).toISOString()
-  //         this.list.push(menuData)
-  //         localStorage.setItem('food-data', JSON.stringify(this.list))
-  //     },
-  //     async updateMenu (index, menuData){
-  //         this.list[index].name = menuData.name
-  //         this.list[index].image = menuData.image
-  //         this.list[index].price = menuData.price
-  //         this.list[index].status = menuData.status
-  //         this.list[index].updatedAt = (new Date()).toISOString()
-  //         localStorage.setItem('food-data', JSON.stringify(this.list))
-  //     },
-  //     async removeMenu (index){
-  //         this.list.splice(index, 1)
-  //         localStorage.setItem('food-data', JSON.stringify(this.list))
-  //     }
+  return { getMenu, listMenu, loadMenu, addMenu }
 })

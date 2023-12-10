@@ -58,7 +58,7 @@ const removeMenu = (index) => {
                     </div>
                 </div>
                 <div class="divider mt-2"></div>
-                <Table :headers="['ชื่อ', 'รูปภาพ', 'ราคา', 'สถานะ', 'ปรับปรุงล่าสุด', '']">
+                <Table :headers="['ชื่อ', 'รูปภาพ', 'ราคา', 'สถานะ', '']">
                     <tr v-for="food in list" :key="food.food_id">
                         <td>
                             <div class="font-bold">{{ food.food_name }}</div>
@@ -75,8 +75,8 @@ const removeMenu = (index) => {
                         </td>
                         <td></td>
                         <td>
-                            <button @click="changeStatus()" class="btn btn-ghost m-1">
-                                {{ food.food_status === 'มี' ? 'เปลี่ยน' : 'ยกเลิก' }}
+                            <button @click="changeStatus(food_id)" class="btn btn-ghost m-1">
+                                เปลี่ยนสถานะ
                             </button>
                             <button class="btn btn-ghost ">
                                 <Edit></Edit>
