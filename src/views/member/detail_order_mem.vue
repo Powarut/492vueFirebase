@@ -5,74 +5,54 @@ import navbar_memberVue from "@/components/navbar_member.vue";
 
 <template>
     <navbar_memberVue>
-        <div class="hero min-h-screen bg-base-200">
-            <div class="hero-content flex-col lg:flex-row-reverse">
-                <div class="text-center lg:text-left">
-                    <h1 class="text-5xl font-bold">รายละเอียดออเดอร์ ที่ 5</h1>
+        <div class="shadow-xl p-10 mt-4">
+            <div class="text-3xl font-bold">รายละเอียดออเดอร์ที่: 5</div>
+            <div class="divider"></div>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <div class="font-bold">วันและเวลาที่สั่ง</div>
+                    <div>10/12/2023 21:33</div>
                 </div>
-                <div class="card flex-shrink-0 w-full shadow-2xl bg-base-100">
-                    <div class="card-body">
-                        <div class="form-control">
-                            <label class="label">
-                                <span class="label-text">ข้อมูลลูกค้า</span>
-                            </label>
-                            <div class="flex items-center space-x-3">
-                                <div>
-                                    <div class="font-bold">ชื่อ: ปรเมษฐ์</div>
-                                </div>
-                                <div>
-                                    <div class="font-bold">นามสกุล: พฤกษชาติ</div>
-                                </div>
-                                <div>
-                                    <div class="font-bold">เบอร์โทรศัพท์: 0821231235</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-control">
-                            <label class="label">
-                                <span class="label-text">รายการอาหาร</span>
-                            </label>
-                            <div class="flex items-center space-x-3">
-                                <div class="avatar">
-                                    <div class="mask mask-squircle w-12 h-12">
-                                        <img src="/src/assets/food1.jpg" alt="Avatar Tailwind CSS Component" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="font-bold">กะเพราหมูกรอบ</div>
-                                </div>
-                                <div>
-                                    <div class="font-bold">*1</div>
-                                </div>
-                                <div>
-                                    <div class="font-bold">50 บาท</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-control">
-                            <div tabindex="0" class="collapse border border-base-300 bg-base-100 rounded-box">
-                                <div class="collapse-title text-xl font-medium">
-                                    สถานที่จัดส่ง
-                                </div>
-                                <div class="collapse-content">
-                                    <p>ตะวันนาอพาร์ทเม้น ต.หลักหก เมืองเอก จ.ปทุมธานี 11201</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-control">
-                            <div class="flex items-center space-x-3">
-                                <div>
-                                    <div class="font-bold">สถานะ</div>
-                                </div>
-                                <div>
-                                    <div class="badge badge-success gap-2">
-                                        รอรับ
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                    <div class="font-bold">ประเภทการชำระเงิน</div>
+                    <div>เก็บเงินปลายทาง</div>
                 </div>
+                <div>
+                    <div class="font-bold">ที่อยู่</div>
+                    <div>test </div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div  class="grid grid-cols-4">
+                <div class="mx-auto">
+                    <!-- <img class="p-2 w-40" :src="'http://localhost:3000/food_images/' + food.imageUrl"> -->
+                </div>
+                <div>
+                    <div class="font-bold">กะเพราหมูกรอบ</div>
+                    <div>ไม่เผ็ด</div>
+                </div>
+                <div>
+                    จำนวน 1 ชิ้น
+                </div>
+                <div>55 บาท</div>
+            </div>
+            <div class="divider"></div>
+            <div class="flex justify-between">
+                <div class="font-bold">ราคาสินค้าทั้งหมด</div>
+                <div>55 บาท</div>
+            </div>
+            <div class="divider"></div>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <div class="font-bold">สถานะ</div>
+                    <div>รอรับ</div>
+                </div>
+                <div class="form-control">
+                    
+                </div>
+            </div>
+            <div class="flex justify-end mt-4">
+                <RouterLink :to="{ name: 'home_mem' }" class="btn btn-ghost">กลับ</RouterLink>
             </div>
         </div>
     </navbar_memberVue>

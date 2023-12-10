@@ -58,7 +58,7 @@ const removeMenu = (index) => {
                     </div>
                 </div>
                 <div class="divider mt-2"></div>
-                <Table :headers="['ชื่อ', 'รูปภ่าพ', 'ราคา', 'สถานะ', 'ปรับปรุงล่าสุด', '']">
+                <Table :headers="['ชื่อ', 'รูปภาพ', 'ราคา', 'สถานะ', 'ปรับปรุงล่าสุด', '']">
                     <tr v-for="food in list" :key="food.food_id">
                         <td>
                             <div class="font-bold">{{ food.food_name }}</div>

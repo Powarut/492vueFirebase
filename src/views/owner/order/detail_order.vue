@@ -46,7 +46,7 @@ onMounted(() => {
                 </div>
             </div>
             <div class="divider"></div>
-            <div v-for="food in orderData.products" class="grid grid-cols-4">
+            <div v-for="food in orderData.products" :key="food" class="grid grid-cols-4">
                 <div class="mx-auto">
                     <img class="p-2 w-40" :src="food.imageUrl">
                 </div>

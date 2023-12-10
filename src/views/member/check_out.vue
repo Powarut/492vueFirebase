@@ -25,18 +25,13 @@ const successOrder = () =>{
         }
     }
 }
+
 onMounted(() => {
     cartStore.loadCheckout()
     cartStore.loadCart()
     if (cartStore.checkout.products.length > 0) {
         orderData.value = cartStore.checkout
     }
-
-    // if (cartStore.items.length > 0) {
-    //     if (saveOrder(cartStore.items)) {
-    //         cartStore.removeItemInCart()
-    //     }
-    // }
 })
 </script>
 

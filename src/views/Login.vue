@@ -5,12 +5,11 @@ export default {
     return {
       email: "",
       password: "",
-      mem_id: null
+      mem_id: null,
     };
   },
   methods: {
     login() {
-      // console.log(`Email: ${this.email} Password: ${this.password}`);
       let uri = `${import.meta.env.VITE_API}/login`;
       this.axios.post(uri, {
         mem_email: this.email,
@@ -21,8 +20,8 @@ export default {
             this.mem_id = response.data.data[0].mem_id
             sessionStorage.setItem("mem_id", response.data.data[0].mem_id)
           }
-          this.$router.push("/home_mem");
-          
+          this.$router.push("/");
+
         })
       if (this.email === 'admin' && this.password === '1234') this.$router.push("/dashbord");
     },
@@ -57,9 +56,6 @@ export default {
             <input type="password" placeholder="โปรดใส่รหัสผ่าน" class="input input-bordered" v-model="password" />
             <label class="label">
               <a href="/register" class="label-text-alt link link-hover">ยังไม่ได้ลงทะเบียน?</a>
-            </label>
-            <label class="label">
-              <span class="label-text">email: test77@gmail.com Pas: 1234</span>
             </label>
           </div>
           <div class="form-control mt-6">

@@ -21,6 +21,7 @@ const logout = () => {
   localStorage.removeItem('isLoggedIn')
   localStorage.removeItem('cart-data')
   localStorage.removeItem('order-data')
+  sessionStorage.removeItem('mem_id')
   window.location.reload()
 }
 </script>
@@ -29,7 +30,7 @@ const logout = () => {
   <div class="container mx-auto">
     <div class="navbar bg-base-100">
       <div class="flex-1">
-        <RouterLink :to="{ name: 'home_mem' }" class="btn btn-ghost normal-case text-xl">ร้านป้าจอย</RouterLink>
+        <RouterLink :to="{ name: 'home' }" class="btn btn-ghost normal-case text-xl">ร้านป้าจอย</RouterLink>
       </div>
       <div class="flex-none gap-2">
         <div v-if="isLoggedIn==true" class="dropdown dropdown-end">

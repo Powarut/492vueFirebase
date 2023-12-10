@@ -1,3 +1,13 @@
+<script setup>
+import {RouterLink} from 'vue-router'
+import { useAccountStore } from '@/storage/account'
+
+const accountStore = useAccountStore()
+
+const login = () =>{}
+
+</script>
+
 <template>
     <div class="h-screen flex items-center">
         <div class="flex-1 max-w-2xl shadow-xl mx-auto p-8">
@@ -21,6 +31,4 @@
     </div>
 </template>
 
-<script setup>
-import {RouterLink} from 'vue-router'
-</script>
+

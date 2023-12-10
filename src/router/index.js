@@ -13,20 +13,19 @@ import add_menu from '../views/owner/menu/add_menu.vue'
 import edit_menu from '../views/owner/menu/edit_menu.vue'
 import all_order from '../views/owner/order/all_order.vue'
 import detail_order from '../views/owner/order/detail_order.vue'
-import order_update from '../views/owner/order/order_update.vue'
 import total_sales from '../views/owner/total_sales.vue'
 /*  ลูกค้า  */
 import cart from '../views/member/cart.vue'
-import home_mem from '../views/member/home_mem.vue'
 import pin_address from '../views/member/pin_address.vue'
 import check_out from '../views/member/check_out.vue'
 import your_order from '../views/member/your_order.vue'
 import detail_order_mem from '../views/member/detail_order_mem.vue'
-import order_delivery from '../views/rider/order_delivery.vue'
+
 /*  พนักงานส่ง  */
 import index from '../views/rider/index.vue'
 import gps from '../views/rider/gps.vue'
 import delivery from '../views/rider/delivery.vue'
+import order_delivery from '../views/rider/order_delivery.vue'
 import camera from '../views/rider/camera.vue'
 
 
@@ -101,21 +100,11 @@ const router = createRouter({
       component: detail_order
     },
     {
-      path: '/order_update',
-      name: 'order_update',
-      component: order_update
-    },
-    {
       path: '/total_sales',
       name: 'total_sales',
       component: total_sales
     },
     /* ส่วนของลูกค้า  */
-    {
-      path: '/home_mem',
-      name: 'home_mem',
-      component: home_mem
-    },
     {
       path: '/cart',
       name: 'cart',
