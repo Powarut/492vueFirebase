@@ -2,14 +2,15 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import navbarmember from "@/components/navbar_member.vue";
-
+import status from '../../ultils/constant';
 import { useCartStore } from "@/storage/cart";
+
 const cartStore = useCartStore()
 const orderData = ref({})
 
 
 const saveOrder = async (order) => {
-    await axios.post(`${import.meta.env.VITE_API}/orderMember`, order)
+    await axios.post(`http://localhost:3000/orderMember`, order)
          .then((response) => {
           console.log(response)
           alert("เพิ่มออเดอร์เรียบร้อย")
@@ -18,9 +19,10 @@ const saveOrder = async (order) => {
           alert("เกิดปัญหา กรุณากดสั่งใหม่อีกครั้ง")   
       })
 }
-const successOrder = () =>{
+const successOrder = async () =>{
     if (cartStore.items.length > 0) {
-        if (saveOrder(orderData.value)) {
+        orderData.value.status = status.ordered
+        if (await saveOrder(orderData.value)) {
             cartStore.removeItemInCart()
         }
     }
