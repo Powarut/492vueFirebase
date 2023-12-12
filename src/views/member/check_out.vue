@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import navbarmember from "@/components/navbar_member.vue";
-import status from '../../ultils/constant';
+import status from '@/ultils/constant';
 import { useCartStore } from "@/storage/cart";
 
 const cartStore = useCartStore()
@@ -22,7 +22,8 @@ const saveOrder = async (order) => {
 }
 const successOrder = async () =>{
     if (cartStore.items.length > 0) {
-        orderData.value.status = status.ordered
+        orderData.value.status = status.status.ordered
+        console.log(orderData.value)
         if (await saveOrder(orderData.value)) {
             cartStore.removeItemInCart()
         }
