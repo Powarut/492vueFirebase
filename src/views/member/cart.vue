@@ -50,7 +50,6 @@ const sessMem = sessionStorage.getItem("meme_id")
                                     <Close></Close>
                                 </div>
                             </div>
-                            <!-- <div><b>IN Stock</b></div> -->
                         </div>
                     </div>
                 </div>
@@ -74,60 +73,5 @@ const sessMem = sessionStorage.getItem("meme_id")
                 </div>
             </div>
         </div>
-        <!-- <div class="carousel rounded-box">
-            <div class="hero-content lg:row-reverse">
-                <div class="card w-80 h-100 bg-base-100 shadow-xl m-1" v-for="(food, index) in menu" v-bind:key="index"><img
-                        :src="'http://localhost:3000/food_images/' + food.food_image">
-                    <figure class="m-2"></figure>
-                    <div class="card-body">
-                        <h2 class="card-title">{{ food.food_name }}</h2>
-                        <p>ราคา {{ food.food_price }} บาท</p>
-                        <div class="card-actions justify-end">
-                            <button class="btn btn-primary" @click="cart_store.add_cart({
-                                mem_id: sessMem,
-                                food_id: food.food_id,
-                                quantity: 1
-                            })">สั่ง</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="overflow-x-auto">
-            <table class="table w-full">
-                <thead>
-                    <h2>ตะกร้าสินค้าของคุณ</h2>
-                    <tr v-for="cart in carts" :key="cart.id">
-                        <th>
-                            {{ cart.food_name }}
-                        </th>
-                        <th>
-                            <div class="join">
-                                <button class="join-item btn">-</button>
-                                <button class="join-item btn btn-ghost">1</button>
-                                <button class="join-item btn">+</button>
-                            </div>
-                        </th>
-                        <th>
-                            {{ cart.food_price }}
-                        </th>
-                        <th>
-                            <button class="btn btn-error btn-sm">ลบ</button>
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>
-                            <h1>ราคาทั้งหมด 50 บาท</h1>
-                        </th>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="card-actions justify-center">
-                <button class="btn btn-success">สั่งซื้อ</button>
-            </div>
-        </div> -->
     </navbar_member>
 </template>

@@ -10,6 +10,7 @@ const orderData = ref({})
 
 
 const saveOrder = async (order) => {
+    console.log(order)
     await axios.post(`${import.meta.env.VITE_API}/orderMember`, order)
          .then((response) => {
           console.log(response)
