@@ -10,7 +10,7 @@ const orderData = ref({})
 
 
 const saveOrder = async (order) => {
-    await axios.post(`http://localhost:3000/orderMember`, order)
+    await axios.post(`${import.meta.env.VITE_API}/orderMember`, order)
          .then((response) => {
           console.log(response)
           alert("เพิ่มออเดอร์เรียบร้อย")
@@ -41,8 +41,7 @@ onMounted(() => {
     <navbarmember>
         <div class="max-w-2xl mx-auto border border-base-200 shadow-xl p-8">
             <div>
-                <div class="test-2xl font-bold">คุณสั่งออเดอร์อาหาร สำเร็จแล้ว!</div>
-                <div>สวัสดี </div>
+                <div class="test-2xl font-bold">สั่งอาหาร สำเร็จแล้ว!</div>
                 <div>เตรียมรอรับสินค้าได้เลย</div>
             </div>
             <div class="divider"></div>
@@ -58,6 +57,10 @@ onMounted(() => {
                 <div>
                     <div class="font-bold">ที่อยู่</div>
                     <div>{{ orderData.address }}</div>
+                </div>
+                <div>
+                    <div class="font-bold">ระบุเพิ่มเติม</div>
+                    <div>{{ orderData.note }}</div>
                 </div>
             </div>
             <div class="divider"></div>
