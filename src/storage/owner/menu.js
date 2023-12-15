@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { ref, computed } from 'vue'
+import { response } from 'express'
 
 export const useFoodStore = defineStore('menu', () => {
   const menu = ref({})
@@ -41,4 +42,63 @@ export const useFoodStore = defineStore('menu', () => {
   }
 
   return { getMenu, listMenu, loadMenu, addMenu }
+})
+
+
+export const useFoodsStore = defineStore('foods',{
+  state: () => ({
+    list : [],
+    selectedFood: {},
+  }),
+  actions: {
+    async loadFoods (){
+      try{
+        const response = await axios.get(`${import.meta.env.VITE_API}/food`)
+        this.list = response.data
+      }catch (error){
+        console.log('error',error)
+      }
+    },
+    async loadFood(id){
+      try{
+        const response = await axios.get(`${import.meta.env.VITE_API}/food/${id}`)
+        this.selectedFood = response.data
+      }catch (error) {
+        console.log('error',error)
+      }
+    },
+    async addfood (foodsData){
+      const fromData = {
+        food_name: foodsData.name,
+        food_price: foodsData.price,
+        food_status: true
+      }
+      try{
+        const response = await axios.post(`${import.meta.env.VITE_API}/food`,fromData)
+        console.log(response.data)
+        //this.list = response.data
+      }catch (error) {
+        console.log('error',error)
+      }
+    },
+    async changeStatus(foodData, id){
+      try{
+        const status = {
+          food_status: foodData.status
+        }
+        const response = await axios.put(`${import.meta.env.VITE_API}/food/${id}`, status)
+        console.log(response.data)
+      }catch (error) {
+        console.log('error',error)
+      }
+    },
+    async removeFood (id){
+      try{
+        const response = await axios.delete(`${import.meta.env.VITE_API}/food/${id}`)
+        console.log(response.data)
+      }catch (error){
+        console.log('error',error)
+      }
+    }
+  }
 })

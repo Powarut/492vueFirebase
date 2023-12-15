@@ -5,14 +5,14 @@ export const useAccountStore = defineStore('account', {
   state: () => ({
     isLoggedin: false,
     user: {
-      email: '',
-      password: '',
+      mem_email: '',
+      mem_password: '',
       mem_id: null
     }
   }),
   actions: {
     async signInEmail() {
       await axios.get(`${import.meta.env.VITE_API}/login`)
-    }
+    },
   }
 })

@@ -3,9 +3,9 @@ import navbar_owner from '@/components/navbar_owner.vue'
 import Trash from '@/components/icons/trash.vue'
 import Edit from '@/components/icons/edit.vue'
 import Table from '@/components/Table.vue'
+import { useFoodStore } from '@/storage/owner/menu'
 
 import { RouterLink } from 'vue-router'
-import { useFoodStore } from '@/storage/owner/menu'
 import { onMounted, computed } from 'vue'
 
 const foodStore = useFoodStore()
@@ -37,6 +37,16 @@ const removeMenu = (index) => {
     foodStore.removeMenu(index)
     eventStore.popupMessage('success', 'ลบเมนูออกเรียบร้อยแล้ว!')
 }
+// const removeMenu = async (id) => {
+//     isLoading.value = true
+//     try{
+//         await foodStore.removeFood(id)
+//         await foodStore.loadFoods()
+//     }catch (error){
+//         console.log('error', error)
+//     }
+//     isLoading.value = false
+// }
 
 </script>
 

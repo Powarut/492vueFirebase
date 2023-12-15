@@ -1,10 +1,13 @@
 <script setup>
-import {RouterLink} from 'vue-router'
+import { RouterLink } from 'vue-router'
 import { useAccountStore } from '@/storage/account'
+import axios from 'axios'
 
 const accountStore = useAccountStore()
 
-const login = () =>{}
+const login_admin = async () => {
+    await axios.get(`${import.meta.env.VITE_API}/login_rider`)
+}
 
 </script>
 
@@ -18,15 +21,15 @@ const login = () =>{}
                 <label class="label">
                     <span class="label-text">อีเมล์</span>
                 </label>
-                <input type="text" placeholder="ป้อนอีเมล์" class="input input-bordered w-full">
+                <input type="text" placeholder="ป้อนอีเมล์" class="input input-bordered w-full" v-model="email">
             </div>
             <div class="form-control w-full">
                 <label class="label">
                     <span class="label-text">รหัสผ่าน</span>
                 </label>
-                <input type="password" placeholder="ป้อนรหัสผ่าน" class="input input-bordered w-full">
+                <input type="password" placeholder="ป้อนรหัสผ่าน" class="input input-bordered w-full" v-model="password">
             </div>
-            <RouterLink :to="{ name: 'dashbord'}" class="btn btn-natural w-full">ลงชื่อเข้าใช้</RouterLink>
+            <button @click="login_admin(emil, password)" class="btn btn-natural w-full">ลงชื่อเข้าใช้</button>
         </div>
     </div>
 </template>
