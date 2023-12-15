@@ -67,14 +67,17 @@ export const useFoodsStore = defineStore('foods',{
         console.log('error',error)
       }
     },
-    async addfood (foodsData){
+    async addfood (menuData){
       const fromData = {
-        food_name: foodsData.name,
-        food_price: foodsData.price,
-        food_status: true
+        food_image: menuData.value.image,
+        food_name: menuData.value.name,
+        food_price: menuData.value.price,
+        food_status: '1'
       }
       try{
-        const response = await axios.post(`${import.meta.env.VITE_API}/food`,fromData)
+        const response = await axios.post(`${import.meta.env.VITE_API}/food`,fromData,{
+          headers: { 'Content-Type': 'multipart/form-data' }
+        })
         console.log(response.data)
         //this.list = response.data
       }catch (error) {
