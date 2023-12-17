@@ -177,7 +177,7 @@ export default {
               <input ref="autocomplete" type="text" class="input input-bordered" placeholder="สยามพารากอน กรุงเทพมหานคร" v-model="address" />
           </div>
           <GoogleMap 
-            api-key="AIzaSyBduTIBOwosF6Z6WPSHwmlJrLzIU4RlCBg" 
+            api-key="AIzaSyC_5dVGBmZlZZWlWTn5QTJUsDjNegAcOoA" 
             style="width: 100%; 
             height: 300px" 
             :center="center" 
