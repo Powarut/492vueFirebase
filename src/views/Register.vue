@@ -1,13 +1,13 @@
 <script>
 import axios from 'axios'
 import router from '../router'
-import { GoogleMap, Marker } from "vue3-google-map"
+import { GoogleMap, Marker } from "vue3-google-map";
+import Swal from 'sweetalert2';
 
 export default {
   components: { GoogleMap, Marker },
   setup() {
-    const center = { lat: 13.736717, lng: 100.523186 };
-    // const key = process.env.GOOGLE_MAP_API_KEY
+    let center = { lat: 13.7237248, lng: 99.9736399 };
     return { center };
   },
   data() {
@@ -29,28 +29,22 @@ export default {
   created() {
     this.$getLocation()
       .then((coordinates) => {
-        console.log(coordinates);
-        this.lat = coordinates.lat
-        this.lng = coordinates.lng
+        this.center.lat = coordinates.lat
+        this.center.lng = coordinates.lng
       }).catch((error) => {
         console.log(error)
       })
   },
 
   mounted() {
-    const inputMap = new google.maps.places.Autocomplete(
-      this.$refs["autocomplete"]
-      );
-  
-      // autocomplete.addListener("place_changed", () => {
-      //   const place = inputMap.getPlace();
-  
-      //   // this.showLocationOnTheMap(
-      //   //   place.geometry.location.lat(),
-      //   //   place.geometry.location.lng()
-      //   // );
-      // });
-    
+    this.$getLocation()
+      .then((coordinates) => {
+        console.log(coordinates)
+        this.center.lat = coordinates.lat
+        this.center.lng = coordinates.lng
+      }).catch((error) => {
+        console.log(error)
+      })
   },
 
   methods: {
@@ -61,11 +55,35 @@ export default {
         mem_password: this.confirm_password,
         mem_name: this.name,
         mem_surname: this.surname,
-        mem_phone: this.phone
+        mem_phone: this.phone,
+        mem_address: JSON.stringify({
+          latitude: this.center.lat ?? "",
+          longitude: this.center.lng ?? ""
+        })
       })
-        .then(async (response) => {
+        .then((response) => {
           if (response.data.statusCode == 200) {
-            await alert("ลงทะเบียนเรียบร้อยครับ")
+            let timerInterval;
+            Swal.fire({
+              title: "ลงทะเบียนเรียบร้อยครับ",
+              timer: 750,
+              timerProgressBar: true,
+              didOpen: () => {
+                Swal.showLoading();
+                const timer = Swal.getPopup().querySelector("b");
+                timerInterval = setInterval(() => {
+                  timer.textContent = `${Swal.getTimerLeft()}`;
+                }, 100);
+              },
+              willClose: () => {
+                clearInterval(timerInterval);
+              }
+            }).then((result) => {
+              /* Read more about handling dismissals below */
+              if (result.dismiss === Swal.DismissReason.timer) {
+                console.log("I was closed by the timer");
+              }
+            });
           } else {
             alert("มีบางอย่างผิดพลาด")
             throw response.data
@@ -102,7 +120,7 @@ export default {
           position: new google.maps.LatLng(latitude, longitude),
           map: map,
         });
-      },
+    },
   }
 }
 </script>
@@ -150,7 +168,7 @@ export default {
           <div class="form-control m-2">
             <label class="input-group">
               <span>เบอร์โทร</span>
-              <input type="text" class="input input-bordered" placeholder="ใส่ตัวเลข10 ตัว" v-model="phone" />
+              <input type="text" class="input input-bordered" placeholder="ใส่ตัวเลข10 ตัว" maxlength="10" v-model="phone" />
             </label>
           </div>
           <div class="form-control m-2">
@@ -162,10 +180,10 @@ export default {
             api-key="AIzaSyBduTIBOwosF6Z6WPSHwmlJrLzIU4RlCBg" 
             style="width: 100%; 
             height: 300px" 
-            :center="{ lat: lat, lng: lng }" 
+            :center="center" 
             :zoom="15"
             :libraries=[] >
-            <Marker :options="{ position: { lat: lat, lng: lng } }" />
+            <Marker :options="{ position: { lat: center.lat, lng: center.lng } }" />
           </GoogleMap>
           <router-link to="/login">
             <button class="bg-green-500 text-base-100 font-bold w-24 h-10 rounded-md hover:bg-sky-700"

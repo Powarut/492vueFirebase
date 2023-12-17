@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-
+import Swal from 'sweetalert2'
 export const useCartStore = defineStore('cart', {
   state: () => ({
     items: [],
@@ -35,7 +35,13 @@ export const useCartStore = defineStore('cart', {
         this.updateQuantity(findProductIndex, currentItem.quantity + 1)
       }
       localStorage.setItem('cart-data', JSON.stringify(this.items))
-      alert("เพิ่มอาหารลงในตะกร้าเรียบร้อย")
+      Swal.fire({
+        title: 'เพิ่มอาหารลงในตะกร้าเรียบร้อย',
+        html: '<FacebookIcon fontSize="large" />',
+        icon: 'success',
+        confirmButtonText: 'โอเค',
+      })
+      // alert("เพิ่มอาหารลงในตะกร้าเรียบร้อย")
     },
     async updateQuantity(index, quantity) {
       this.items[index].quantity = quantity
