@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { ref, computed } from 'vue'
-import { response } from 'express'
 
 export const useFoodStore = defineStore('menu', () => {
   const menu = ref({})
