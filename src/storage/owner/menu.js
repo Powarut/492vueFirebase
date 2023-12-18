@@ -45,63 +45,63 @@ export const useFoodStore = defineStore('menu', () => {
 })
 
 
-export const useFoodsStore = defineStore('foods',{
-  state: () => ({
-    list : [],
-    selectedFood: {},
-  }),
-  actions: {
-    async loadFoods (){
-      try{
-        const response = await axios.get(`${import.meta.env.VITE_API}/food`)
-        this.list = response.data
-      }catch (error){
-        console.log('error',error)
-      }
-    },
-    async loadFood(id){
-      try{
-        const response = await axios.get(`${import.meta.env.VITE_API}/food/${id}`)
-        this.selectedFood = response.data
-      }catch (error) {
-        console.log('error',error)
-      }
-    },
-    async addfood (menuData){
-      const fromData = {
-        food_image: menuData.value.image,
-        food_name: menuData.value.name,
-        food_price: menuData.value.price,
-        food_status: '1'
-      }
-      try{
-        const response = await axios.post(`${import.meta.env.VITE_API}/food`,fromData,{
-          headers: { 'Content-Type': 'multipart/form-data' }
-        })
-        console.log(response.data)
-        //this.list = response.data
-      }catch (error) {
-        console.log('error',error)
-      }
-    },
-    async changeStatus(foodData, id){
-      try{
-        const status = {
-          food_status: foodData.status
-        }
-        const response = await axios.put(`${import.meta.env.VITE_API}/food/${id}`, status)
-        console.log(response.data)
-      }catch (error) {
-        console.log('error',error)
-      }
-    },
-    async removeFood (id){
-      try{
-        const response = await axios.delete(`${import.meta.env.VITE_API}/food/${id}`)
-        console.log(response.data)
-      }catch (error){
-        console.log('error',error)
-      }
-    }
-  }
-})
+// export const useFoodsStore = defineStore('foods',{
+//   state: () => ({
+//     list : [],
+//     selectedFood: {},
+//   }),
+//   actions: {
+//     async loadFoods (){
+//       try{
+//         const response = await axios.get(`${import.meta.env.VITE_API}/food`)
+//         this.list = response.data
+//       }catch (error){
+//         console.log('error',error)
+//       }
+//     },
+//     async loadFood(id){
+//       try{
+//         const response = await axios.get(`${import.meta.env.VITE_API}/food/${id}`)
+//         this.selectedFood = response.data
+//       }catch (error) {
+//         console.log('error',error)
+//       }
+//     },
+//     async addfood (menuData){
+//       const fromData = {
+//         food_image: menuData.value.image,
+//         food_name: menuData.value.name,
+//         food_price: menuData.value.price,
+//         food_status: '1'
+//       }
+//       try{
+//         const response = await axios.post(`${import.meta.env.VITE_API}/food`,fromData,{
+//           headers: { 'Content-Type': 'multipart/form-data' }
+//         })
+//         console.log(response.data)
+//         //this.list = response.data
+//       }catch (error) {
+//         console.log('error',error)
+//       }
+//     },
+//     async changeStatus(foodData, id){
+//       try{
+//         const status = {
+//           food_status: foodData.status
+//         }
+//         const response = await axios.put(`${import.meta.env.VITE_API}/food/${id}`, status)
+//         console.log(response.data)
+//       }catch (error) {
+//         console.log('error',error)
+//       }
+//     },
+//     async removeFood (id){
+//       try{
+//         const response = await axios.delete(`${import.meta.env.VITE_API}/food/${id}`)
+//         console.log(response.data)
+//       }catch (error){
+//         console.log('error',error)
+//       }
+//     }
+//   }
+// })

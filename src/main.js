@@ -8,9 +8,6 @@ import { createPinia } from 'pinia'
 import Vue3Geolocation from 'vue3-geolocation'
 import VueApexCharts from "vue3-apexcharts";
 
-
-
-
 const app = createApp(App)
 const pinia = createPinia()
 app.use(VueAxios, axios)

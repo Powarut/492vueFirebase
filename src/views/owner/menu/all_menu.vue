@@ -8,7 +8,6 @@ import { useFoodStore } from '@/storage/owner/menu'
 import { RouterLink } from 'vue-router'
 import { onMounted, computed } from 'vue'
 //const foodStore = useFoodsStore()
-//const 
 //
 const foodStore = useFoodStore()
 onMounted(() => foodStore.getMenu())
