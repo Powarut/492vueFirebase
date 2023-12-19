@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, } from 'vue'
 
 export const useFoodStore = defineStore('menu', () => {
   const menu = ref({})
@@ -40,7 +40,16 @@ export const useFoodStore = defineStore('menu', () => {
       })
   }
 
-  return { getMenu, listMenu, loadMenu, addMenu }
+  const removeMenu = async (id) =>{
+    try{
+         const response = await axios.delete(`${import.meta.env.VITE_API}/food/${id}`)
+            console.log(response.data)
+        }catch (error){
+          console.log('error',error)
+    }
+  }
+
+  return { getMenu, listMenu, loadMenu, addMenu, removeMenu }
 })
 
 

@@ -34,9 +34,15 @@ const changeStatus = async (food_id, food_status) => {
 }
 
 
-const removeMenu = (index) => {
-    foodStore.removeMenu(index)
-    eventStore.popupMessage('success', 'ลบเมนูออกเรียบร้อยแล้ว!')
+const removeMenu = () => {
+    isLoading.value = true
+    try {
+        foodStore.removeMenu(food.food_id)
+        eventStore.popupMessage('success', 'ลบเมนูออกเรียบร้อยแล้ว!')
+    }catch (error){
+        console.log('error', error)
+    }
+    isLoading.value = false
 }
 // const removeMenu = async (id) => {
 //     isLoading.value = true
@@ -86,13 +92,13 @@ const removeMenu = (index) => {
                         </td>
                         <td></td>
                         <td>
-                            <button @click="changeStatus(food_id)" class="btn btn-ghost m-1">
+                            <button @click="changeStatus(food.food_id)" class="btn btn-ghost m-1">
                                 เปลี่ยนสถานะ
                             </button>
                             <button class="btn btn-ghost ">
                                 <Edit></Edit>
                             </button>
-                            <button @click="removeMenu(index)" class="btn btn-ghost">
+                            <button @click="removeMenu(id) " class="btn btn-ghost">
                                 <Trash></Trash>
                             </button>
                         </td>
