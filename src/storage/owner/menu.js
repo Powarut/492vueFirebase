@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 export const useFoodStore = defineStore('menu', () => {
   const menu = ref({})
@@ -20,13 +20,13 @@ export const useFoodStore = defineStore('menu', () => {
       })
   }
 
-  const addMenu = async () => {
+  const addMenu = async (menuData) => {
+    console.log(menuData.value.image)
     let form_data = new FormData()
     form_data.append('food_image', menuData.value.image)
     form_data.append('food_name', menuData.value.name)
     form_data.append('food_price', menuData.value.price)
     form_data.append('food_status', menuData.value.status)
-    console.log(menuData.value)
     await axios
       .post(`${import.meta.env.VITE_API}/food`, form_data, {
         headers: { 'Content-Type': 'multipart/form-data' }

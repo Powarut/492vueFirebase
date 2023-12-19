@@ -6,12 +6,12 @@ import Table from '@/components/Table.vue'
 import { useFoodStore } from '@/storage/owner/menu'
 
 import { RouterLink } from 'vue-router'
-import { onMounted, computed } from 'vue'
+import { onMounted, computed, ref } from 'vue'
 //const foodStore = useFoodsStore()
 //
 const foodStore = useFoodStore()
-onMounted(() => foodStore.getMenu())
 
+onMounted(() => foodStore.getMenu())
 const list = computed(() => foodStore.listMenu)
 
 // const changeStatus = (food_id) =>{

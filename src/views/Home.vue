@@ -19,6 +19,7 @@ onMounted(() =>{
 
 const mem_id = sessionStorage.getItem("mem_id")
 const list = computed(() => productStore.listProduct)
+console.log(productStore.listProduct)
 
 const addCart = async (
   mem_id, 

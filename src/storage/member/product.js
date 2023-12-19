@@ -10,7 +10,7 @@ export const useProductStore = defineStore('product',() => {
     const getProduct = async ()=> {
         try{
           const response = await axios.get(`${import.meta.env.VITE_API}/food`)
-        product.value = response.data
+        product.value = response.data.data
         }catch (error){
           console.log('error',error)
         }

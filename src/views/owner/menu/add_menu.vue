@@ -1,7 +1,7 @@
 <script setup>
 import navbar_owner from '@/components/navbar_owner.vue'
 import { useFoodStore } from '@/storage/owner/menu'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 
@@ -20,13 +20,19 @@ const menuData = reactive({
 })
 
 const add_Menu = () => {
-    foodStore.addMenu(menuData)
-    router.push({ name: 'all_menu' })
+    // console.log(menuData)
+    const menu = ref({})
+    menu.value = menuData
+    if (foodStore.addMenu(menu)) {
+        router.push({ name: 'all_menu' })
+    }
+    
 }
 
-const choose_image = async (event) => {
-    console.log(event.target.files[0])
-    menuData.value.food_image = event.target.files[0];
+const choose_image = async ($event) => {
+    const imageFood = $event.target.files[0]
+    menuData.image = imageFood
+    // console.log(menuData)
 }
 </script>
 
@@ -50,7 +56,7 @@ const choose_image = async (event) => {
             <label class="label">
                 <span class="label-text">โปรดใส่รูปภาพอาหาร</span>
             </label>
-            <input type="file" class="file-input file-input-bordered w-full max-w-xs" @change="choose_image" accept="image/*" id="file" reactive="file" />
+            <input type="file" class="file-input file-input-bordered w-full max-w-xs" @change="choose_image($event)" accept="image/*" id="file" reactive="file" />
             <div class="divider"></div>
             <div class="flex mt-4 justify-end">
                 <RouterLink :to="{ name: 'all_menu' }" class="btn btn-error ">ย้อนกลับ</RouterLink>
