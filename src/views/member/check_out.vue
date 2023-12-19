@@ -4,28 +4,45 @@ import axios from 'axios'
 import navbarmember from "@/components/navbar_member.vue";
 import status from '@/ultils/constant';
 import { useCartStore } from "@/storage/cart";
+import { sendMessage } from "../../storage/messaging/sendMessage"
 
 const cartStore = useCartStore()
 const orderData = ref({})
 
-
 const saveOrder = async (order) => {
-    console.log(order)
+    let result = null
     await axios.post(`${import.meta.env.VITE_API}/saveOrderMember`, order)
          .then((response) => {
-          console.log(response)
-          alert("เพิ่มออเดอร์เรียบร้อย")
-          cartStore.removeItemInCart()
+            result = response.data.data
+            alert("เพิ่มออเดอร์เรียบร้อย")
+            cartStore.removeItemInCart()
       }).catch((err) => {
           alert("เกิดปัญหา กรุณากดสั่งใหม่อีกครั้ง")   
       })
+    return result
 }
+
+const getOrder = async (memOrderId) => {
+    const result = await axios.post(`${import.meta.env.VITE_API}/getOrderMember`, memOrderId)
+    .then((response) => {
+        console.log(response)
+    }).catch((err) => {
+        console.log(err)
+    })
+
+    return result.data
+}
+
 const successOrder = async () =>{
     if (cartStore.items.length > 0) {
         orderData.value.status = status.status.ordered
         console.log(orderData.value)
-        if (await saveOrder(orderData.value)) {
+        const result = await saveOrder(orderData.value)
+        if (result.affectedRows === 1) {
+            await sendMessage(orderData.value)
             cartStore.removeItemInCart()
+        } else {
+            alert("เกิดปัญหา กรุณากดสั่งใหม่อีกครั้ง") 
         }
     }
 }
