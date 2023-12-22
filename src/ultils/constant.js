@@ -1,0 +1,14 @@
+export default {
+    status: {
+        ordered: 1,
+        cooking: 2,
+        deliverling: 3,
+        success: 4,
+        canceled: 5
+    },
+
+    statusWording: [
+        "รอรับ"
+    ]
+    
+}
