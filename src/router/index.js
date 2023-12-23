@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import Register from '../views/Register.vue'
 import Login from '/src/views/Login.vue'
+import mem_register from '/src/views/mem_register.vue'
 /*  เจ้าของร้าน   */
 import ownerLogin from '../views/owner/owner_login.vue'
 import dashbord from '../views/owner/dashbord.vue'
@@ -47,7 +48,11 @@ const router = createRouter({
       name: 'register',
       component: Register
     },
-    
+    {
+      path: '/mem-register',
+      name: 'mem-register',
+      component: mem_register
+    },
     /* เจ้าของร้าน */
     {
       path: '/owner/login',

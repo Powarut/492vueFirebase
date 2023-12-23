@@ -1,11 +1,14 @@
 <script setup>
 import { RouterLink } from 'vue-router'
-import { useAccountStore } from '@/storage/account'
 import axios from 'axios'
 
-const accountStore = useAccountStore()
+const data =({
+    email: "",
+    password: "",
+    role: ""
+})
 
-const login_admin = async () => {
+const login = async () => {
     await axios.get(`${import.meta.env.VITE_API}/login_rider`)
 }
 
@@ -29,7 +32,7 @@ const login_admin = async () => {
                 </label>
                 <input type="password" placeholder="ป้อนรหัสผ่าน" class="input input-bordered w-full" v-model="password">
             </div>
-            <button @click="login_admin(emil, password)" class="btn btn-natural w-full">ลงชื่อเข้าใช้</button>
+            <button @click="login()" class="btn btn-natural w-full">ลงชื่อเข้าใช้</button>
         </div>
     </div>
 </template>

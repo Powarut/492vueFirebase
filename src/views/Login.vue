@@ -6,6 +6,7 @@ export default {
       email: "",
       password: "",
       mem_id: null,
+      role: ""
     };
   },
   methods: {
@@ -17,13 +18,21 @@ export default {
       })
         .then((response) => {
           if (response.data.status == 'success') {
+            console.log(response.data.data[0].role)
+            this.role = response.data.data[0].role
             this.mem_id = response.data.data[0].mem_id
             sessionStorage.setItem("mem_id", response.data.data[0].mem_id)
+            localStorage.setItem('isLoggedIn', true)
+            if (this.role === 'admin') {
+              console.log(this.role)
+              this.$router.push("/dashbord")
+            } else {
+              console.log(this.role)
+              this.$router.push("/")
+            }
           }
-          this.$router.push("/");
+        }).catch(error => console.log('error', error))
 
-        })
-      if (this.email === 'admin' && this.password === '1234') this.$router.push("/dashbord");
     },
   },
   mounted() {
@@ -35,33 +44,25 @@ export default {
 </script>
 
 <template>
-  <div class="hero min-h-screen bg-base-200">
-    <div class="hero-content flex-col lg:flex-row-reverse">
-      <div class="text-center lg:text-left">
-        <h1 class="text-5xl font-bold">Login</h1>
-        <p class="py-6">โปรดป้อนอีเมล์และรหัสผ่าน เพื่อเข้าสู่ระบบ</p>
-      </div>
-      <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-        <div class="card-body">
-          <div class="form-control">
-            <label class="label">
-              <span class="label-text">อีเมล์</span>
-            </label>
-            <input type="email" placeholder="โปรดใส่อีเมล์" class="input input-bordered" v-model="email" />
+  <div class="min-h-screen bg-base-200 flex items-center">
+    <div class="card mx-auto w-full max-w-2xl shadow-xl">
+      <div class="py-24 px-10">
+        <h2 class="text-2xl font-semibold mb-2 text-center">เข้าสู่ระบบ</h2>
+        <div class="mb-4">
+          <div class="form-control w-full mt-4">
+            <label class="label"><span class="label-text text-base-content undefined">อีเมล์</span></label><input
+              type="email" placeholder="" class="input input-bordered w-full" v-model="email" maxlength="30" />
           </div>
-          <div class="form-control">
-            <label class="label">
-              <span class="label-text">รหัสผ่าน</span>
-            </label>
-            <input type="password" placeholder="โปรดใส่รหัสผ่าน" class="input input-bordered" v-model="password" />
-            <label class="label">
-              <a href="/register" class="label-text-alt link link-hover">ยังไม่ได้ลงทะเบียน?</a>
-            </label>
+          <div class="form-control w-full mt-4">
+            <label class="label"><span class="label-text text-base-content undefined">รหัสผ่าน</span></label><input
+              type="password" placeholder="" class="input input-bordered w-full" v-model="password" maxlength="10" />
           </div>
-          <div class="form-control mt-6">
-            <button class="btn btn-success" @click="login()">เข้าสู่ระบบ</button>
-          </div>
+          <label class="label">
+            <a href="/register" class="label-text-alt link link-hover">ยังไม่ได้ลงทะเบียน?</a>
+          </label>
         </div>
+        <p class="text-center text-error mt-8"></p>
+        <button @click="login()" class="btn mt-2 w-full btn-primary">Login</button>
       </div>
     </div>
   </div>

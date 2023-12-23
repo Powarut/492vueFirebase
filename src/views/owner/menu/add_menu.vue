@@ -20,7 +20,6 @@ const menuData = reactive({
 })
 
 const add_Menu = () => {
-    // console.log(menuData)
     const menu = ref({})
     menu.value = menuData
     if (foodStore.addMenu(menu)) {
@@ -32,7 +31,6 @@ const add_Menu = () => {
 const choose_image = async ($event) => {
     const imageFood = $event.target.files[0]
     menuData.image = imageFood
-    // console.log(menuData)
 }
 </script>
 
@@ -51,7 +49,7 @@ const choose_image = async ($event) => {
                 <label class="label">
                     <span class="label-text">ราคาเมนู</span>
                 </label>
-                <input type="text" class="input input-bordered" placeholder="ป้อนราคาเมนูที่ต้องการสร้าง" v-model="menuData.price" />
+                <input type="number" class="input input-bordered" placeholder="ป้อนราคาเมนูที่ต้องการสร้าง" v-model="menuData.price" />
             </div>
             <label class="label">
                 <span class="label-text">โปรดใส่รูปภาพอาหาร</span>

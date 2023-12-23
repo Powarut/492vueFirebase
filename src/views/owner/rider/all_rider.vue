@@ -61,7 +61,7 @@ const changeStatus = (index) =>{
                     รายชื่อพนักงาน
                     <div class="inline-block float-right">
                         <div class="inline-block float-right">
-                            <RouterLink :to="{ name: 'add_menu' }" class="btn px-6 btn-sm normal-case btn-primary">
+                            <RouterLink :to="{ name: 'add_rider' }" class="btn px-6 btn-sm normal-case btn-primary">
                                 เพิ่ม
                             </RouterLink>
                         </div>
@@ -69,14 +69,14 @@ const changeStatus = (index) =>{
                 </div>
                 <div class="divider mt-2"></div>
                 <Table :headers="['ชื่อ', 'ตำแหน่ง', 'สถานะ', 'ปรับปรุงล่าสุด','']">
-                    <tr v-for="(rider, index) in OwnerRiderStore.list">
+                    <tr v-for="rider in OwnerRiderStore.list" :key="rider.rider_id">
                         <td>{{ rider.fullname }}</td>
                         <td>{{ rider.role }}</td>
                         <td>{{ rider.status }}</td>
                         <td>{{ rider.updatedAt }}</td>
                         <td>
                             <div class="flex-1 gap-2">
-                                <RouterLink :to="{ name: 'detail_rider', params: { id: index}}" class="btn btn-primary ">รายละเอียด</RouterLink>
+                                <RouterLink :to="{ name: 'detail_rider', params: { id: rider.rider_id}}" class="btn btn-primary ">รายละเอียด</RouterLink>
                             </div>
                         </td>
                     </tr>

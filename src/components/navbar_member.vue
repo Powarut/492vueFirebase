@@ -5,20 +5,18 @@ import { useCartStore } from '@/storage/cart'
 
 const cartStore = useCartStore()
 const router = useRouter()
-const isLoggedIn = ref(false)
+const isLoggedIn = ref()
 
 onMounted(() => {
-  if (localStorage.getItem('isLoggedIn')) {
-    isLoggedIn.value = true
-  }
+  isLoggedIn.value = localStorage.getItem('isLoggedIn')
 })
+
 const login = () => {
-  isLoggedIn.value = true
   localStorage.setItem('isLoggedIn', true)
   router.push({ name: 'login' })
 }
 const logout = () => {
-  localStorage.removeItem('isLoggedIn')
+  localStorage.setItem('isLoggedIn', false)
   localStorage.removeItem('cart-data')
   localStorage.removeItem('order-data')
   sessionStorage.removeItem('mem_id')
@@ -33,7 +31,7 @@ const logout = () => {
         <RouterLink :to="{ name: 'home' }" class="btn btn-ghost normal-case text-xl">ร้านป้าจอย</RouterLink>
       </div>
       <div class="flex-none gap-2">
-        <div v-if="isLoggedIn==true" class="dropdown dropdown-end">
+        <div v-if="isLoggedIn == 'true'" class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost btn-circle">
             <div class="indicator">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -54,7 +52,7 @@ const logout = () => {
             </div>
           </div>
         </div>
-        <button @click="login()" v-if="!isLoggedIn" class="btn btn-ghost">
+        <button @click="login()" v-if="isLoggedIn == 'false'" class="btn btn-ghost">
           Login
         </button>
         <div v-else class="dropdown dropdown-end">

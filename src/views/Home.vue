@@ -7,13 +7,11 @@ import { useCartStore } from '@/storage/cart'
 
 const productStore = useProductStore()
 const cartStore = useCartStore()
-const isLoggedIn = ref(false)
+const isLoggedIn = ref()
 
 onMounted(() =>{
   productStore.getProduct()
-  if (localStorage.getItem('isLoggedIn')) {
-    isLoggedIn.value = true
-  }
+  isLoggedIn.value = localStorage.getItem('isLoggedIn')
 })
 
 
@@ -64,7 +62,7 @@ const addCart = async (
           <p>{{ product.food_price }} บาท</p>
           <div class="card-actions justify-end">
             <button class="btn btn-primary"
-            v-show="isLoggedIn == true"
+            v-show="isLoggedIn == 'true'"
               @click="addCart(parseInt(mem_id), product.food_id, 1, product.food_name, product.food_image, product.food_price)">สั่ง</button>
           </div>
         </div>

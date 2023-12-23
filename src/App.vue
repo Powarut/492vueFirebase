@@ -23,5 +23,4 @@ onMounted(() =>{
     </Toast>
     <RouterView />
   </div>
-  
 </template>

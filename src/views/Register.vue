@@ -142,7 +142,7 @@ export default {
           <div class="form-control m-2">
             <label class="input-group">
               <span>รหัสผ่าน</span>
-              <input type="password" placeholder="ตั้งรหัสผ่านอย่างน้อย 6ตัว" class="input input-bordered"
+              <input type="password" placeholder="ตั้งรหัสผ่านอย่างน้อย 6ตัว" class="input input-bordered" minlength="6"
                 v-model="password" />
             </label>
           </div>
@@ -150,6 +150,7 @@ export default {
             <label class="input-group">
               <span>ยืนยันรหัสผ่าน</span>
               <input type="password" class="input input-bordered" placeholder="ใส่รหัสผ่านให้ตรงกัน"
+              minlength="6" checked="password"
                 v-model="confirm_password" />
             </label>
           </div>
@@ -172,7 +173,6 @@ export default {
             </label>
           </div>
           <div class="form-control m-2">
-            
               <span>ค้นหาที่อยู่</span>
               <input ref="autocomplete" type="text" class="input input-bordered" placeholder="สยามพารากอน กรุงเทพมหานคร" v-model="address" />
           </div>

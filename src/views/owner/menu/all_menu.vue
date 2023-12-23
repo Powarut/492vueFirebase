@@ -6,11 +6,10 @@ import Table from '@/components/Table.vue'
 import { useFoodStore } from '@/storage/owner/menu'
 
 import { RouterLink } from 'vue-router'
-import { onMounted, computed, ref } from 'vue'
-//const foodStore = useFoodsStore()
-//
-const foodStore = useFoodStore()
+import { onMounted, computed } from 'vue'
 
+
+const foodStore = useFoodStore()
 onMounted(() => foodStore.getMenu())
 const list = computed(() => foodStore.listMenu)
 
@@ -20,47 +19,36 @@ const list = computed(() => foodStore.listMenu)
 //     foodStore.updatedMenu(selectedMenu) 
 // }
 
-const changeStatus = async (food_id, food_status) => {
-    await axios.put(`${import.meta.env.VITE_API}/food/food_id/`, {
-        "food_id": food_id,
-        "status": food_status
-    })
-        .then((response) => {
-            foodStore.list()
-            console.log(response)
-        }).catch((err) => {
-            console.log(err)
-        })
-}
-
-
-const removeMenu = () => {
-    isLoading.value = true
-    try {
-        foodStore.removeMenu(food.food_id)
-        eventStore.popupMessage('success', 'ลบเมนูออกเรียบร้อยแล้ว!')
-    }catch (error){
-        console.log('error', error)
-    }
-    isLoading.value = false
-}
-// const removeMenu = async (id) => {
-//     isLoading.value = true
-//     try{
-//         await foodStore.removeFood(id)
-//         await foodStore.loadFoods()
-//     }catch (error){
-//         console.log('error', error)
-//     }
-//     isLoading.value = false
+// const changeStatus = async (food_id, food_status) => {
+//     await axios.put(`${import.meta.env.VITE_API}/food/food_id/`, {
+//         "food_id": food_id,
+//         "status": food_status
+//     })
+//         .then((response) => {
+//             foodStore.list()
+//             console.log(response)
+//         }).catch((err) => {
+//             console.log(err)
+//         })
 // }
+
+/* ลบเมนูแบบระบุ */
+const removeMenu = async (id) => {
+    try{
+        await foodStore.removeMenu(id)
+    }catch (error){
+        console.log('error',error)
+    }
+    window.location.reload();
+}
+
 
 </script>
 
 <template>
     <navbar_owner>
-        <div class="d-flex justify-center" v-if="!foodStore.loadMenu">
-            <h1>กำลังโหลดเมนูอาหาร...</h1>
+        <div class="d-flex justify-center " v-if="!foodStore.loadMenu">
+            <h1 class="text-center">กำลังโหลดเมนูอาหาร...</h1>
         </div>
         <div class="flex-1 pt-8 px-6 bg-base-100" v-else>
             <div class="card w-full p-6 mt-2">
@@ -98,7 +86,7 @@ const removeMenu = () => {
                             <button class="btn btn-ghost ">
                                 <Edit></Edit>
                             </button>
-                            <button @click="removeMenu(id) " class="btn btn-ghost">
+                            <button @click="removeMenu(food.food_id) " class="btn btn-ghost">
                                 <Trash></Trash>
                             </button>
                         </td>
