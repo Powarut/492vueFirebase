@@ -69,14 +69,14 @@ const changeStatus = (index) =>{
                 </div>
                 <div class="divider mt-2"></div>
                 <Table :headers="['ชื่อ', 'ตำแหน่ง', 'สถานะ', 'ปรับปรุงล่าสุด','']">
-                    <tr v-for="rider in OwnerRiderStore.list" :key="rider.rider_id">
+                    <tr v-for="(rider ,index) in OwnerRiderStore.list" :key="index">
                         <td>{{ rider.fullname }}</td>
                         <td>{{ rider.role }}</td>
                         <td>{{ rider.status }}</td>
                         <td>{{ rider.updatedAt }}</td>
                         <td>
                             <div class="flex-1 gap-2">
-                                <RouterLink :to="{ name: 'detail_rider', params: { id: rider.rider_id}}" class="btn btn-primary ">รายละเอียด</RouterLink>
+                                <RouterLink :to="{ name: 'detail_rider', params: { id: index}}" class="btn btn-primary ">รายละเอียด</RouterLink>
                             </div>
                         </td>
                     </tr>

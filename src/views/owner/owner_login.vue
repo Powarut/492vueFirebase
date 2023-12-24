@@ -34,7 +34,7 @@ export default {
     <div class="h-screen flex items-center">
         <div class="flex-1 max-w-2xl shadow-xl mx-auto p-8">
             <div class="flex flex-col items-center">
-                <h1 class="test-3xl">เข้าสู่ระบบ</h1>
+                <h1 class="test-3xl">หน้าเข้าสู่ระบบของฝั่งเจ้าของร้านและพนักงานส่ง</h1>
             </div>
             <div class="form-control w-full">
                 <label class="label">
@@ -50,7 +50,9 @@ export default {
                 <input type="password" placeholder="ป้อนรหัสผ่าน" class="input input-bordered w-full" v-model="password"
                     maxlength="30">
             </div>
-            <button @click="login()" class="btn btn-natural w-full">ลงชื่อเข้าใช้</button>
+            <div class="p-4">
+                <button @click="login()" class="btn btn-natural w-full p-4">ลงชื่อเข้าใช้</button>
+            </div>
         </div>
     </div>
 </template>
