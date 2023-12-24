@@ -40,7 +40,7 @@ const successOrder = async () =>{
         const result = await saveOrder(orderData.value)
         if (result.affectedRows === 1) {
             await sendMessage(orderData.value)
-            cartStore.removeItemInCart()
+            cartStore.removeItemAllCart()
         } else {
             alert("เกิดปัญหา กรุณากดสั่งใหม่อีกครั้ง") 
         }

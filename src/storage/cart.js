@@ -51,6 +51,9 @@ export const useCartStore = defineStore('cart', {
       this.items.splice(index, 1)
       localStorage.setItem('cart-data', JSON.stringify(this.items))
     },
+    async removeItemAllCart(){
+      localStorage.removeItem('cart-data')
+    },
     async placeOrder(userData) {
       const orderData = {
         ...userData,

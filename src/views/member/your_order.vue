@@ -37,7 +37,7 @@ onMounted( async() => {
             </div>
             <div class="divider"></div>
             <Table :headers="['เลขออเดอร์', 'ชื่อเมนู', 'สถานะ', 'เวลา ณ ที่สั่ง', '']">
-                <tr v-for="(order) in ownerOrderStore.list">
+                <tr v-for="order in ownerOrderStore.list">
                     <td>{{ `PAJOY${order.mem_order_id}`}}</td>
                     <td>{{ order.totalPrice }}</td>
                     <td>{{ status.statusWording[order.status - 1] }}</td>

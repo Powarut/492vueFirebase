@@ -1,7 +1,6 @@
 <script setup>
 import NavbarMember from "@/components/navbar_member.vue"
-
-import { onMounted, computed,ref } from 'vue';
+import { onMounted,computed,ref } from 'vue';
 import { useProductStore } from '@/storage/member/product'
 import { useCartStore } from '@/storage/cart'
 
@@ -17,7 +16,6 @@ onMounted(() =>{
 
 const mem_id = sessionStorage.getItem("mem_id")
 const list = computed(() => productStore.listProduct)
-console.log(productStore.listProduct)
 
 const addCart = async (
   mem_id, 

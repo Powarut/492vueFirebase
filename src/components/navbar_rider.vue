@@ -24,7 +24,7 @@
             </div>
           </button>
         </div>
-        <router-link to="/login">
+        <router-link to="/owner/login">
           <button class="btn btn-outline">ลงชื่อออก</button>
         </router-link>
       </div>
@@ -33,6 +33,8 @@
   </template>
   
   <script setup>
+import Owner_login from '../views/owner/owner_login.vue';
+
   
   </script>
   

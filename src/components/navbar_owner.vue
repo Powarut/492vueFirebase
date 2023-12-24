@@ -45,7 +45,7 @@
           </div>
         </button>
       </div>
-      <router-link to="/login">
+      <router-link to="/owner/login">
         <button class="btn btn-error">ลงชื่อออก</button>
       </router-link>
     </div>

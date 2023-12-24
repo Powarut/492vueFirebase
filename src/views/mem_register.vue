@@ -10,7 +10,7 @@ const userData = reactive({
     confirm_password: '',
     name: '',
     surname: '',
-    phone: ""
+    phone: ''
 })
 
 const summit = () => {

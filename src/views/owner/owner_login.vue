@@ -1,17 +1,33 @@
-<script setup>
-import { RouterLink } from 'vue-router'
-import axios from 'axios'
-
-const data =({
-    email: "",
-    password: "",
-    role: ""
-})
-
-const login = async () => {
-    await axios.get(`${import.meta.env.VITE_API}/login_rider`)
-}
-
+<script>
+export default {
+    name: 'Login',
+    data() {
+        return {
+            email: "",
+            password: "",
+            role: ""
+        };
+    },
+    methods: {
+        login() {
+            let uri = `${import.meta.env.VITE_API}/login_rider`;
+            this.axios.post(uri, {
+                rider_email: this.email,
+                rider_password: this.password
+            })
+                .then((response) => {
+                    if (response.data.status == 'success') {
+                        this.role = response.data.data[0].role
+                        if (this.role === 'admin') {
+                            this.$router.push("/dashbord")
+                        } else {
+                            this.$router.push("/index")
+                        }
+                    }
+                }).catch(error => console.log('error', error))
+        },
+    },
+};
 </script>
 
 <template>
@@ -24,13 +40,15 @@ const login = async () => {
                 <label class="label">
                     <span class="label-text">อีเมล์</span>
                 </label>
-                <input type="text" placeholder="ป้อนอีเมล์" class="input input-bordered w-full" v-model="email">
+                <input type="text" placeholder="ป้อนอีเมล์" class="input input-bordered w-full" v-model="email"
+                    maxlength="50">
             </div>
             <div class="form-control w-full">
                 <label class="label">
                     <span class="label-text">รหัสผ่าน</span>
                 </label>
-                <input type="password" placeholder="ป้อนรหัสผ่าน" class="input input-bordered w-full" v-model="password">
+                <input type="password" placeholder="ป้อนรหัสผ่าน" class="input input-bordered w-full" v-model="password"
+                    maxlength="30">
             </div>
             <button @click="login()" class="btn btn-natural w-full">ลงชื่อเข้าใช้</button>
         </div>

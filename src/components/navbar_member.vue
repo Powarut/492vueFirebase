@@ -15,6 +15,7 @@ const login = () => {
   localStorage.setItem('isLoggedIn', true)
   router.push({ name: 'login' })
 }
+
 const logout = () => {
   localStorage.setItem('isLoggedIn', false)
   localStorage.removeItem('cart-data')

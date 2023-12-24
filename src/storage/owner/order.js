@@ -41,6 +41,14 @@ export const useOwnerOrderStore = defineStore('owner-order', {
         console.log(error)
       }
       return this.list = orderData.data.data
-    }
+    },
+
+    async LoadAllOrder() {
+      try{
+        const response = await axios.get(`${import.meta.env.VITE_API}/AllOrder`)
+      } catch (error) {
+        console.log('เกิดข้อผิดพลาดในการเรียกใช้ API',error)
+      }
+    } 
   }
 })

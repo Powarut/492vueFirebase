@@ -6,7 +6,6 @@ export default {
       email: "",
       password: "",
       mem_id: null,
-      role: ""
     };
   },
   methods: {
@@ -18,21 +17,12 @@ export default {
       })
         .then((response) => {
           if (response.data.status == 'success') {
-            console.log(response.data.data[0].role)
-            this.role = response.data.data[0].role
             this.mem_id = response.data.data[0].mem_id
             sessionStorage.setItem("mem_id", response.data.data[0].mem_id)
             localStorage.setItem('isLoggedIn', true)
-            if (this.role === 'admin') {
-              console.log(this.role)
-              this.$router.push("/dashbord")
-            } else {
-              console.log(this.role)
-              this.$router.push("/")
-            }
           }
+          this.$router.push("/")
         }).catch(error => console.log('error', error))
-
     },
   },
   mounted() {
