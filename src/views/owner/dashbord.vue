@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import owner_layout from "../../components/navbar_owner.vue"
+import owner_layout from "@/components/navbar_owner.vue"
 
 const barOption = {
   options: {

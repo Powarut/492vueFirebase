@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-
 export const useOwnerRiderStore = defineStore('owner-rider',{
     state: () => ({
         list: [
@@ -55,7 +54,7 @@ export const useRiderStore = defineStore('rider', {
         try {
           const bodyData = {
             name: riderData.rider_name,
-            status: riderData.rider_status
+            phone: riderData.rider_phone
           }
           const response = await axios.put(`${import.meta.env.VITE_API}/todos/${id}`, bodyData)
           console.log(response.data)

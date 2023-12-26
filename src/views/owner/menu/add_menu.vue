@@ -1,7 +1,7 @@
 <script setup>
 import navbar_owner from '@/components/navbar_owner.vue'
 import { useFoodStore } from '@/storage/owner/menu'
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 
@@ -9,14 +9,12 @@ const foodStore = useFoodStore()
 const router = useRouter()
 const route = useRoute()
 
-// const menuIndex = ref(-1)
-// const mode = ref('เพิ่ม')
 
 const menuData = reactive({
     name: '',
     price: '',
     image: null,
-    status: '1'
+    status: 'มี'
 })
 
 const add_Menu = () => {

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import Swal from 'sweetalert2';
 import { ref, computed, } from 'vue'
 
 export const useFoodStore = defineStore('menu', () => {
@@ -32,20 +33,43 @@ export const useFoodStore = defineStore('menu', () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
       .then((response) => {
-        alert('เพิ่มเมนูอาหารเรียบร้อย')
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "เพิ่มเมนูอาหารสำเร็จ",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        window.location.reload();
       })
       .catch((err) => {
-        alert('ใส่ข้อมูลไม่ครบ กรุณาป้อนข้อมูลให้ครบ')
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "เพิ่มเมนูอาหารไม่สำเร็จ",
+          showConfirmButton: false,
+          timer: 1500
+        });
         menuData.value = ''
       })
   }
 
   const removeMenu = async (id) =>{
-    try{
-         const response = await axios.delete(`${import.meta.env.VITE_API}/food/${id}`)
-            console.log(response.data)
-        }catch (error){
-          console.log('error',error)
+    const result = await Swal.fire({
+      title: 'คุณต้องการลบเมนูอาหารหรือไม่?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'ลบ',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      cancelButtonText: 'ยกเลิก',
+      reverseButtons: true,
+    });
+    if (result.isConfirmed){
+      const response = await axios.delete(`${import.meta.env.VITE_API}/food/${id}`)
+      Swal.fire("Saved!", "", "success");
+    } else {
+      console.log('error',error)
     }
   }
 

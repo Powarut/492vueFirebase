@@ -14,16 +14,13 @@ onMounted(() =>{
   cartStore.loadCart()
   productStore.getProduct()
 })
-</script>t
+</script>
 
 <template>
-  <div>
-    <Toast
-      v-if="eventStore.alert"
-      :status="eventStore.data.status"
-      :message="eventStore.data.message"
-    >
-    </Toast>
-    <RouterView />
+  <div v-if="eventStore.alert" class="toast toast-end">
+    <div class="alert" :class="`alert-${eventStore.data.status}`" >
+      <span>{{ eventStore.data.message }}</span>
+    </div>
   </div>
+  <RouterView />
 </template>

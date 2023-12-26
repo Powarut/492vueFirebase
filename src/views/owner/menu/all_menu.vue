@@ -4,12 +4,13 @@ import Trash from '@/components/icons/trash.vue'
 import Edit from '@/components/icons/edit.vue'
 import Table from '@/components/Table.vue'
 import { useFoodStore } from '@/storage/owner/menu'
-
 import { RouterLink } from 'vue-router'
 import { onMounted, computed } from 'vue'
 
 
 const foodStore = useFoodStore()
+
+
 onMounted(() => foodStore.getMenu())
 const list = computed(() => foodStore.listMenu)
 
@@ -34,15 +35,13 @@ const list = computed(() => foodStore.listMenu)
 
 /* ลบเมนูแบบระบุ */
 const removeMenu = async (id) => {
-    try{
-        await foodStore.removeMenu(id)
-    }catch (error){
-        console.log('error',error)
+    try {
+        await foodStore.removeMenu(id)     
+    } catch (error) {
+        console.log('error', error)
     }
     window.location.reload();
 }
-
-
 </script>
 
 <template>
@@ -86,7 +85,7 @@ const removeMenu = async (id) => {
                             <button class="btn btn-ghost ">
                                 <Edit></Edit>
                             </button>
-                            <button @click="removeMenu(food.food_id) " class="btn btn-ghost">
+                            <button @click="removeMenu(food.food_id)" class="btn btn-ghost">
                                 <Trash></Trash>
                             </button>
                         </td>

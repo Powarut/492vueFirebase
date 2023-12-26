@@ -6,7 +6,7 @@ import Table from '@/components/Table.vue'
 import { RouterLink } from 'vue-router'
 
 const rider = ref({})
-const OwnerRiderStore = useOwnerRiderStore()
+const riderStore = useOwnerRiderStore()
 
 // const fetch_rider = async () => {
 //     await axios.get(`${import.meta.env.VITE_API}/riders`)
@@ -31,14 +31,15 @@ const OwnerRiderStore = useOwnerRiderStore()
 //         })
 // }
 
-// const removeRider = async (id) => {
-//     try{
-//         await RiderStore.removeRider(id)
-//     }catch (error){
-//         console.log('error',error)
-//     }
-//     window.location.reload();
-// }
+const removeRider = async (id) => {
+    try{
+        await RiderStore.removeRider(id)
+        eventStore.popupMessage('error','ลบเมนูสำเร็จ')    
+    }catch (error){
+        console.log('error',error)
+    }
+    window.location.reload();
+}
 </script>
 
 <template>
@@ -57,7 +58,7 @@ const OwnerRiderStore = useOwnerRiderStore()
                 </div>
                 <div class="divider mt-2"></div>
                 <Table :headers="['ชื่อ', 'ตำแหน่ง', 'สถานะ', 'ปรับปรุงล่าสุด','']">
-                    <tr v-for="(rider ,index) in OwnerRiderStore.list" :key="index">
+                    <tr v-for="(rider ,index) in riderStore.list" :key="index">
                         <td>{{ rider.fullname }}</td>
                         <td>{{ rider.role }}</td>
                         <td>{{ rider.status }}</td>
