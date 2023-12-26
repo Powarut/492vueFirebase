@@ -1,22 +1,12 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useOwnerRiderStore } from '@/storage/owner/rider.js'
-import axios from 'axios'
-
 import navbar_owner from '@/components/navbar_owner.vue'
 import Table from '@/components/Table.vue'
 import { RouterLink } from 'vue-router'
 
-
 const rider = ref({})
 const OwnerRiderStore = useOwnerRiderStore()
-
-const changeStatus = (index) =>{
-    let selectedRider = OwnerRiderStore.list[index]
-    selectedRider.status = selectedRider.status === 'active' ? 'inactive': 'active'
-    OwnerRiderStore.updateRider(selectedRider)
-}
-
 
 // const fetch_rider = async () => {
 //     await axios.get(`${import.meta.env.VITE_API}/riders`)
@@ -41,15 +31,13 @@ const changeStatus = (index) =>{
 //         })
 // }
 
-// const delete_rider = async (rider_id) => {
-//     await axios.delete(`${import.meta.env.VITE_API}/riders/${rider_id}`,)
-//         .then((response) => {
-//             fetch_rider()
-//             console.log(response)
-//             alert("ลบเมนูสำเร็จ")
-//         }).catch((err) => {
-//             console.log(err)
-//         })
+// const removeRider = async (id) => {
+//     try{
+//         await RiderStore.removeRider(id)
+//     }catch (error){
+//         console.log('error',error)
+//     }
+//     window.location.reload();
 // }
 </script>
 

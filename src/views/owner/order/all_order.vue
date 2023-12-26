@@ -3,6 +3,7 @@ import { useOwnerOrderStore } from '@/storage/owner/order'
 import { RouterLink } from 'vue-router'
 import navbar_owner from '@/components/navbar_owner.vue'
 import Table from '@/components/Table.vue'
+import Tabs from '@/components/tabs.vue'
 
 const ownerOrderStore = useOwnerOrderStore()
 </script>
@@ -12,8 +13,9 @@ const ownerOrderStore = useOwnerOrderStore()
         <div class="flex-1  pt-2 px-4 bg-base-100">
             <div class="card w-full p-4 mt-2">
                 <div class="flex items-center justify-between my-4">
-                    <div class="text-3xl font-bold">ออเดอร์</div>
+                    <div class="text-3xl font-bold">จัดการออเดอร์</div>
                 </div>
+                <Tabs></Tabs>
                 <div class="divider"></div>
                 <Table :headers="['ชื่อลูกค้า', 'ราคา', 'สถานะ', 'เวลา ณ ที่สั่ง', '']">
                     <tr v-for="(order, index) in ownerOrderStore.list" :key="index">

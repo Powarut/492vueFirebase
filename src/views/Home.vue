@@ -6,10 +6,9 @@ import { useCartStore } from '@/storage/cart'
 
 const productStore = useProductStore()
 const cartStore = useCartStore()
-const isLoggedIn = ref()
+const isLoggedIn = ref(false)
 
 onMounted(() =>{
-  productStore.getProduct()
   isLoggedIn.value = localStorage.getItem('isLoggedIn')
 })
 

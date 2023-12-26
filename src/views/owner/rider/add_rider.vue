@@ -2,7 +2,9 @@
 import navbar_owner from '@/components/navbar_owner.vue'
 import { ref } from 'vue'
 import axios from 'axios'
-import router from '@/router'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const add = ref({
     email: '',
