@@ -1,12 +1,17 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useOwnerRiderStore } from '@/storage/owner/rider.js'
+import { useRiderStore } from '@/storage/owner/rider.js'
 import navbar_owner from '@/components/navbar_owner.vue'
+import Trash from '@/components/icons/trash.vue'
 import Table from '@/components/Table.vue'
-import { RouterLink } from 'vue-router'
+import { useRouter } from 'vue-router'
 
-const rider = ref({})
-const riderStore = useOwnerRiderStore()
+
+const riderStore = useRiderStore()
+const router = useRouter()
+onMounted(()=>{
+    riderStore.loadRiders()
+})
 
 // const fetch_rider = async () => {
 //     await axios.get(`${import.meta.env.VITE_API}/riders`)
@@ -32,11 +37,10 @@ const riderStore = useOwnerRiderStore()
 // }
 
 const removeRider = async (id) => {
-    try{
-        await RiderStore.removeRider(id)
-        eventStore.popupMessage('error','ลบเมนูสำเร็จ')    
-    }catch (error){
-        console.log('error',error)
+    try {
+        await riderStore.removeRider(id)
+    } catch (error) {
+        console.log('error', error)
     }
     window.location.reload();
 }
@@ -57,15 +61,25 @@ const removeRider = async (id) => {
                     </div>
                 </div>
                 <div class="divider mt-2"></div>
-                <Table :headers="['ชื่อ', 'ตำแหน่ง', 'สถานะ', 'ปรับปรุงล่าสุด','']">
-                    <tr v-for="(rider ,index) in riderStore.list" :key="index">
-                        <td>{{ rider.fullname }}</td>
-                        <td>{{ rider.role }}</td>
-                        <td>{{ rider.status }}</td>
-                        <td>{{ rider.updatedAt }}</td>
+                <Table :headers="['รูปภาพ','อีเมล์','ชื่อ', 'นามสกุล', 'โทรศัพท์', '']">
+                    <tr v-show="rider.role == 'rider'" v-for="rider in riderStore.list" :key="rider.rider_id">
+                        <td>
+                            <div class="mask mask-squircle w-12 h-12">
+                                <img :src="'http://localhost:3000/rider_images/' + rider.rider_image" />
+                            </div>
+                        </td>
+                        <td>{{ rider.rider_email }}</td>
+                        <td>{{ rider.rider_name }}</td>
+                        <td>{{ rider.rider_surname }}</td>
+                        <td>{{ rider.rider_phone }}</td>
                         <td>
                             <div class="flex-1 gap-2">
-                                <RouterLink :to="{ name: 'detail_rider', params: { id: index}}" class="btn btn-primary ">รายละเอียด</RouterLink>
+                                <button @click="removeRider(rider.rider_id)" class="btn btn-ghost">
+                                    <Trash></Trash>
+                                </button>
+                                <RouterLink :to="{ name: 'detail_rider', params: { id: rider.rider_id } }" class="btn btn-primary ">
+                                    รายละเอียด</RouterLink>
+
                             </div>
                         </td>
                     </tr>

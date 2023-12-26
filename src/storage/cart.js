@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import Swal from 'sweetalert2'
+
 export const useCartStore = defineStore('cart', {
   state: () => ({
     items: [],

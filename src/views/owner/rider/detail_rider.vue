@@ -2,7 +2,7 @@
 import { reactive,onMounted,ref } from 'vue';
 import { useRoute,useRouter } from 'vue-router';
 import navbar_owner from '@/components/navbar_owner.vue'
-import { useOwnerRiderStore } from '@/storage/owner/rider.js'
+import { useRiderStore } from '@/storage/owner/rider.js'
 
 const formData = [
     {
@@ -14,17 +14,15 @@ const formData = [
         name: 'ตำแหน่ง',
         field: 'role',
         type: 'select',
-        dropdownList: ['พนักงานส่ง', 'พ่อครัว','เคาเตอร์']
     },
     {
         name: 'สถานะ',
         field: 'status',
         type: 'select',
-        dropdownList: ['เข้างาน', 'เลิกงาน']
     },
 ]
 
-const ownerRiderStore = useOwnerRiderStore()
+const ownerRiderStore = useRiderStore()
 const route = useRoute()
 const router = useRouter()
 
@@ -59,7 +57,7 @@ const updateRider = () => {
             <div class="test-1xl font-bold">แก้ไขข้อมูลพนักงาน</div>
             <div class="divider"></div>
             <div class="grid grid-cols-1 gap-2">
-                <div v-for="form in formData" class="form-control w-full">
+                <div v-for="form in formData " class="form-control w-full">
                     <label class="label">
                         <span class="label-text">{{ form.name }}</span>
                     </label>

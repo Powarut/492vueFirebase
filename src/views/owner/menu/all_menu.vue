@@ -1,15 +1,13 @@
 <script setup>
 import navbar_owner from '@/components/navbar_owner.vue'
+import { useRouter } from 'vue-router';
+import { onMounted, computed } from 'vue';
 import Trash from '@/components/icons/trash.vue'
-import Edit from '@/components/icons/edit.vue'
 import Table from '@/components/Table.vue'
 import { useFoodStore } from '@/storage/owner/menu'
-import { RouterLink } from 'vue-router'
-import { onMounted, computed } from 'vue'
-
 
 const foodStore = useFoodStore()
-
+const router = useRouter()
 
 onMounted(() => foodStore.getMenu())
 const list = computed(() => foodStore.listMenu)
@@ -36,7 +34,7 @@ const list = computed(() => foodStore.listMenu)
 /* ลบเมนูแบบระบุ */
 const removeMenu = async (id) => {
     try {
-        await foodStore.removeMenu(id)     
+        await foodStore.removeMenu(id)
     } catch (error) {
         console.log('error', error)
     }
@@ -81,9 +79,6 @@ const removeMenu = async (id) => {
                         <td>
                             <button @click="changeStatus(food.food_id)" class="btn btn-ghost m-1">
                                 เปลี่ยนสถานะ
-                            </button>
-                            <button class="btn btn-ghost ">
-                                <Edit></Edit>
                             </button>
                             <button @click="removeMenu(food.food_id)" class="btn btn-ghost">
                                 <Trash></Trash>

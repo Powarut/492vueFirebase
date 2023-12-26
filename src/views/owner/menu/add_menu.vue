@@ -1,14 +1,11 @@
 <script setup>
 import navbar_owner from '@/components/navbar_owner.vue'
 import { useFoodStore } from '@/storage/owner/menu'
-import { reactive, ref, onMounted } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const foodStore = useFoodStore()
 const router = useRouter()
-const route = useRoute()
-
 
 const menuData = reactive({
     name: '',

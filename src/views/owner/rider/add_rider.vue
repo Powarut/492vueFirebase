@@ -1,12 +1,13 @@
 <script setup>
 import navbar_owner from '@/components/navbar_owner.vue'
-import { ref } from 'vue'
-import axios from 'axios'
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useRiderStore } from '@/storage/owner/rider';
 
 const router = useRouter()
+const riderStore = useRiderStore()
 
-const add = ref({
+const riderData = reactive({
     email: '',
     password: '',
     name: '',
@@ -16,72 +17,65 @@ const add = ref({
     role: 'rider'
 })
 
-const insert_rider = async () => {
-    let form_data = new FormData()
-    form_data.append('rider_email', add.value.email)
-    form_data.append('rider_password', add.value.password)
-    form_data.append('rider_name', add.value.name)
-    form_data.append('rider_surname', add.value.surname)
-    form_data.append('rider_phone', add.value.phone)
-    form_data.append('rider_image', add.value._image)
-    form_data.append('role', add.value.role)
-    await axios.post(`${import.meta.env.VITE_API}/riders`, form_data, { headers: { "Content-Type": "multipart/form-data" } },)
-        .then((response) => {
-            alert("เพิ่มข้อมูลพนักงานส่งเรียบร้อย")
-            router.push('/all_rider')
-        }).catch((err) => {
-            alert("ใส่ข้อมูลไม่ครบ กรุณาป้อนข้อมูลให้ครบ")
-            add.value = ''
-        })
+const insert_rider = () => {
+    const rider = ref({})
+    rider.value = riderData
+    if (riderStore.addRider(rider)) {
+        router.push({ name: 'all_rider' })
+    }
 }
 
-const choose_image = async (event) => {
-    console.log(event.target.files[0])
-    add.value.image = event.target.files[0];
+const choose_image = async ($event) => {
+    const imageRider = $event.target.files[0]
+    riderData.image = imageRider
 }
 </script>
 
 <template>
-    <navbar_owner />
-    <h1 class="text-xl font-bold m-2">เพิ่มข้อมูลพนักงานส่ง</h1>
-    <div class="form-control m-2">
-        <label class="input-group">
-            <span>อีเมล์</span>
-            <input type="email" placeholder="abc@gmail.com" class="input input-bordered" v-model="add.email" />
-        </label>
-    </div>
-    <div class="form-control m-2">
-        <label class="input-group">
-            <span>รหัสผ่าน</span>
-            <input type="password" class="input input-bordered" v-model="add.password" />
-        </label>
-    </div>
-    <div class="form-control m-2">
-        <label class="input-group">
-            <span>ชื่อ</span>
-            <input type="text" class="input input-bordered" v-model="add.name" />
-        </label>
-    </div>
-    <div class="form-control m-2">
-        <label class="input-group">
-            <span>นามสกุล</span>
-            <input type="text" class="input input-bordered" v-model="add.surname" />
-        </label>
-    </div>
-    <div class="form-control m-2">
-        <label class="input-group">
-            <span>เบอร์โทร</span>
-            <input type="text" class="input input-bordered" v-model="add.phone" />
-        </label>
-    </div>
-    <span class="label-text m-2">โปรดใส่รูปภาพ</span>
-    <div class="form-control m-2">
-        <div class="input-group">
-            <input type="file" class="file-input w-full max-w-xs" @change="choose_image" accept="image/*" id="file"
-                ref="file" />
+    <navbar_owner>
+        <div class="shadow-xl p-8 mt-4">
+            <div class="text-1xl font-bold">เพิ่มพนักงานส่ง</div>
+            <div class="divider"></div>
+            <div class="form-control w-full">
+                <label class="label">
+                    <span class="label-text">อีเมล์</span>
+                </label>
+                <input type="text" class="input input-bordered" v-model="riderData.email" />
+            </div>
+            <div class="form-control w-full">
+                <label class="label">
+                    <span class="label-text">รหัสผ่าน</span>
+                </label>
+                <input type="password" class="input input-bordered" v-model="riderData.password" />
+            </div>
+            <div class="form-control w-full">
+                <label class="label">
+                    <span class="label-text">ชื่อ</span>
+                </label>
+                <input type="text" class="input input-bordered" v-model="riderData.name" />
+            </div>
+            <div class="form-control w-full">
+                <label class="label">
+                    <span class="label-text">นามสกุล</span>
+                </label>
+                <input type="text" class="input input-bordered" v-model="riderData.surname" />
+            </div>
+            <div class="form-control w-full">
+                <label class="label">
+                    <span class="label-text">เบอร์โทรศัพท์</span>
+                </label>
+                <input type="number" class="input input-bordered" v-model="riderData.phone" />
+            </div>
+            <label class="label">
+                <span class="label-text">โปรดใส่รูปภาพ</span>
+            </label>
+            <input type="file" class="file-input file-input-bordered w-full max-w-xs" @change="choose_image($event)"
+                accept="image/*" id="file" reactive="file" />
+            <div class="divider"></div>
+            <div class="flex mt-4 justify-end">
+                <RouterLink :to="{ name: 'all_rider' }" class="btn btn-error ">ย้อนกลับ</RouterLink>
+                <button class="btn btn-success ml-4" @click="insert_rider()">เพิ่ม</button>
+            </div>
         </div>
-    </div>
-    <div class="form-control mt-2 ">
-        <button class="btn btn-sucess" @click="insert_rider()">เพิ่ม</button>
-    </div>
+    </navbar_owner>
 </template>
