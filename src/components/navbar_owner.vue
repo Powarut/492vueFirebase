@@ -52,6 +52,3 @@
     <slot></slot>
 </template>
 
-<script>
-
-</script>

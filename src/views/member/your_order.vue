@@ -3,10 +3,11 @@ import navbar_memberVue from "@/components/navbar_member.vue";
 import { RouterLink } from 'vue-router'
 import Table from '@/components/Table.vue'
 import { useOwnerOrderStore } from '@/storage/owner/order'
-import status from "../../ultils/constant"
-import axios from "axios";
+import status from "@/ultils/constant"
+import axios from 'axios'
 import { ref, onMounted } from 'vue'
-const ownerOrderStore = useOwnerOrderStore()
+
+const OrderStore = useOwnerOrderStore()
 const dataForGetOrder = ref()
 
 const getOrderMember = async (orderData) => {
@@ -23,8 +24,8 @@ onMounted( async() => {
         mem_id: parseInt(sessionStorage.getItem("mem_id")),
         status:  status.status.ordered
     }
-    // await getOrderMember(data)
-    dataForGetOrder.value = await ownerOrderStore.loadOrderFromDB(sessionStorage.getItem("mem_id"), status.status.ordered)
+    await getOrderMember(data)
+    dataForGetOrder.value = await OrderStore.loadOrderFromDB(sessionStorage.getItem("mem_id"), status.status.ordered)
     console.log(dataForGetOrder.value)
 })
 </script>
@@ -36,14 +37,13 @@ onMounted( async() => {
                 <div class="text-3xl font-bold">ออเดอร์ของคุณ</div>
             </div>
             <div class="divider"></div>
-            <Table :headers="['เลขออเดอร์', 'ชื่อเมนู', 'สถานะ', 'เวลา ณ ที่สั่ง', '']">
-                <tr v-for="order in ownerOrderStore.list">
+            <Table :headers="['เลขออเดอร์', 'สถานะ', 'เวลา ณ ที่สั่ง', '']">
+                <tr v-for="order in OrderStore.list" :key="order.mem_order_id">
                     <td>{{ `PAJOY${order.mem_order_id}`}}</td>
-                    <td>{{ order.totalPrice }}</td>
                     <td>{{ status.statusWording[order.status - 1] }}</td>
-                    <td>{{ order.modified_at }}</td>
+                    <td>{{ order.created_at}}</td>
                     <td>
-                        <RouterLink :to="{ name: 'detail_order_mem', params: { id: index } }" class="btn btn-primary">รายละเอียด
+                        <RouterLink :to="{ name: 'detail_order_mem', params: { id: order.mem_order_id } }" class="btn btn-primary">รายละเอียด
                         </RouterLink>
                     </td>
                 </tr>

@@ -4,37 +4,14 @@ import { useRiderStore } from '@/storage/owner/rider.js'
 import navbar_owner from '@/components/navbar_owner.vue'
 import Trash from '@/components/icons/trash.vue'
 import Table from '@/components/Table.vue'
-import { useRouter } from 'vue-router'
+import { RouterLink } from 'vue-router'
 
 
 const riderStore = useRiderStore()
-const router = useRouter()
+
 onMounted(()=>{
     riderStore.loadRiders()
 })
-
-// const fetch_rider = async () => {
-//     await axios.get(`${import.meta.env.VITE_API}/riders`)
-//         .then((response) => {
-//             console.log(rider)
-//             rider.value = response.data.data
-//         }).catch((err) => {
-//             console.log(err)
-//         })
-// }
-// onMounted(() => fetch_rider())
-// // รอทำหน้าข้อมูลรายละเอียดพนักงานส่ง
-// const detail_rider = async (rider_id) => {
-//     await axios.get(`${import.meta.env.VITE_API}/riders/`, {
-//         "rider_id": rider_id
-//     })
-//         .then((response) => {
-//             fetch_rider()
-//             console.log(response)
-//         }).catch((err) => {
-//             console.log(err)
-//         })
-// }
 
 const removeRider = async (id) => {
     try {
@@ -77,9 +54,6 @@ const removeRider = async (id) => {
                                 <button @click="removeRider(rider.rider_id)" class="btn btn-ghost">
                                     <Trash></Trash>
                                 </button>
-                                <RouterLink :to="{ name: 'detail_rider', params: { id: rider.rider_id } }" class="btn btn-primary ">
-                                    รายละเอียด</RouterLink>
-
                             </div>
                         </td>
                     </tr>

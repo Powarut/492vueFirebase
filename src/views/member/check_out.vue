@@ -22,16 +22,16 @@ const saveOrder = async (order) => {
     return result
 }
 
-const getOrder = async (memOrderId) => {
-    const result = await axios.post(`${import.meta.env.VITE_API}/getOrderMember`, memOrderId)
-    .then((response) => {
-        console.log(response)
-    }).catch((err) => {
-        console.log(err)
-    })
+// const getOrder = async (memOrderId) => {
+//     const result = await axios.post(`${import.meta.env.VITE_API}/getOrderMember`, memOrderId)
+//     .then((response) => {
+//         console.log(response)
+//     }).catch((err) => {
+//         console.log(err)
+//     })
 
-    return result.data
-}
+//     return result.data
+// }
 
 const successOrder = async () =>{
     if (cartStore.items.length > 0) {

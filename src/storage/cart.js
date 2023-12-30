@@ -60,7 +60,7 @@ export const useCartStore = defineStore('cart', {
         ...userData,
         totalPrice: this.summaryPrice,
         paymentMethod: 'เก็บเงินปลายทาง',
-        createdAT: new Date().toLocaleString(),
+        createdAT: (new Date()).toLocaleString(),
         products: this.items
       }
       localStorage.setItem('order-data', JSON.stringify(orderData))

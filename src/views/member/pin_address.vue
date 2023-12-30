@@ -1,25 +1,23 @@
 <script setup>
 import navbarmember from "@/components/navbar_member.vue";
-import { reactive } from 'vue'
+import { reactive,onMounted,ref } from 'vue'
 import { useCartStore } from '@/storage/cart'
 import { RouterLink, useRouter } from 'vue-router'
+import { GoogleMap, Marker } from "vue3-google-map";
 
 const router = useRouter()
 const cartStore = useCartStore()
+const Map = GoogleMap()
+const marker = Marker()
 
-const FormData = [
-    {
-        name: 'ที่อยู่',
-        field: 'address'
-    },
-    {
-        name: 'ระบุเพิ่มเติม',
-        field: 'note'
-    },
-]
+const markers =ref([])
+onMounted(()=>{})
 
 const userFormData = reactive({
-    address: '',
+    address: JSON.stringify({
+        latitude: this.center.lat ?? "",
+        longitude: this.center.lng ?? ""
+    }),
     note: ''
 })
 
@@ -35,12 +33,21 @@ const payment = () => {
         <h1 class="text-3xl font-bold m-4">ชำระเงิน</h1>
         <div class="flex">
             <section class="flex-auto w-64 bg-base-200 p-8">
-                <div v-for="form in FormData" :key="form" class="form-control w-full">
+                <div class="form-control w-full">
                     <label class="label">
-                        <span class="labeal-text">{{ form.name }}</span>
+                        <span class="labeal-text">ระบุเพิ่มเติม</span>
                     </label>
-                    <input v-model="userFormData[form.field]" type="text" placeholder="กรอกข้อมูลในนี้">
+                    <input v-model="note" type="text" placeholder="กรอกข้อมูลในนี้">
                 </div>
+                <!-- <div class="form-control m-2">
+                    <span>ค้นหาที่อยู่</span>
+                    <input ref="autocomplete" type="text" class="input input-bordered"
+                        placeholder="สยามพารากอน กรุงเทพมหานคร" v-model="address" />
+                </div>
+                <Map api-key="AIzaSyC_5dVGBmZlZZWlWTn5QTJUsDjNegAcOoA" style="width: 100%; 
+            height: 300px" :center="center" :zoom="15" :libraries=[]>
+                    <marker :options="{ position: { lat: center.lat, lng: center.lng } }" />
+                </Map> -->
                 <button @click="payment()" class="btn btn-neutral w-full mt-4">ยืนยัน</button>
             </section>
             <section class="flex-auto w-32 bg-slate-200 px-2">

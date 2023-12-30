@@ -1,11 +1,18 @@
 <script setup>
 import { useOwnerOrderStore } from '@/storage/owner/order'
+import { onMounted,ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import navbar_owner from '@/components/navbar_owner.vue'
 import Table from '@/components/Table.vue'
 import Tabs from '@/components/tabs.vue'
 
-const ownerOrderStore = useOwnerOrderStore()
+const OrderStore = useOwnerOrderStore()
+const variableName = JSON.stringify(OrderStore.orders.mem_order_data)
+
+onMounted(async ()=>{
+    await OrderStore.LoadAllOrder()
+     
+})
 </script>
 
 <template>
@@ -17,14 +24,14 @@ const ownerOrderStore = useOwnerOrderStore()
                 </div>
                 <Tabs></Tabs>
                 <div class="divider"></div>
-                <Table :headers="['ชื่อลูกค้า', 'ราคา', 'สถานะ', 'เวลา ณ ที่สั่ง', '']">
-                    <tr v-for="(order, index) in ownerOrderStore.list" :key="index">
-                        <td>{{ order.customerName }}</td>
-                        <td>{{ order.totalPrice }}</td>
-                        <td>{{ order.status }}</td>
-                        <td>{{ order.updatedAt }}</td>
+                <Table :headers="['เลขออเดอร์','ชื่อลูกค้า', 'ราคา', 'สถานะ', 'เวลา ณ ที่สั่ง', '']">
+                    <tr v-for="order in OrderStore.orders" :key="order.mem_order_id">
+                        <td>{{ order.mem_order_id }}</td>
+                        <td>{{ order.mem_name }}  {{ order.mem_surname }}</td>
+                        <td>{{ variableName }}</td>
+                        <td>{{ order.created_at }}</td>
                         <td>
-                            <RouterLink :to="{ name: 'detail_order', params: { id: index } }" class="btn btn-primary">
+                            <RouterLink :to="{ name: 'detail_order', params: { id: order.mem_order_id } }" class="btn btn-primary">
                                 รายละเอียด
                             </RouterLink>
                         </td>
